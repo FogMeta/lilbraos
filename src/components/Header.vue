@@ -1,0 +1,329 @@
+<template>
+  <section id="container-header">
+    <div class="header both-margin flex-row">
+      <img :src="libraLogo" class="logo-img mit" alt='libra' @click="goMain" />
+      <el-input v-model="searchValue" class="w-50 m-2 font-14" clearable placeholder="Search by Address, Block Height, TxHash...">
+        <template #append>
+          <el-button :class="{'is-active': searchValue !== ''}">{{ searchValue ? 'Search Block': 'Search'}}</el-button>
+        </template>
+      </el-input>
+      <div class="header-right flex-row" v-show="clientWidth">
+        <div class="get-started">Get Started
+          <span></span>
+        </div>
+        <div class="connect flex-row" @click="connetShow=true">
+          <svg class="width-24 small" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="AccountBalanceWalletIcon">
+            <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
+          </svg>
+          <span>Connect Wallet</span>
+        </div>
+        <div class="sign">
+          <el-dropdown class="sign-popper" popper-class="menu-popper" placement="bottom-end" :teleported="true">
+            <span class="el-dropdown-link">
+              <svg class="width-24" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="PersonIcon">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+              </svg>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>
+                  <span class="font-16">Sign Up</span>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <span class="font-16">Sign In</span>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
+      </div>
+      <div class="menu-button" v-show="!clientWidth" @click="menuDialog=true">
+        <svg class="width-24" v-show="!menuDialog" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MenuIcon">
+          <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+        </svg>
+        <svg class="width-24" v-show="menuDialog" t="1698992187359" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3865" width="200" height="200">
+          <path d="M571.733333 512l268.8-268.8c17.066667-17.066667 17.066667-42.666667 0-59.733333-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 452.266667 243.2 183.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333L452.266667 512 183.466667 780.8c-17.066667 17.066667-17.066667 42.666667 0 59.733333 8.533333 8.533333 19.2 12.8 29.866666 12.8s21.333333-4.266667 29.866667-12.8L512 571.733333l268.8 268.8c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866666-12.8c17.066667-17.066667 17.066667-42.666667 0-59.733333L571.733333 512z"
+            p-id="3866"></path>
+        </svg>
+      </div>
+    </div>
+
+    <el-drawer size="300px" v-model="menuDialog" :append-to-body="true" :with-header="false" :before-close="handleClose" direction="ltr" class="demo-drawer">
+      <div class="demo-drawer__content">
+        <v-aside v-show="clientWidth"></v-aside>
+      </div>
+    </el-drawer>
+    <pop-ups v-if="connetShow" :connetShow="connetShow" @hardClose="hardClose"></pop-ups>
+  </section>
+</template>
+<script>
+import vAside from './Aside.vue'
+import popUps from "@/components/popups"
+import { defineComponent, computed, onMounted, onBeforeUnmount, nextTick, watch, ref, reactive, getCurrentInstance } from 'vue'
+import { useStore } from "vuex"
+import { useRouter, useRoute } from 'vue-router'
+// import {} from '@element-plus/icons-vue'
+import { ElInput, ElDropdown, ElDropdownMenu, ElDropdownItem, ElButton, ElDrawer } from "element-plus"
+export default defineComponent({
+  components: {
+    vAside, popUps,
+    ElInput, ElDropdown, ElDropdownMenu, ElDropdownItem, ElButton, ElDrawer  },
+  setup () {
+    const store = useStore()
+    const clientWidth = computed(() => (store.state.clientWidth))
+    const bodyWidth = ref(document.body.clientWidth < 992)
+    const system = getCurrentInstance().appContext.config.globalProperties
+    const route = useRoute()
+    const router = useRouter()
+    const libraLogo = require("@/assets/images/logo.png")
+    const searchValue = ref('')
+    const menuDialog = ref(false)
+    const connetShow = ref(false)
+
+    const handleClose = () => {
+      menuDialog.value = false
+    }
+    function hardClose (dialog) {
+      connetShow.value = dialog
+    }
+    onMounted(() => { })
+    onBeforeUnmount(() => { })
+    watch(clientWidth, () => {
+      if (clientWidth.value) handleClose()
+    })
+    watch(route, (to, from) => { })
+    return {
+      system,
+      bodyWidth,
+      clientWidth,
+      libraLogo,
+      searchValue,
+      menuDialog,
+      connetShow,
+      handleClose, hardClose
+    }
+  }
+})
+</script>
+<style lang="less" scoped>
+#container-header {
+  width: 100%;
+  white-space: nowrap;
+  :deep(.header) {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin: auto;
+    font-size: 16px;
+    .logo-img,
+    .mit-body {
+      height: 32px;
+      cursor: pointer;
+      @media screen and (min-width: 2160px) {
+        height: 42px;
+      }
+      @media screen and (min-width: 3000px) {
+        height: 52px;
+      }
+      @media screen and (min-width: 4600px) {
+        height: 62px;
+      }
+      @media screen and (min-width: 5120px) {
+        height: 72px;
+      }
+      @media screen and (min-width: 6000px) {
+        height: 82px;
+      }
+      @media screen and (max-width: 768px) {
+        height: 29px;
+      }
+    }
+    .el-input {
+      // width: auto;
+      max-width: 560px;
+      margin: 0 10px;
+      border-radius: 4px;
+      border: 1px solid rgb(158, 158, 158);
+      // @media screen and (max-width: 1260px) {
+      //   max-width: 500px;
+      // }
+      // @media screen and (max-width: 768px) {
+      //   max-width: 600px;
+      // }
+      // @media screen and (max-width: 767px) {
+      //   max-width: 100%;
+      // }
+      .el-input__wrapper {
+        height: auto;
+        padding: 4px 12px;
+        background: transparent;
+        color: #fff;
+        border: 0;
+        box-shadow: none;
+        line-height: 1;
+        .el-input__inner {
+          color: inherit;
+        }
+      }
+      .el-input__prefix {
+        padding: 0;
+        .el-icon {
+          svg {
+            width: 22px;
+            height: 22px;
+            color: #9ea5b3;
+          }
+        }
+      }
+      .el-input-group__append {
+        background-color: transparent;
+        color: rgba(255, 255, 255, 0.3);
+        border: 0;
+        width: auto;
+        box-shadow: none;
+        .el-button {
+          text-transform: uppercase;
+          &.is-active {
+            color: #fff;
+          }
+        }
+      }
+      .el-input__clear,
+      .el-input__password {
+        color: #fff;
+        font-size: 18px;
+      }
+    }
+    .header-right {
+      color: #fff;
+      flex-wrap: nowrap;
+      .get-started {
+        position: relative;
+        min-width: 64px;
+        padding: 0 10px;
+        line-height: 24px;
+        span {
+          position: absolute;
+          right: 0;
+          width: 8px;
+          height: 8px;
+          background-color: #e85a39;
+          color: rgb(236, 123, 96);
+          border-radius: 8px;
+          box-shadow: 0 0 0 2px #e85a39;
+          transform: scale(1) translate(50%, -50%);
+          transform-origin: 100% 0%;
+          transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+          &::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            -webkit-animation: ripple 1.2s infinite ease-in-out;
+            animation: ripple 1.2s infinite ease-in-out;
+            border: 1px solid currentColor;
+            content: "";
+          }
+        }
+      }
+      .connect {
+        flex-wrap: nowrap;
+        padding: 6px 15px;
+        margin: 0 20px;
+        text-transform: uppercase;
+        border: 1.6px solid rgba(232, 90, 57, 0.5);
+        border-radius: 4px;
+        line-height: 1.5;
+        cursor: pointer;
+        &:hover {
+          border-color: rgba(232, 90, 57, 1);
+        }
+        .width-24 {
+          margin-right: 8px;
+        }
+      }
+      .sign {
+        .sign-popper {
+          * {
+            outline: none !important;
+          }
+          .el-dropdown-link {
+            padding: 4px;
+            color: rgb(12, 11, 11);
+            background-color: rgb(117, 117, 117);
+            border-radius: 64px;
+            * {
+              cursor: pointer;
+            }
+            .width-24 {
+              color: rgb(12, 11, 11);
+              fill: rgb(12, 11, 11);
+            }
+            &:focus-visible {
+              outline: none !important;
+            }
+          }
+        }
+      }
+    }
+    .menu-button {
+      * {
+        cursor: pointer;
+      }
+    }
+  }
+}
+</style>
+<style lang="less">
+.menu-popper {
+  background-color: transparent;
+  border: 0 !important;
+  border-radius: 0;
+  .el-popper__arrow {
+    display: none;
+  }
+  .el-dropdown-menu {
+    padding: 0;
+    border-radius: 0;
+    li {
+      padding: 6px 16px;
+      background-color: rgb(0, 0, 0);
+      color: #fff !important;
+      &:first-child {
+        background-color: rgb(232, 90, 57);
+        &:hover {
+          background-color: rgb(162, 62, 39);
+        }
+      }
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      span {
+        min-width: 168px;
+        line-height: 1.5;
+        text-align: center;
+      }
+    }
+  }
+}
+.el-overlay {
+  cursor: pointer;
+}
+.demo-drawer {
+  background-color: rgb(16, 16, 16);
+  .el-drawer__body {
+    padding: 0;
+    .demo-drawer__content {
+      height: 100%;
+      .aside-main {
+        display: block !important;
+        .el-menu {
+          width: 100%;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+</style>
