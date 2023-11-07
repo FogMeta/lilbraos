@@ -146,6 +146,26 @@ async function walletChain(chainId) {
   } catch {}
 }
 
+async function checkDarkMode() {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return true
+  else return false
+}
+
+async function checkMode() {
+  let mode = false
+  const check = await checkDarkMode()
+  console.log(mode, store.state.reverse)
+  if (String(store.state.reverse) === '1') mode = true
+  else if (String(store.state.reverse) === '2') mode = false
+  else mode = check
+
+  if (mode) document.querySelector('html').classList.add('dark')
+  else document.querySelector('html').classList.remove('dark')
+
+  console.log(mode, store.state.reverse)
+  return mode
+}
+
 let web3Init
 if (typeof window.ethereum === 'undefined') {
   window.open('https://metamask.io/download.html')
@@ -178,5 +198,7 @@ export default {
   copyContent,
   goLink,
   Init,
-  web3Init
+  web3Init,
+  checkDarkMode,
+  checkMode
 }

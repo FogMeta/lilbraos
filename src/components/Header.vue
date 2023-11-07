@@ -1,18 +1,19 @@
 <template>
   <section id="container-header">
-    <div class="header both-margin flex-row">
-      <img :src="libraLogo" class="logo-img mit" alt='libra' @click="goMain" />
+    <div class="header both-margin flex-row space-between">
+      <img :src="libraLogoDark" class="logo-img mit" alt='libra' @click="goMain" />
       <el-input v-model="searchValue" class="w-50 m-2 font-14" clearable placeholder="Search by Address, Block Height, TxHash...">
         <template #append>
           <el-button :class="{'is-active': searchValue !== ''}">{{ searchValue ? 'Search Block': 'Search'}}</el-button>
         </template>
       </el-input>
       <div class="header-right flex-row" v-show="clientWidth">
-        <div class="get-started">Get Started
+        <div class="get-started">
+          <router-link :to="{name:'get-started'}" :class="{'no-color': route.name !== 'get-started'}">Get Started</router-link>
           <span></span>
         </div>
         <div class="connect flex-row" @click="connetShow=true">
-          <svg class="width-24 small" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="AccountBalanceWalletIcon">
+          <svg class="width-icon small" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="AccountBalanceWalletIcon">
             <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
           </svg>
           <span>Connect Wallet</span>
@@ -20,7 +21,7 @@
         <div class="sign">
           <el-dropdown class="sign-popper" popper-class="menu-popper" placement="bottom-end" :teleported="true">
             <span class="el-dropdown-link">
-              <svg class="width-24" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="PersonIcon">
+              <svg class="width-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="PersonIcon">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
               </svg>
             </span>
@@ -38,10 +39,10 @@
         </div>
       </div>
       <div class="menu-button" v-show="!clientWidth" @click="menuDialog=true">
-        <svg class="width-24" v-show="!menuDialog" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MenuIcon">
+        <svg class="width-icon" v-show="!menuDialog" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MenuIcon">
           <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
         </svg>
-        <svg class="width-24" v-show="menuDialog" t="1698992187359" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3865" width="200" height="200">
+        <svg class="width-icon" v-show="menuDialog" t="1698992187359" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3865" width="200" height="200">
           <path d="M571.733333 512l268.8-268.8c17.066667-17.066667 17.066667-42.666667 0-59.733333-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 452.266667 243.2 183.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333L452.266667 512 183.466667 780.8c-17.066667 17.066667-17.066667 42.666667 0 59.733333 8.533333 8.533333 19.2 12.8 29.866666 12.8s21.333333-4.266667 29.866667-12.8L512 571.733333l268.8 268.8c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866666-12.8c17.066667-17.066667 17.066667-42.666667 0-59.733333L571.733333 512z"
             p-id="3866"></path>
         </svg>
@@ -70,15 +71,19 @@ export default defineComponent({
     ElInput, ElDropdown, ElDropdownMenu, ElDropdownItem, ElButton, ElDrawer  },
   setup () {
     const store = useStore()
+    const reverse = computed(() => (store.state.reverse))
     const clientWidth = computed(() => (store.state.clientWidth))
     const bodyWidth = ref(document.body.clientWidth < 992)
     const system = getCurrentInstance().appContext.config.globalProperties
     const route = useRoute()
     const router = useRouter()
-    const libraLogo = require("@/assets/images/logo.png")
+    // const libraLogo = require("@/assets/images/logo-light.png")
+    const libraLogo = require("@/assets/images/logo-dark.png")
+    const libraLogoDark = require("@/assets/images/logo-dark.png")
     const searchValue = ref('')
     const menuDialog = ref(false)
     const connetShow = ref(false)
+    const reverseLogo = ref(false)
 
     const handleClose = () => {
       menuDialog.value = false
@@ -86,7 +91,7 @@ export default defineComponent({
     function hardClose (dialog) {
       connetShow.value = dialog
     }
-    onMounted(() => { })
+    onMounted(async () => {})
     onBeforeUnmount(() => { })
     watch(clientWidth, () => {
       if (clientWidth.value) handleClose()
@@ -94,9 +99,12 @@ export default defineComponent({
     watch(route, (to, from) => { })
     return {
       system,
+      route,
       bodyWidth,
       clientWidth,
+      reverseLogo,
       libraLogo,
+      libraLogoDark,
       searchValue,
       menuDialog,
       connetShow,
@@ -110,7 +118,6 @@ export default defineComponent({
   width: 100%;
   white-space: nowrap;
   :deep(.header) {
-    justify-content: space-between;
     flex-wrap: nowrap;
     margin: auto;
     font-size: 16px;
@@ -156,7 +163,7 @@ export default defineComponent({
         height: auto;
         padding: 4px 12px;
         background: transparent;
-        color: #fff;
+        color: #0c0b0b;
         border: 0;
         box-shadow: none;
         line-height: 1;
@@ -176,31 +183,34 @@ export default defineComponent({
       }
       .el-input-group__append {
         background-color: transparent;
-        color: rgba(255, 255, 255, 0.3);
+        color: rgba(0, 0, 0, 0.3);
         border: 0;
         width: auto;
         box-shadow: none;
         .el-button {
           text-transform: uppercase;
           &.is-active {
-            color: #fff;
+            color: #0c0b0b;
           }
         }
       }
       .el-input__clear,
       .el-input__password {
-        color: #fff;
+        color: #0c0b0b;
         font-size: 18px;
       }
     }
     .header-right {
-      color: #fff;
+      color: #0c0b0b;
       flex-wrap: nowrap;
       .get-started {
         position: relative;
         min-width: 64px;
         padding: 0 10px;
         line-height: 24px;
+        a.no-color {
+          color: #0c0b0b;
+        }
         span {
           position: absolute;
           right: 0;
@@ -239,7 +249,7 @@ export default defineComponent({
         &:hover {
           border-color: rgba(232, 90, 57, 1);
         }
-        .width-24 {
+        .width-icon {
           margin-right: 8px;
         }
       }
@@ -250,15 +260,14 @@ export default defineComponent({
           }
           .el-dropdown-link {
             padding: 4px;
-            color: rgb(12, 11, 11);
-            background-color: rgb(117, 117, 117);
+            color: #fff;
+            background-color: rgb(189, 189, 189);
             border-radius: 64px;
             * {
               cursor: pointer;
             }
-            .width-24 {
-              color: rgb(12, 11, 11);
-              fill: rgb(12, 11, 11);
+            .width-icon {
+              fill: #fff;
             }
             &:focus-visible {
               outline: none !important;
@@ -284,12 +293,13 @@ export default defineComponent({
     display: none;
   }
   .el-dropdown-menu {
-    padding: 0;
-    border-radius: 0;
+    padding: 6px 0;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.6);
     li {
       padding: 6px 16px;
-      background-color: rgb(0, 0, 0);
-      color: #fff !important;
+      background-color: rgba(255, 255, 255, 1);
+      color: #0c0b0b !important;
       &:first-child {
         background-color: rgb(232, 90, 57);
         &:hover {
@@ -297,7 +307,7 @@ export default defineComponent({
         }
       }
       &:hover {
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(233, 233, 233, 0.8);
       }
       span {
         min-width: 168px;

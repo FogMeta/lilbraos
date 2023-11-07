@@ -7,13 +7,15 @@
       <el-main class="el-main-mit">
         <div class="content flex-row">
           <v-aside v-show="clientWidth"></v-aside>
-          <router-view v-slot="{ Component }">
-            <transition name="fade" mode="out-in">
-              <keep-alive>
-                <component :is="Component" />
-              </keep-alive>
-            </transition>
-          </router-view>
+          <div class="container">
+            <router-view v-slot="{ Component }">
+              <transition name="fade" mode="out-in">
+                <keep-alive>
+                  <component :is="Component" />
+                </keep-alive>
+              </transition>
+            </router-view>
+          </div>
         </div>
       </el-main>
     </el-container>
@@ -39,7 +41,9 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
 
-    onMounted(() => { })
+    onMounted(async () => {
+      system.$commonFun.checkMode()
+    })
     return { system, clientWidth }
   }
 })
@@ -53,7 +57,7 @@ export default defineComponent({
     align-items: stretch;
     flex-wrap: nowrap;
     :deep(.el-backtop) {
-      background-color: #ffffff;
+      background-color: #0c0b0b;
       color: #231f20;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
       @media screen and (max-width: 768px) {
@@ -76,6 +80,11 @@ export default defineComponent({
         }
       }
     }
+    .container {
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+    }
   }
   .el-container {
     .el-header,
@@ -83,9 +92,13 @@ export default defineComponent({
       width: 100%;
       padding: 0;
     }
+    .el-header {
+      background-color: #fff;
+    }
     .el-main-mit {
       height: calc(100vh - 60px);
       border-top: 1px solid rgb(33, 33, 33);
+      overflow: hidden;
     }
   }
 }
@@ -101,7 +114,26 @@ export default defineComponent({
 // .fade-leave-to {
 //   opacity: 0;
 // }
+@font-color: #e85a39;
+a {
+  color: @font-color;
+}
 
+.button {
+  display: inline-block;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 100px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  svg,
+  path {
+    display: block;
+    fill: #0c0b0b;
+    cursor: inherit;
+  }
+}
 .mt-border {
   margin: 30px auto;
   border-top: 1px solid #8c878d;
@@ -135,6 +167,7 @@ export default defineComponent({
 .lang-max {
   width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
   @media screen and (min-width: 1200px) {
     max-width: 1200px;
   }
@@ -161,21 +194,32 @@ export default defineComponent({
   // }
 }
 
-.width-24 {
+.width-icon {
   display: block;
   width: 24px;
   height: 24px;
-  color: #fff;
-  fill: #fff;
+  color: #0c0b0b;
+  fill: #0c0b0b;
   &.small {
     width: 20px;
     height: 20px;
+  }
+  &.min-small {
+    width: 16px;
+    height: 16px;
+  }
+  &.big {
+    width: 35px;
+    height: 35px;
+  }
+  svg {
+    width: inherit;
+    height: inherit;
   }
 }
 
 .font-44 {
   font-size: 44px;
-  font-weight: 400;
   // @media screen and (min-width: 2160px) {
   //   font-size: 22px;
   // }
@@ -185,6 +229,10 @@ export default defineComponent({
   // @media screen and (max-width: 600px) {
   //   font-size: 88px;
   // }
+}
+
+.font-32 {
+  font-size: 32px;
 }
 
 .font-30 {
@@ -310,13 +358,39 @@ export default defineComponent({
   // }
 }
 
+.weight-3 {
+  font-weight: 300;
+}
+.weight-4 {
+  font-weight: 400;
+}
+.weight-5 {
+  font-weight: 500;
+}
+.weight-6 {
+  font-weight: 600;
+}
+.weight-8 {
+  font-weight: 800;
+}
+
 .flex-row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  &.space-between {
+    justify-content: space-between;
+  }
+  &.center {
+    justify-content: center;
+  }
+  &.flex-start {
+    justify-content: flex-start;
+  }
 }
 
-.img {
+.img,
+.wid {
   display: block;
   width: 100%;
 }

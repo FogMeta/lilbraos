@@ -1,5 +1,5 @@
 <template>
-  <div class="pop-up flex-row" v-show="props.connetShow">
+  <div class="pop-up flex-row center" v-show="props.connetShow">
     <div class="connect-area padding-24">
       <div class="close" @click="closeHandle">
         <el-icon>
@@ -8,7 +8,7 @@
       </div>
       <div class="connect-wallet" v-if="active === 'connect'">
         <div class="title font-20">Connect Wallet</div>
-        <div class="metamask padding-16 flex-row" @click="isLogin">
+        <div class="metamask weight-5 padding-16 flex-row" @click="isLogin">
           <img :src="metaLogo" alt="" class="image" />
           <div class="font-20">MetaMask</div>
         </div>
@@ -111,22 +111,17 @@ export default defineComponent({
   left: 0;
   right: 0;
   bottom: 0;
-  justify-content: center;
   z-index: 99;
   background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
+  color: #0c0b0b;
   line-height: 1;
   transition: all 0.2s;
   .connect-area {
     position: relative;
     min-width: 30%;
-    color: rgb(238, 238, 238);
+    color: rgba(0, 0, 0, 0.87);
     border-radius: 4px;
-    background-color: rgb(12, 11, 11);
-    background-image: linear-gradient(
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0.16)
-    );
+    background-color: #fff;
     @media screen and (max-width: 1260px) {
       width: 35%;
     }
@@ -148,14 +143,14 @@ export default defineComponent({
       right: 10px;
       top: 10px;
       font-size: 25px;
-      color: #9e9e9e;
+      color: #0c0b0b;
       cursor: pointer;
       z-index: 100;
       padding: 4px;
       cursor: pointer;
       border-radius: 100px;
       &:hover {
-        background-color: rgba(255, 255, 255, 0.08);
+        background-color: rgba(223, 223, 223, 0.3);
       }
     }
     .connect-wallet {
@@ -164,12 +159,11 @@ export default defineComponent({
       }
       .metamask {
         //   width: 490px;
-        background-color: rgba(0, 0, 0, 0.6);
-        font-weight: 500;
+        background-color: rgba(223, 223, 223, 0.6);
         border-radius: 0;
         cursor: pointer;
         &:hover {
-          background-color: rgba(0, 0, 0, 1);
+          background-color: rgba(223, 223, 223, 0.8);
         }
         .image {
           width: 30px;
