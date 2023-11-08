@@ -6,7 +6,7 @@ export default createStore({
   state: {
     metaAddress: sessionStorage.getItem('metaAddressClaim') || '',
     clientWidth: document.body.clientWidth < 992 ? false : true,
-    reverse: sessionStorage.getItem('libraReverse') || '0' // 0:not set, 1:dark, 2:light
+    reverse: localStorage.getItem('libraReverse') || '0' // 0:not set, 1:dark, 2:light
   },
   mutations: {
     SET_METAADDRESS: (state, metaAddress) => {
@@ -18,7 +18,7 @@ export default createStore({
     },
     SET_REVERSE: (state, reverse) => {
       state.reverse = reverse
-      sessionStorage.setItem('libraReverse', reverse)
+      localStorage.setItem('libraReverse', reverse)
     }
   },
   actions: {

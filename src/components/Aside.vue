@@ -3,15 +3,15 @@
     <el-menu active-text-color="#0c0b0b" text-color="#616161" background-color="transparent" class="el-menu-vertical-demo flex-row space-between" :collapse-transition="false" :default-active="activeIndex" :collapse="isCollapse" @select="handleSelect"
       @open="handleOpen" @close="handleClose">
       <ul class="wid">
-        <el-menu-item index="0">
-          <a class="root flex-row center" target="_blank" href="/new-deployment">
+        <el-menu-item index="deployNew">
+          <div class="root flex-row center">
             <span class="hide">Deploy</span>
             <i class="el-icon width-icon small">
               <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="RocketLaunchIcon">
                 <path d="M9.19 6.35c-2.04 2.29-3.44 5.58-3.57 5.89L2 10.69l4.05-4.05c.47-.47 1.15-.68 1.81-.55l1.33.26zM11.17 17s3.74-1.55 5.89-3.7c5.4-5.4 4.5-9.62 4.21-10.57-.95-.3-5.17-1.19-10.57 4.21C8.55 9.09 7 12.83 7 12.83L11.17 17zm6.48-2.19c-2.29 2.04-5.58 3.44-5.89 3.57L13.31 22l4.05-4.05c.47-.47.68-1.15.55-1.81l-.26-1.33zM9 18c0 .83-.34 1.58-.88 2.12C6.94 21.3 2 22 2 22s.7-4.94 1.88-6.12C4.42 15.34 5.17 15 6 15c1.66 0 3 1.34 3 3zm4-9c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z"></path>
               </svg>
             </i>
-          </a>
+          </div>
         </el-menu-item>
         <el-menu-item index="home" class="menu">
           <i class="el-icon width-icon">
@@ -21,7 +21,7 @@
           </i>
           <template #title>Home</template>
         </el-menu-item>
-        <el-menu-item index="2" class="menu">
+        <el-menu-item index="deploy" class="menu">
           <i class="el-icon width-icon">
             <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CloudIcon">
               <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"></path>
@@ -29,7 +29,7 @@
           </i>
           <template #title>Deployments</template>
         </el-menu-item>
-        <el-menu-item index="3" class="menu">
+        <el-menu-item index="templates" class="menu">
           <i class="el-icon width-icon">
             <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CollectionsIcon">
               <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4 2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"></path>
@@ -37,15 +37,15 @@
           </i>
           <template #title>Templates</template>
         </el-menu-item>
-        <el-menu-item index="4" class="menu">
+        <el-menu-item index="4" class="menu" disabled>
           <i class="el-icon width-icon">
             <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ConstructionIcon">
               <path d="m13.7826 15.1719 2.1213-2.1213 5.9963 5.9962-2.1213 2.1213zM17.5 10c1.93 0 3.5-1.57 3.5-3.5 0-.58-.16-1.12-.41-1.6l-2.7 2.7-1.49-1.49 2.7-2.7c-.48-.25-1.02-.41-1.6-.41C15.57 3 14 4.57 14 6.5c0 .41.08.8.21 1.16l-1.85 1.85-1.78-1.78.71-.71-1.41-1.41L12 3.49c-1.17-1.17-3.07-1.17-4.24 0L4.22 7.03l1.41 1.41H2.81l-.71.71 3.54 3.54.71-.71V9.15l1.41 1.41.71-.71 1.78 1.78-7.41 7.41 2.12 2.12L16.34 9.79c.36.13.75.21 1.16.21z"></path>
             </svg>
           </i>
-          <template #title>Application Builder</template>
+          <template #title>Space Builder</template>
         </el-menu-item>
-        <el-menu-item index="5" class="menu">
+        <el-menu-item index="5" class="menu" disabled>
           <i class="el-icon width-icon">
             <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DnsIcon">
               <path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zM7 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></path>
@@ -62,7 +62,7 @@
           </i>
           <template #title>Statistics and Analysis</template>
         </el-menu-item>
-        <el-menu-item index="7" class="menu">
+        <el-menu-item index="7" class="menu" disabled>
           <i class="el-icon width-icon">
             <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SavingsIcon">
               <path d="m19.83 7.5-2.27-2.27c.07-.42.18-.81.32-1.15.08-.18.12-.37.12-.58 0-.83-.67-1.5-1.5-1.5-1.64 0-3.09.79-4 2h-5C4.46 4 2 6.46 2 9.5S4.5 21 4.5 21H10v-2h2v2h5.5l1.68-5.59 2.82-.94V7.5h-2.17zM13 9H8V7h5v2zm3 2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"></path>
@@ -125,7 +125,7 @@
                   <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"></path>
                 </svg>
               </li>
-              <li class="el-icon width-icon">
+              <li class="el-icon width-icon" @click="system.$commonFun.goLink('https://github.com/FogMeta/libra-os-fronted/tree/main')">
                 <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="GitHubIcon">
                   <path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path>
                 </svg>
@@ -186,6 +186,9 @@ export default defineComponent({
     }
     async function handleSelect (key, keyPath) {
       if (key === 'home') router.push({ name: 'home' })
+      else if (key === 'deploy') router.push({ name: 'deploy' })
+      else if (key === 'deployNew') router.push({ name: 'deployNew' })
+      else if (key === 'templates') router.push({ name: 'templates' })
       else if (key === 'analytics') router.push({ name: 'analytics' })
       else if (key === 'faq') router.push({ name: 'faq' })
       else if (key === 'settings') router.push({ name: 'settings' })
@@ -200,6 +203,8 @@ export default defineComponent({
     async function activeMenu (row) {
       const nameMenu = row || route.name
       if (nameMenu.indexOf('home') > -1) activeIndex.value = 'home'
+      else if (nameMenu.indexOf('deploy') > -1 || nameMenu.indexOf('new-deployment') > -1) activeIndex.value = 'deploy'
+      else if (nameMenu.indexOf('templates') > -1) activeIndex.value = 'templates'
       else if (nameMenu.indexOf('analytics') > -1) activeIndex.value = 'analytics'
       else if (nameMenu.indexOf('faq') > -1) activeIndex.value = 'faq'
       else if (nameMenu.indexOf('settings') > -1) activeIndex.value = 'settings'
@@ -213,6 +218,7 @@ export default defineComponent({
       window.scrollTo(0, 0)
     })
     return {
+      system,
       isCollapse,
       activeIndex,
       handleOpen, handleClose, handleSelect
@@ -229,9 +235,11 @@ export default defineComponent({
 
 .aside-main {
   height: 100%;
-  background-color: #fff;
+  background-color: @white-color;
   transition: all 0.2s;
   .el-menu {
+    align-items: start;
+    align-content: space-between;
     width: 255px;
     height: 100%;
     min-height: auto;
@@ -245,6 +253,7 @@ export default defineComponent({
       }
       .el-menu-item {
         padding: 8px 0 !important;
+        text-transform: capitalize;
         &:last-child {
           padding: 8px 4px !important;
           justify-content: center;
@@ -270,6 +279,7 @@ export default defineComponent({
       font-size: inherit;
       font-weight: 500;
       line-height: 30px;
+      text-transform: capitalize;
       &:hover {
         background-color: transparent;
       }
@@ -281,7 +291,7 @@ export default defineComponent({
         .el-icon {
           svg,
           path {
-            fill: #e85a39;
+            fill: @theme-color;
             opacity: 1;
           }
         }
@@ -303,7 +313,7 @@ export default defineComponent({
       .mainnet {
         width: 100%;
         text-align: center;
-        color: rgba(0, 0, 0, 0.6);
+        color: @primary-color-opacity;
         .net-root {
           padding: 2px 8px;
           margin: 0 auto 16px;
@@ -314,7 +324,7 @@ export default defineComponent({
           }
           span {
             margin: 0 3px;
-            color: #0c0b0b;
+            color: @primary-color;
             &.border {
               width: 8px;
               height: 8px;
@@ -343,18 +353,18 @@ export default defineComponent({
       .root {
         width: 100%;
         padding: 8px 0;
-        background-color: rgb(232, 90, 57);
+        background-color: @theme-color;
         font-size: 15px;
-        color: #fff;
+        color: @white-color;
         border-radius: 5px;
         text-transform: uppercase;
         &:hover {
-          background-color: rgb(162, 62, 39);
+          background-color: @theme-color-opacity1;
         }
         .el-icon {
           margin: 0 0 0 16px;
-          color: #fff;
-          fill: #fff;
+          color: @white-color;
+          fill: @white-color;
           svg,
           path {
             opacity: 1;
@@ -389,9 +399,9 @@ export default defineComponent({
           }
           p.strong {
             padding: 1px 3px;
-            background-color: rgb(232, 90, 57);
+            background-color: @theme-color;
             border-radius: 10px;
-            color: #fff;
+            color: @white-color;
           }
         }
       }

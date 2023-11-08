@@ -78,7 +78,7 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     // const libraLogo = require("@/assets/images/logo-light.png")
-    const libraLogo = require("@/assets/images/logo-dark.png")
+    const libraLogo = require("@/assets/images/logo-light.png")
     const libraLogoDark = require("@/assets/images/logo-dark.png")
     const searchValue = ref('')
     const menuDialog = ref(false)
@@ -91,7 +91,7 @@ export default defineComponent({
     function hardClose (dialog) {
       connetShow.value = dialog
     }
-    onMounted(async () => {})
+    onMounted(async () => { })
     onBeforeUnmount(() => { })
     watch(clientWidth, () => {
       if (clientWidth.value) handleClose()
@@ -163,7 +163,7 @@ export default defineComponent({
         height: auto;
         padding: 4px 12px;
         background: transparent;
-        color: #0c0b0b;
+        color: @primary-color;
         border: 0;
         box-shadow: none;
         line-height: 1;
@@ -190,36 +190,39 @@ export default defineComponent({
         .el-button {
           text-transform: uppercase;
           &.is-active {
-            color: #0c0b0b;
+            color: @primary-color;
           }
         }
       }
       .el-input__clear,
       .el-input__password {
-        color: #0c0b0b;
+        color: @primary-color;
         font-size: 18px;
       }
     }
     .header-right {
-      color: #0c0b0b;
+      color: @primary-color;
       flex-wrap: nowrap;
       .get-started {
         position: relative;
         min-width: 64px;
-        padding: 0 10px;
+        padding: 6px 10px;
         line-height: 24px;
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.04);
+        }
         a.no-color {
-          color: #0c0b0b;
+          color: @primary-color;
         }
         span {
           position: absolute;
           right: 0;
           width: 8px;
           height: 8px;
-          background-color: #e85a39;
-          color: rgb(236, 123, 96);
+          background-color: @theme-color;
+          color: @theme-color-opacity;
           border-radius: 8px;
-          box-shadow: 0 0 0 2px #e85a39;
+          box-shadow: 0 0 0 2px @theme-color;
           transform: scale(1) translate(50%, -50%);
           transform-origin: 100% 0%;
           transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -242,12 +245,12 @@ export default defineComponent({
         padding: 6px 15px;
         margin: 0 20px;
         text-transform: uppercase;
-        border: 1.6px solid rgba(232, 90, 57, 0.5);
+        border: 1.6px solid @theme-color-opacity;
         border-radius: 4px;
         line-height: 1.5;
         cursor: pointer;
         &:hover {
-          border-color: rgba(232, 90, 57, 1);
+          border-color: @theme-color;
         }
         .width-icon {
           margin-right: 8px;
@@ -260,14 +263,14 @@ export default defineComponent({
           }
           .el-dropdown-link {
             padding: 4px;
-            color: #fff;
-            background-color: rgb(189, 189, 189);
+            color: @white-color;
+            background-color: @dot-fusco-color;
             border-radius: 64px;
             * {
               cursor: pointer;
             }
             .width-icon {
-              fill: #fff;
+              fill: @white-color;
             }
             &:focus-visible {
               outline: none !important;
@@ -295,15 +298,15 @@ export default defineComponent({
   .el-dropdown-menu {
     padding: 6px 0;
     border-radius: 4px;
-    box-shadow: 0 0 10px rgb(0, 0, 0, 0.6);
+    box-shadow: 0 0 10px @primary-color-opacity;
     li {
       padding: 6px 16px;
       background-color: rgba(255, 255, 255, 1);
-      color: #0c0b0b !important;
+      color: @primary-color !important;
       &:first-child {
-        background-color: rgb(232, 90, 57);
+        background-color: @theme-color;
         &:hover {
-          background-color: rgb(162, 62, 39);
+          background-color: @theme-color-opacity1;
         }
       }
       &:hover {

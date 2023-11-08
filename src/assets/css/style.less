@@ -9,15 +9,14 @@ html,
 body {
     width: 100%;
     min-height: 100%;
-    background-color: rgb(243, 243, 243);
+    background-color: @bg-color;
     font-size: 100px;
     font-weight: 400;
-    color: #0c0b0b;
+    color: @primary-color;
     line-height: 1.5;
     word-break: break-word;
     -webkit-text-size-adjust: 100%;
-    // -webkit-print-color-scheme: dark;
-    // color-scheme: dark;
+    /*  color-scheme: dark; */
 }
 
 *,
@@ -85,7 +84,7 @@ dt {
 
 a {
     text-decoration: none;
-    color: #e85a39;
+    color: @theme-color;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;

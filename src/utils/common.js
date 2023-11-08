@@ -1,7 +1,8 @@
 import store from '../store'
 import axios from 'axios'
 import {
-  ElMessage
+  ElMessage,
+  ElNotification
 } from 'element-plus'
 
 async function sendRequest(apilink, type, jsonObject, api_token) {
@@ -54,6 +55,16 @@ async function messageTip(type, text) {
   })
 }
 
+async function notificationTip(title, type, message) {
+  if (message) await copyContent(message, 'Copied')
+  ElNotification({
+    title: title,
+    // message: message,
+    type: type,
+    position: 'bottom-right'
+  })
+}
+
 function copyContent(text, tipCont) {
   var txtArea = document.createElement('textarea')
   txtArea.id = 'txt'
@@ -70,7 +81,7 @@ function copyContent(text, tipCont) {
     var msg = successful ? 'successful' : 'unsuccessful'
     console.log('Copying text command was ' + msg)
     if (successful) {
-      messageTip('success', tipCont)
+      // messageTip('success', tipCont)
       return true
     }
   } catch (err) {
@@ -89,7 +100,7 @@ function goLink(link) {
 
 async function Init(callback) {
   if (typeof window.ethereum === 'undefined') {
-    goLink('https://metamask.io/download.html')
+    // goLink('https://metamask.io/download.html')
     alert("Consider installing MetaMask!");
   } else {
     const ethereum = window.ethereum;
@@ -154,22 +165,19 @@ async function checkDarkMode() {
 async function checkMode() {
   let mode = false
   const check = await checkDarkMode()
-  console.log(mode, store.state.reverse)
   if (String(store.state.reverse) === '1') mode = true
   else if (String(store.state.reverse) === '2') mode = false
   else mode = check
 
   if (mode) document.querySelector('html').classList.add('dark')
   else document.querySelector('html').classList.remove('dark')
-
-  console.log(mode, store.state.reverse)
   return mode
 }
 
 let web3Init
 if (typeof window.ethereum === 'undefined') {
-  window.open('https://metamask.io/download.html')
-  alert("Consider installing MetaMask!");
+  // window.open('https://metamask.io/download.html')
+  // alert("Consider installing MetaMask!");
 } else {
   if (window.ethereum) {
     web3 = new Web3(ethereum);
@@ -195,6 +203,7 @@ export default {
   sendRequest,
   timeout,
   messageTip,
+  notificationTip,
   copyContent,
   goLink,
   Init,

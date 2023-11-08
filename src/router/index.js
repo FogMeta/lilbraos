@@ -10,6 +10,12 @@ const main = () =>
     import ("@/views/dashboard/home/index")
 const getStarted = () =>
     import ("@/views/dashboard/getStarted/index")
+const deploy = () =>
+    import ("@/views/dashboard/deploy/index")
+const deployNew = () =>
+    import ("@/views/dashboard/deploy/new")
+const templates = () =>
+    import ("@/views/dashboard/templates/index")
 const analytics = () =>
     import ("@/views/dashboard/analytics/index")
 const faq = () =>
@@ -32,6 +38,30 @@ const routes = [{
             path: '/get-started',
             name: 'get-started',
             component: getStarted,
+            meta: {
+                keepAlive: true,
+                title: 'Libra OS'
+            }
+        }, {
+            path: '/deploy',
+            name: 'deploy',
+            component: deploy,
+            meta: {
+                keepAlive: true,
+                title: 'Libra OS'
+            }
+        }, {
+            path: '/new-deployment',
+            name: 'deployNew',
+            component: deployNew,
+            meta: {
+                keepAlive: true,
+                title: 'Libra OS'
+            }
+        }, {
+            path: '/templates',
+            name: 'templates',
+            component: templates,
             meta: {
                 keepAlive: true,
                 title: 'Libra OS'

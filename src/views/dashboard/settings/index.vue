@@ -8,7 +8,19 @@
             <div class="cont">
               <h6 class="font-16 weight-4">Network</h6>
               <div class="root padding-16">
-
+                <ul>
+                  <li class="flex-row font-16 weight-4">
+                    <label>Network</label>
+                    <div class="edit flex-row weight-6">
+                      Mainnet
+                      <i class="el-icon width-icon small">
+                        <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="EditIcon">
+                          <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path>
+                        </svg>
+                      </i>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </el-col>
@@ -32,16 +44,40 @@
 </template>
 
 <script>
-import { defineComponent, computed, onMounted, watch, ref, reactive, getCurrentInstance } from 'vue'
-import { useStore } from "vuex"
-import { useRouter, useRoute } from 'vue-router'
+import {
+  defineComponent,
+  computed,
+  onMounted,
+  watch,
+  ref,
+  reactive,
+  getCurrentInstance
+} from 'vue'
+import {
+  useStore
+} from "vuex"
+import {
+  useRouter,
+  useRoute
+} from 'vue-router'
 import {
   Edit
 } from '@element-plus/icons-vue'
-import { ElButton, ElRow, ElCol, ElSelect, ElOption } from "element-plus"
+import {
+  ElButton,
+  ElRow,
+  ElCol,
+  ElSelect,
+  ElOption
+} from "element-plus"
 export default defineComponent({
   components: {
-    Edit, ElButton, ElRow, ElCol, ElSelect, ElOption
+    Edit,
+    ElButton,
+    ElRow,
+    ElCol,
+    ElSelect,
+    ElOption
   },
   setup () {
     const store = useStore()
@@ -54,17 +90,16 @@ export default defineComponent({
     const collapse = ref(false)
     const theme = reactive({
       value: '',
-      options: [
-        {
-          value: 'Auto',
-          label: 'Auto',
-        }, {
-          value: 'Dark',
-          label: 'Dark 🌑',
-        }, {
-          value: 'Light',
-          label: 'Light ☀️',
-        }]
+      options: [{
+        value: 'Auto',
+        label: 'Auto',
+      }, {
+        value: 'Dark',
+        label: 'Dark 🌑',
+      }, {
+        value: 'Light',
+        label: 'Light ☀️',
+      }]
     })
 
     function themeMethod () {
@@ -110,10 +145,6 @@ export default defineComponent({
   line-height: 1;
   .module {
     margin: 0 auto 15px;
-    color: #eeeeee;
-    h1 {
-      color: #0c0b0b;
-    }
     .area {
       height: auto;
       transition: all 0.8s;
@@ -128,11 +159,23 @@ export default defineComponent({
             h3,
             h6 {
               padding: 8px;
-              color: rgb(117, 117, 117);
+              color: @grey-color;
             }
             .root {
               .el-select {
                 max-width: 120px;
+              }
+              ul {
+                li {
+                  cursor: pointer;
+                  .edit {
+                    margin: 0 16px;
+                    i {
+                      margin-left: 8px;
+                      fill: rgba(0, 0, 0, 0.54);
+                    }
+                  }
+                }
               }
             }
           }

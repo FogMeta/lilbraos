@@ -36,9 +36,21 @@ module.exports = {
     loaderOptions: {
       less: {
         javascriptEnabled: true,
-        lessOptions: {
-          // 在这里添加自定义的Less配置
-        },
+        // lessOptions: {
+        modifyVars: {
+          'bg-color': 'rgb(243, 243, 243)',
+          'white-color': '#fff',
+          'primary-color': 'rgba(0,0,0,0.87)',
+          'primary-color-opacity': 'rgba(0,0,0,0.6)',
+          'theme-color': 'rgba(72, 176, 255, 1)',
+          'theme-color-opacity': 'rgba(72, 176, 255, 0.5)',
+          'theme-color-opacity1': 'rgba(72, 176, 255, 0.8)',
+          'dot-color': 'rgb(234, 234, 240)',
+          'dot-fusco-color': 'rgb(189, 189, 189)',
+          'dot-fusco-color-hover': 'rgba(12, 11, 11, 0.12)',
+          'grey-color': 'rgb(117, 117, 117)'
+        }
+        // },
       }
     }
   },

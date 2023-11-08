@@ -57,7 +57,7 @@ export default defineComponent({
     align-items: stretch;
     flex-wrap: nowrap;
     :deep(.el-backtop) {
-      background-color: #0c0b0b;
+      background-color: @primary-color;
       color: #231f20;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
       @media screen and (max-width: 768px) {
@@ -93,11 +93,11 @@ export default defineComponent({
       padding: 0;
     }
     .el-header {
-      background-color: #fff;
+      background-color: @white-color;
     }
     .el-main-mit {
       height: calc(100vh - 60px);
-      border-top: 1px solid rgb(33, 33, 33);
+      border-top: 1px solid rgb(224, 224, 224);
       overflow: hidden;
     }
   }
@@ -114,7 +114,7 @@ export default defineComponent({
 // .fade-leave-to {
 //   opacity: 0;
 // }
-@font-color: #e85a39;
+@font-color: @theme-color;
 a {
   color: @font-color;
 }
@@ -130,19 +130,24 @@ a {
   svg,
   path {
     display: block;
-    fill: #0c0b0b;
+    fill: @primary-color;
     cursor: inherit;
   }
 }
+.is-disabled {
+  cursor: no-drop;
+}
 .mt-border {
-  margin: 30px auto;
-  border-top: 1px solid #8c878d;
+  margin: 32px auto;
 }
 .top-margin {
   padding-top: 16px;
   @media screen and (min-width: 600px) {
     padding-top: 32px;
   }
+}
+.padding-64 {
+  padding: 64px;
 }
 .padding-24 {
   padding: 24px;
@@ -198,8 +203,8 @@ a {
   display: block;
   width: 24px;
   height: 24px;
-  color: #0c0b0b;
-  fill: #0c0b0b;
+  color: @primary-color;
+  fill: @primary-color;
   &.small {
     width: 20px;
     height: 20px;
@@ -216,6 +221,10 @@ a {
     width: inherit;
     height: inherit;
   }
+}
+
+.font-48 {
+  font-size: 48px;
 }
 
 .font-44 {

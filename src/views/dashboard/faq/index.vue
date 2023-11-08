@@ -58,7 +58,6 @@ export default defineComponent({
   line-height: 1;
   .module {
     margin: 0 auto 15px;
-    color: #eeeeee;
     h1 {
       // text-shadow: 0px 0px 9px #e77304;
       color: transparent;

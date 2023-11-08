@@ -1,26 +1,27 @@
 <template>
-    <div class="landing">
-        <router-view/>
-    </div>
+  <div class="landing">
+    <router-view/>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'app',
+  name: 'app',
 }
 </script>
-<style  lang="less">
+<style lang="less">
 @import "./assets/css/style.less";
 .dark {
   filter: invert(1) hue-rotate(180deg);
   .el-select,
   .el-popper,
   .el-button,
+  .aside-main .el-menu .el-menu-item .root,
   .inner,
   .image {
     filter: invert(1) hue-rotate(180deg);
     .width-icon {
-      color: #fff;
+      color: @white-color;
     }
   }
   #container-getStarted .module .area .el-collapse .el-collapse-item::before {
@@ -32,7 +33,8 @@ export default {
       background-color: rgba(0, 0, 0, 0.24) !important;
     }
   }
-  #container-settings .module .area .el-row .el-col .cont {
+  #container-settings .module .area .el-row .el-col .cont,
+  #container-main .module {
     background-color: rgba(223, 223, 223, 1) !important;
   }
 }

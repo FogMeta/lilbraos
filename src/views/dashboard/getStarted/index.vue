@@ -2,7 +2,7 @@
   <section id="container-getStarted" class="lang-max top-margin both-margin">
     <!-- <el-progress :percentage="100" status="warning" :indeterminate="true" :duration="1" :show-text="false" stroke-linecap="square" /> -->
     <div class="module">
-      <h1 class="font-20 weight-5 flex-row space-between padding-16">Get started with Cloudmos!</h1>
+      <h1 class="font-20 weight-6 flex-row space-between padding-16">Get started with LIbra Cloud OS!</h1>
       <div class="area padding-16 flex-row flex-start">
         <el-collapse v-model="active" accordion>
           <el-collapse-item name="1" :disabled="active==='1'" :class="{'success': active !== '1'}">
@@ -24,7 +24,7 @@
               </div>.
             </div>
             <div class="desc desc-root flex-row flex-start font-14 weight-5">
-              <el-button color="#e85a39" @click="active='2'">Next</el-button>
+              <el-button @click="active='2'">Next</el-button>
               <div class="flex-row font-16">Learn how
                 <span class="width-icon small">
                   <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="LaunchIcon">
@@ -50,7 +50,7 @@
               <br /><br /> For the sake of getting started, we will deploy a simple Next.js app that you can find in the deploy page.
             </div>
             <div class="desc desc-root flex-row flex-start font-14 weight-5">
-              <el-button color="#e85a39" @click="active='3'">Next</el-button>
+              <el-button @click="active='3'">Next</el-button>
               <div class="flex-row font-16">Learn how
                 <span class="width-icon small">
                   <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="LaunchIcon">
@@ -81,7 +81,7 @@
               </div>
             </div>
             <div class="desc desc-root flex-row flex-start font-14 weight-5">
-              <el-button color="#e85a39">
+              <el-button>
                 <router-link :to="{path:'deploy'}">Deploy!</router-link>
               </el-button>
               <div class="flex-row font-16">Reset
@@ -124,9 +124,6 @@ export default defineComponent({
     function hardClose (dialog) {
       claimShow.value = dialog
     }
-    const next = () => {
-      if (active.value++ > 2) active.value = 0
-    }
     onMounted(() => { })
     return {
       system,
@@ -134,7 +131,7 @@ export default defineComponent({
       claimShow,
       collapse,
       active,
-      hardClose, next
+      hardClose
     }
   }
 })
@@ -148,18 +145,18 @@ export default defineComponent({
   line-height: 1;
   :deep(.module) {
     margin: 0 auto 15px;
-    background-color: #fff;
+    background-color: @white-color;
     border-radius: 4px;
     h1 {
       // text-shadow: 0px 0px 9px #e77304;
-      color: rgba(0, 0, 0, 0.87);
+      color: @primary-color;
     }
     .area {
       height: auto;
       text-align: center;
       transition: all 0.8s;
       overflow: hidden;
-      border-top: 1px solid rgb(66, 66, 66);
+      border-top: 1px solid rgb(238, 238, 238);
       .el-collapse {
         width: 100%;
         border: 0;
@@ -169,11 +166,11 @@ export default defineComponent({
           padding: 0 0 25px;
           &.success {
             &::before {
-              background-color: #e85a39 !important;
+              background-color: @theme-color !important;
             }
             .el-collapse-item__header {
               span {
-                color: rgba(0, 0, 0, 0.87);
+                color: @primary-color;
               }
             }
           }
@@ -185,9 +182,9 @@ export default defineComponent({
               border-color: transparent !important;
               &.desc-root {
                 .flex-row {
-                  color: #0c0b0b !important;
+                  color: @primary-color !important;
                   .width-icon {
-                    fill: #0c0b0b !important;
+                    fill: @primary-color !important;
                   }
                 }
               }
@@ -200,14 +197,14 @@ export default defineComponent({
             bottom: 4px;
             width: 1px;
             height: 25px;
-            background-color: rgb(234, 234, 240);
+            background-color: @dot-color;
           }
           &.is-disabled {
             .el-collapse-item__header {
               span {
-                color: rgba(0, 0, 0, 0.6);
+                color: @primary-color-opacity;
                 &:hover {
-                  color: rgba(0, 0, 0, 0.6);
+                  color: @primary-color-opacity;
                   cursor: text;
                 }
               }
@@ -220,15 +217,15 @@ export default defineComponent({
             line-height: 1.7;
             &.is-active {
               span {
-                color: rgba(0, 0, 0, 0.87);
+                color: @primary-color;
                 &:hover {
-                  color: rgba(0, 0, 0, 0.87);
+                  color: @primary-color;
                   cursor: text;
                 }
               }
               .header-icon {
                 .inner {
-                  background-color: #e85a39;
+                  background-color: @theme-color;
                 }
               }
             }
@@ -237,7 +234,7 @@ export default defineComponent({
             }
             .header-icon {
               padding: 0 8px 0 0;
-              background-color: #fff;
+              background-color: @white-color;
               border: 0;
               border-radius: 0;
               .inner {
@@ -245,19 +242,19 @@ export default defineComponent({
                 width: 8px;
                 height: 8px;
                 margin-left: 3px;
-                background-color: rgb(234, 234, 240);
+                background-color: @dot-color;
                 border-radius: 8px;
               }
               .avtive {
-                color: #e85a39;
-                fill: #e85a39;
+                color: @theme-color;
+                fill: @theme-color;
               }
             }
             span {
-              color: rgba(0, 0, 0, 0.6);
+              color: @primary-color-opacity;
               cursor: pointer;
               &:hover {
-                color: #e85a39;
+                color: @theme-color;
               }
             }
           }
@@ -267,17 +264,17 @@ export default defineComponent({
             border: 0;
             .el-collapse-item__content {
               padding: 0;
-              color: rgba(0, 0, 0, 0.6);
+              color: @primary-color-opacity;
               text-align: left;
               .desc {
                 padding: 0 0 0 28px;
                 margin: 0 0 0 6px;
-                border-left: 1px solid rgb(117, 117, 117);
+                border-left: 1px solid @grey-color;
                 &.desc-root {
                   padding-top: 20px;
                   .el-button {
                     text-transform: uppercase;
-                    color: #fff;
+                    color: @white-color;
                     a {
                       color: inherit;
                     }
@@ -286,16 +283,23 @@ export default defineComponent({
                     margin: 0 0 0 16px;
                   }
                 }
+                .el-button {
+                  background-color: @theme-color;
+                  border-color: @theme-color;
+                  &:hover {
+                    opacity: 0.8;
+                  }
+                }
                 .flex-row {
                   padding: 0 0 0 4px;
-                  color: #e85a39;
+                  color: @theme-color;
                   cursor: pointer;
                   &:hover {
                     text-decoration: underline;
                   }
                   .width-icon {
                     margin-left: 4px;
-                    fill: #e85a39;
+                    fill: @theme-color;
                   }
                 }
               }

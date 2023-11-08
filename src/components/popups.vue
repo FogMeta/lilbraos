@@ -74,7 +74,7 @@ export default defineComponent({
       const time = await throttle()
       if (!time) return false
       system.$commonFun.Init(async (addr, chain) => {
-        if (chain) spookyMethod()
+        // if (chain) spookyMethod()
       })
     }
 
@@ -113,15 +113,15 @@ export default defineComponent({
   bottom: 0;
   z-index: 99;
   background-color: rgba(0, 0, 0, 0.5);
-  color: #0c0b0b;
+  color: @primary-color;
   line-height: 1;
   transition: all 0.2s;
   .connect-area {
     position: relative;
     min-width: 30%;
-    color: rgba(0, 0, 0, 0.87);
+    color: @primary-color;
     border-radius: 4px;
-    background-color: #fff;
+    background-color: @white-color;
     @media screen and (max-width: 1260px) {
       width: 35%;
     }
@@ -143,7 +143,7 @@ export default defineComponent({
       right: 10px;
       top: 10px;
       font-size: 25px;
-      color: #0c0b0b;
+      color: @primary-color;
       cursor: pointer;
       z-index: 100;
       padding: 4px;
