@@ -1,3 +1,3 @@
 module.exports = {
-  baseTitle: 'Libra OS'
+  baseTitle: 'Libra Cloud OS'
 }

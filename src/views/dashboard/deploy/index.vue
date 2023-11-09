@@ -43,7 +43,6 @@ export default defineComponent({
   },
   setup () {
     const store = useStore()
-    const reverse = computed(() => (store.state.reverse))
     const bodyWidth = ref(document.body.clientWidth <= 768 ? 30 : 50)
     const system = getCurrentInstance().appContext.config.globalProperties
     const route = useRoute()

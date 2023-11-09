@@ -30,7 +30,7 @@ export default {
   .button,
   .pop-up .connect-area .close {
     &:hover {
-      background-color: rgba(0, 0, 0, 0.24) !important;
+      background-color: @primary-color-opacity1 !important;
     }
   }
   #container-settings .module .area .el-row .el-col .cont,

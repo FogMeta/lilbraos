@@ -26,12 +26,17 @@
         </el-steps>
       </div>
       <div class="area">
-        <h1 class="font-32 weight-6 mt-border">Deploy Application From Lagrange Space</h1>
+        <h1 class="font-32 weight-6 mt-border">Deploy Lagrange Space</h1>
         <el-row :gutter="10">
           <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6">
             <!-- @click="active ='2'" -->
             <el-card class="is-disabled" shadow="hover">
-              <div class="font-14 weight-4">Space URL</div>
+              <div class="font-14 weight-4 flex-row">
+                Space URL
+                </div>
+                 <div class="font-12 weight-4 desc">
+                <el-input v-model="urlValue" class="font-14" clearable placeholder="Space URL" />
+                </div>
             </el-card>
           </el-col>
         </el-row>
@@ -57,7 +62,7 @@ import { defineComponent, computed, onMounted, watch, ref, reactive, getCurrentI
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
 import { Edit } from '@element-plus/icons-vue'
-import { ElButton, ElRow, ElCol, ElSelect, ElOption, ElStep, ElSteps, ElCard } from "element-plus"
+import { ElButton, ElRow, ElCol, ElSelect, ElOption, ElStep, ElSteps, ElCard, ElInput } from "element-plus"
 export default defineComponent({
   components: {
     Edit,
@@ -65,16 +70,15 @@ export default defineComponent({
     ElRow,
     ElCol,
     ElSelect,
-    ElOption, ElStep, ElSteps, ElCard
+    ElOption, ElStep, ElSteps, ElCard, ElInput
   },
   setup () {
     const store = useStore()
-    const reverse = computed(() => (store.state.reverse))
     const bodyWidth = ref(document.body.clientWidth <= 768 ? 30 : 50)
     const system = getCurrentInstance().appContext.config.globalProperties
     const route = useRoute()
     const router = useRouter()
-    const claimShow = ref(false)
+    const urlValue = ref('')
     const active = ref('1')
     const theme = reactive({
       value: '',
@@ -99,7 +103,7 @@ export default defineComponent({
     return {
       system,
       bodyWidth,
-      claimShow,
+      urlValue,
       active,
       theme,
       rollback

@@ -28,7 +28,8 @@ async function sendRequest(apilink, type, jsonObject, api_token) {
     }
   } catch (err) {
     console.error(err, err.response)
-    messageTip('error', err.response ? err.response.statusText : 'Request failed. Please try again later!')
+    notificationTip(err.response ? err.response.statusText : 'Request failed. Please try again later!', 'error')
+    // messageTip('error', err.response ? err.response.statusText : 'Request failed. Please try again later!')
     if (err.response) {
       // The request has been sent, but the status code of the server response is not within the range of 2xx
       // console.log(err.response.data)
@@ -63,6 +64,17 @@ async function notificationTip(title, type, message) {
     type: type,
     position: 'bottom-right'
   })
+}
+
+function sizeChange(bytes) {
+  if (bytes === 0) return '0 B'
+  if (!bytes) return '-'
+  var k = 1024 // or 1000
+  var sizes = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+  var i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  if (Math.round((bytes / Math.pow(k, i))).toString().length > 3) i += 1
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
 }
 
 function copyContent(text, tipCont) {
@@ -204,6 +216,7 @@ export default {
   timeout,
   messageTip,
   notificationTip,
+  sizeChange,
   copyContent,
   goLink,
   Init,

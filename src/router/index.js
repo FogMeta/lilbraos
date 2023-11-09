@@ -16,8 +16,12 @@ const deployNew = () =>
     import ("@/views/dashboard/deploy/new")
 const templates = () =>
     import ("@/views/dashboard/templates/index")
+const providers = () =>
+    import ("@/views/dashboard/providers/index")
 const analytics = () =>
     import ("@/views/dashboard/analytics/index")
+const priceCompare = () =>
+    import ("@/views/dashboard/priceCompare/index")
 const faq = () =>
     import ("@/views/dashboard/faq/index")
 const settings = () =>
@@ -32,7 +36,7 @@ const routes = [{
             component: main,
             meta: {
                 keepAlive: true,
-                title: 'Libra OS'
+                title: 'Home'
             }
         }, {
             path: '/get-started',
@@ -40,7 +44,7 @@ const routes = [{
             component: getStarted,
             meta: {
                 keepAlive: true,
-                title: 'Libra OS'
+                title: 'Get started with Libra Cloud OS'
             }
         }, {
             path: '/deploy',
@@ -48,7 +52,7 @@ const routes = [{
             component: deploy,
             meta: {
                 keepAlive: true,
-                title: 'Libra OS'
+                title: 'Deployments'
             }
         }, {
             path: '/new-deployment',
@@ -56,7 +60,7 @@ const routes = [{
             component: deployNew,
             meta: {
                 keepAlive: true,
-                title: 'Libra OS'
+                title: 'Create Deployment'
             }
         }, {
             path: '/templates',
@@ -64,7 +68,15 @@ const routes = [{
             component: templates,
             meta: {
                 keepAlive: true,
-                title: 'Libra OS'
+                title: 'Template Gallery'
+            }
+        }, {
+            path: '/providers',
+            name: 'providers',
+            component: providers,
+            meta: {
+                keepAlive: true,
+                title: 'Providers'
             }
         }, {
             path: '/analytics',
@@ -72,7 +84,15 @@ const routes = [{
             component: analytics,
             meta: {
                 keepAlive: true,
-                title: 'Libra OS'
+                title: 'Analytics'
+            }
+        }, {
+            path: '/price-compare',
+            name: 'priceCompare',
+            component: priceCompare,
+            meta: {
+                keepAlive: true,
+                title: 'Price comparision'
             }
         }, {
             path: '/faq',
@@ -80,7 +100,7 @@ const routes = [{
             component: faq,
             meta: {
                 keepAlive: true,
-                title: 'Libra OS'
+                title: 'Frequently Libra Cloud OS Questions'
             }
         }, {
             path: '/settings',
@@ -88,7 +108,7 @@ const routes = [{
             component: settings,
             meta: {
                 keepAlive: true,
-                title: 'Libra OS'
+                title: 'Settings'
             }
         }]
     },

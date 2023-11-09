@@ -9,7 +9,7 @@ const startLoading = () => {
     loading = ElLoading.service({
         lock: true,
         text: 'loading...',
-        background: 'rgba(0, 0, 0, 0.5)'
+        background: 'rgba(0, 0, 0, 0.6)'
     });
 };
 

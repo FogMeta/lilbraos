@@ -209,7 +209,7 @@ export default defineComponent({
         padding: 6px 10px;
         line-height: 24px;
         &:hover {
-          background-color: rgba(0, 0, 0, 0.04);
+          background-color: @primary-color-opacity2;
         }
         a.no-color {
           color: @primary-color;
@@ -301,7 +301,7 @@ export default defineComponent({
     box-shadow: 0 0 10px @primary-color-opacity;
     li {
       padding: 6px 16px;
-      background-color: rgba(255, 255, 255, 1);
+      background-color: @white-color;
       color: @primary-color !important;
       &:first-child {
         background-color: @theme-color;

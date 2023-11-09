@@ -2,7 +2,7 @@
   <section id="container-getStarted" class="lang-max top-margin both-margin">
     <!-- <el-progress :percentage="100" status="warning" :indeterminate="true" :duration="1" :show-text="false" stroke-linecap="square" /> -->
     <div class="module">
-      <h1 class="font-20 weight-6 flex-row space-between padding-16">Get started with LIbra Cloud OS!</h1>
+      <h1 class="font-20 weight-6 flex-row space-between padding-16">Get started with Libra Cloud OS!</h1>
       <div class="area padding-16 flex-row flex-start">
         <el-collapse v-model="active" accordion>
           <el-collapse-item name="1" :disabled="active==='1'" :class="{'success': active !== '1'}">

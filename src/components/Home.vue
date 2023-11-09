@@ -94,6 +94,7 @@ export default defineComponent({
     }
     .el-header {
       background-color: @white-color;
+      z-index: 3333;
     }
     .el-main-mit {
       height: calc(100vh - 60px);
@@ -125,7 +126,7 @@ a {
   cursor: pointer;
   border-radius: 100px;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: @primary-color-opacity2;
   }
   svg,
   path {
@@ -164,7 +165,7 @@ a {
 .both-margin {
   padding-left: 16px;
   padding-right: 16px;
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 1800px) {
     padding-left: 24px;
     padding-right: 24px;
   }
@@ -238,6 +239,10 @@ a {
   // @media screen and (max-width: 600px) {
   //   font-size: 88px;
   // }
+}
+
+.font-34 {
+  font-size: 34px;
 }
 
 .font-32 {
@@ -416,21 +421,21 @@ a {
   }
 }
 
-.el-loading-spinner .path {
-  stroke: #c37af9;
-}
-.el-loading-spinner .el-loading-text {
-  margin: 15px 0;
-  font-size: 20px;
-  color: #c37af9;
-  @media screen and (min-width: 2160px) {
+.el-loading-spinner {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  .path {
+    stroke: @theme-color;
+  }
+  .el-loading-text {
+    width: 100%;
+    margin: 8px 0 0;
     font-size: 16px;
-  }
-  @media screen and (max-width: 768px) {
-    font-size: 30px;
-  }
-  @media screen and (max-width: 600px) {
-    font-size: 60px;
+    color: @theme-color;
+    @media screen and (min-width: 2160px) {
+      font-size: 14px;
+    }
   }
 }
 </style>

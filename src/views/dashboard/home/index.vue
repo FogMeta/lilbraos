@@ -3,7 +3,7 @@
     <!-- <el-progress :percentage="100" status="warning" :indeterminate="true" :duration="1" :show-text="false" stroke-linecap="square" /> -->
     <div class="module">
       <h1 class="font-20 weight-6 flex-row space-between padding">
-        Welcome to LIbra Cloud OS!
+        Welcome to Libra Cloud OS!
         <div class="button width-icon" @click="collapse=!collapse">
           <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ExpandMoreIcon">
             <path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
@@ -19,8 +19,8 @@
               </svg>
             </div>
             <div class="multiline weight-5">
-              <router-link :to="{name:'get-started'}" class="font-16">Getting started with LIbra Cloud OS</router-link>
-              <p class="font-14">Learn how to deploy your first docker container on Lagrange in a few click using LIbra Cloud OS.</p>
+              <router-link :to="{name:'get-started'}" class="font-16">Getting started with Libra Cloud OS</router-link>
+              <p class="font-14">Learn how to deploy your first docker container on Lagrange in a few click using Libra Cloud OS.</p>
             </div>
           </li>
           <li class="gutters flex-row">
@@ -65,8 +65,8 @@
     <footer>
       <el-row :gutter="10">
         <el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20">
-          <h3 class="font-24 weight-6">LIbra Cloud OS</h3>
-          <p class="font-14 weight-4 desc">LIbra Cloud OS is the #1 platform to deploy docker containers on the Akash Network, a decentralized cloud compute marketplace. Explore, deploy and track all in one place!</p>
+          <h3 class="font-24 weight-6">Libra Cloud OS</h3>
+          <p class="font-14 weight-4 desc">Libra Cloud OS is the #1 platform to deploy docker containers on the Lagrange Network, a decentralized cloud compute marketplace. Explore, deploy and track all in one place!</p>
         </el-col>
         <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
           <h6 class="font-16 weight-4">Donate</h6>
@@ -115,7 +115,7 @@
                 <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CopyrightIcon">
                   <path d="M11.88 9.14c1.28.06 1.61 1.15 1.63 1.66h1.79c-.08-1.98-1.49-3.19-3.45-3.19C9.64 7.61 8 9 8 12.14c0 1.94.93 4.24 3.84 4.24 2.22 0 3.41-1.65 3.44-2.95h-1.79c-.03.59-.45 1.38-1.63 1.44-1.31-.04-1.86-1.06-1.86-2.73 0-2.89 1.28-2.98 1.88-3zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
                 </svg>
-              </span>&nbsp;LIbra Cloud OS
+              </span>&nbsp;Libra Cloud OS
             </div>
           </div>
         </el-col>
@@ -147,7 +147,7 @@ export default defineComponent({
     const claimShow = ref(false)
     const collapse = ref(false)
     const connetShow = ref(false)
-    const donateValue = ref('akash13265twfqejnma6cc93rw5dxk4cldyz2zyy8cdm')
+    const donateValue = ref('Lagrange13265twfqejnma6cc93rw5dxk4cldyz2zyy8cdm')
 
     function hardClose (dialog) {
       connetShow.value = dialog
@@ -251,7 +251,7 @@ export default defineComponent({
         border-radius: 50px;
         transition: all 0.2s;
         &:hover {
-          background-color: rgba(0, 0, 0, 0.24);
+          background-color: @primary-color-opacity1;
           svg,
           path {
             fill: rgba(0, 0, 0, 0.4);

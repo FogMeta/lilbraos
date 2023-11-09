@@ -4,23 +4,69 @@
       <h1 class="font-32 weight-6 mt-border">Lagrange Network Mainnet Dashboard</h1>
       <div class="area flex-row space-between">
         <el-row :gutter="16" class="tem-row">
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-row :gutter="16">
-              <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="n in 7" :key="n">
-                <el-card class="is-disabled" shadow="hover">
-                  <div class="font-16 weight-4">AKT PRICE</div>
-                  <div class="font-24 weight-4 desc">
-                    <span class="font-16">US$</span> 1.18
-                  </div>
-                </el-card>
-              </el-col>
-            </el-row>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="n in 4" :key="n">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">AKT PRICE</div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">US$</span> 1.18
+              </div>
+            </el-card>
           </el-col>
         </el-row>
       </div>
       <div class="area flex-row space-between">
         <h3 class="font-24 weight-3 padding-16">Network Summary</h3>
+        <el-row :gutter="16" class="tem-row">
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="n in 4" :key="n">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">AKT PRICE</div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">US$</span> 1.18
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
       </div>
+      <div class="area flex-row space-between">
+        <h3 class="font-24 weight-3 padding-16">Spent Assets</h3>
+        <el-row :gutter="16" class="tem-row">
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="n in 4" :key="n">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">AKT PRICE</div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">US$</span> 1.18
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+      </div>
+      <div class="area flex-row space-between">
+        <h3 class="font-24 weight-3 padding-16">Total resources leased</h3>
+        <el-row :gutter="16" class="tem-row">
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="n in 4" :key="n">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">AKT PRICE</div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">US$</span> 1.18
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+      </div>
+      <div class="area flex-row space-between">
+        <h3 class="font-24 weight-3 padding-16">Network Capacity</h3>
+        <el-row :gutter="16" class="tem-row">
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="n in 4" :key="n">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">AKT PRICE</div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">US$</span> 1.18
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+      </div>
+      <div class="time font-12 weight-4">Last updated: {{gmtTime}}</div>
     </div>
   </section>
 </template>
@@ -39,57 +85,46 @@ export default defineComponent({
   },
   setup () {
     const store = useStore()
-    const reverse = computed(() => (store.state.reverse))
     const bodyWidth = ref(document.body.clientWidth <= 768 ? 30 : 50)
     const system = getCurrentInstance().appContext.config.globalProperties
     const route = useRoute()
     const router = useRouter()
-    const searchValue = ref('')
-    const collapse = ref(false)
-    const theme = reactive({
-      value: '',
-      options: [{
-        value: 'Auto',
-        label: 'Auto',
-      }, {
-        value: 'Dark',
-        label: 'Dark 🌑',
-      }, {
-        value: 'Light',
-        label: 'Light ☀️',
-      }]
-    })
+    const gmtTime = ref('')
 
-    function themeMethod () {
-      switch (theme.value) {
-        case 'Dark':
-          store.dispatch('setReverse', 1)
-          break
-        case 'Light':
-          store.dispatch('setReverse', 2)
-          break
-        default:
-          store.dispatch('setReverse', 0)
+    function currentTime () {
+      var date = new Date();
+      var year = date.getFullYear()
+      let month = date.getMonth()
+      var dateArr = [
+        date.getMonth() + 1,
+        date.getDate(),
+        date.getHours(),
+        date.getMinutes(),
+        date.getSeconds(),
+      ];
+      for (var i = 0; i < dateArr.length; i++) {
+        if (dateArr[i] >= 1 && dateArr[i] <= 9) {
+          dateArr[i] = "0" + dateArr[i];
+        }
       }
-      console.log(store.state.reverse)
-      system.$commonFun.checkMode()
+      var strDate =
+        year +
+        "/" +
+        dateArr[0] +
+        "/" +
+        dateArr[1] +
+        " " +
+        dateArr[2] +
+        ":" +
+        dateArr[3] +
+        ":" +
+        dateArr[4];
+      gmtTime.value = strDate
     }
-    async function checkMode () {
-      const check = await system.$commonFun.checkDarkMode()
-      if (reverse.value === '1') theme.value = 'Dark'
-      else if (reverse.value === '2') theme.value = 'Light'
-      else theme.value = 'Auto'
-    }
-    onMounted(async () => {
-      checkMode()
-    })
+    onMounted(async () => { currentTime() })
     return {
       system,
-      bodyWidth,
-      searchValue,
-      collapse,
-      theme,
-      themeMethod
+      bodyWidth, gmtTime
     }
   }
 })
@@ -117,6 +152,11 @@ export default defineComponent({
     h3 {
       width: 100%;
       text-align: center;
+    }
+    .time {
+      padding: 40px 0 16px;
+      color: @grey-color;
+      font-style: italic;
     }
     .area {
       height: auto;

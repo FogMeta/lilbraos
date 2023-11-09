@@ -45,7 +45,7 @@
           </i>
           <template #title>Space Builder</template>
         </el-menu-item>
-        <el-menu-item index="5" class="menu" disabled>
+        <el-menu-item index="providers" class="menu">
           <i class="el-icon width-icon">
             <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DnsIcon">
               <path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zM7 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></path>
@@ -60,9 +60,9 @@
               <path d="m15 9 .94-2.07L18 6l-2.06-.93L15 3l-.92 2.07L12 6l2.08.93zM3.5 11 4 9l2-.5L4 8l-.5-2L3 8l-2 .5L3 9z"></path>
             </svg>
           </i>
-          <template #title>Statistics and Analysis</template>
+          <template #title>Statistics</template>
         </el-menu-item>
-        <el-menu-item index="7" class="menu" disabled>
+        <el-menu-item index="priceCompare" class="menu">
           <i class="el-icon width-icon">
             <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SavingsIcon">
               <path d="m19.83 7.5-2.27-2.27c.07-.42.18-.81.32-1.15.08-.18.12-.37.12-.58 0-.83-.67-1.5-1.5-1.5-1.64 0-3.09.79-4 2h-5C4.46 4 2 6.46 2 9.5S4.5 21 4.5 21H10v-2h2v2h5.5l1.68-5.59 2.82-.94V7.5h-2.17zM13 9H8V7h5v2zm3 2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"></path>
@@ -189,7 +189,9 @@ export default defineComponent({
       else if (key === 'deploy') router.push({ name: 'deploy' })
       else if (key === 'deployNew') router.push({ name: 'deployNew' })
       else if (key === 'templates') router.push({ name: 'templates' })
+      else if (key === 'providers') router.push({ name: 'providers' })
       else if (key === 'analytics') router.push({ name: 'analytics' })
+      else if (key === 'priceCompare') router.push({ name: 'priceCompare' })
       else if (key === 'faq') router.push({ name: 'faq' })
       else if (key === 'settings') router.push({ name: 'settings' })
       // else if (key === '3-1') router.push({ name: 'swan' })
@@ -205,7 +207,9 @@ export default defineComponent({
       if (nameMenu.indexOf('home') > -1) activeIndex.value = 'home'
       else if (nameMenu.indexOf('deploy') > -1 || nameMenu.indexOf('new-deployment') > -1) activeIndex.value = 'deploy'
       else if (nameMenu.indexOf('templates') > -1) activeIndex.value = 'templates'
+      else if (nameMenu.indexOf('providers') > -1) activeIndex.value = 'providers'
       else if (nameMenu.indexOf('analytics') > -1) activeIndex.value = 'analytics'
+      else if (nameMenu.indexOf('priceCompare') > -1) activeIndex.value = 'priceCompare'
       else if (nameMenu.indexOf('faq') > -1) activeIndex.value = 'faq'
       else if (nameMenu.indexOf('settings') > -1) activeIndex.value = 'settings'
       else activeIndex.value = '100'
@@ -237,6 +241,7 @@ export default defineComponent({
   height: 100%;
   background-color: @white-color;
   transition: all 0.2s;
+  z-index: 3333;
   .el-menu {
     align-items: start;
     align-content: space-between;
@@ -299,7 +304,7 @@ export default defineComponent({
       &.menu {
         padding: 8px 12px 8px 16px !important;
         &:hover {
-          background-color: rgba(0, 0, 0, 0.04);
+          background-color: @primary-color-opacity2;
         }
       }
       .el-icon {
@@ -339,7 +344,7 @@ export default defineComponent({
         margin: auto;
         text-transform: uppercase;
         &:hover {
-          background-color: rgba(0, 0, 0, 0.04);
+          background-color: @primary-color-opacity2;
         }
         .el-icon {
           margin: 0 0 0 6px;

@@ -20,7 +20,11 @@ const addOptions = {
 }
 
 const externals = {
-  'web3': 'Web3'
+  "axios": "axios",
+  'moment': 'moment',
+  'qs': 'Qs',
+  'web3': 'Web3',
+  // 'echarts': 'echarts'
 }
 
 module.exports = {
@@ -42,6 +46,9 @@ module.exports = {
           'white-color': '#fff',
           'primary-color': 'rgba(0,0,0,0.87)',
           'primary-color-opacity': 'rgba(0,0,0,0.6)',
+          'primary-color-opacity1': 'rgba(0, 0, 0, 0.24)',
+          'primary-color-opacity2': 'rgba(0, 0, 0, 0.04)',
+          'primary-color-opacity3': 'rgb(224, 224, 224)',
           'theme-color': 'rgba(72, 176, 255, 1)',
           'theme-color-opacity': 'rgba(72, 176, 255, 0.5)',
           'theme-color-opacity1': 'rgba(72, 176, 255, 0.8)',

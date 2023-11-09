@@ -113,7 +113,6 @@ export default defineComponent({
         default:
           store.dispatch('setReverse', 0)
       }
-      console.log(store.state.reverse)
       system.$commonFun.checkMode()
     }
     async function checkMode () {
@@ -154,7 +153,7 @@ export default defineComponent({
         .el-col {
           line-height: 1.5;
           .cont {
-            background-color: rgba(255, 255, 255, 1);
+            background-color: @white-color;
             border-radius: 4px;
             h3,
             h6 {
@@ -167,7 +166,7 @@ export default defineComponent({
               }
               ul {
                 li {
-                  cursor: pointer;
+                  cursor: no-drop;
                   .edit {
                     margin: 0 16px;
                     i {

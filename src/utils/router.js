@@ -8,7 +8,7 @@ const writer = (to) => {
             case "TITLE":
                 const name = to.params.name ? to.params.name + ' · ' : ''
                 const t = to.meta.title || ''
-                document.title = `${name}${t}`;
+                document.title = `${name}${t} | Libra Cloud OS`;
                 break;
         }
     });

@@ -1,5 +1,5 @@
 <template>
-  <section id="container-settings" class="lang-max top-margin both-margin">
+  <section id="container-templates" class="lang-max top-margin both-margin">
     <div class="module">
       <h1 class="font-48 weight-6 flex-row center">Find your Template</h1>
       <h3 class="font-24 weight-4 flex-row center">Jumpstart your app development process with our pre-built solutions.</h3>
@@ -10,13 +10,13 @@
               <div class="title font-16 weight-6">Filter Templates</div>
               <el-input v-model="searchValue" class="font-14" clearable placeholder="Search" />
               <ul>
-                <li v-for="i in 7" :key="i" :class="{'font-14 weight-4':true, 'active': i===1}">All(666)</li>
+                <li v-for="i in 1" :key="i" :class="{'font-14 weight-4':true, 'active': i===1}">All(1)</li>
               </ul>
             </div>
           </el-col>
           <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18">
             <el-row :gutter="16">
-              <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8" v-for="n in 7" :key="n">
+              <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8" v-for="n in 1" :key="n">
                 <el-card class="is-disabled" shadow="hover">
                   <div class="font-14 weight-4">Hello World</div>
                   <div class="font-12 weight-4 desc">Simple next.js web application showing hello world.</div>
@@ -44,7 +44,6 @@ export default defineComponent({
   },
   setup () {
     const store = useStore()
-    const reverse = computed(() => (store.state.reverse))
     const bodyWidth = ref(document.body.clientWidth <= 768 ? 30 : 50)
     const system = getCurrentInstance().appContext.config.globalProperties
     const route = useRoute()
@@ -65,43 +64,20 @@ export default defineComponent({
       }]
     })
 
-    function themeMethod () {
-      switch (theme.value) {
-        case 'Dark':
-          store.dispatch('setReverse', 1)
-          break
-        case 'Light':
-          store.dispatch('setReverse', 2)
-          break
-        default:
-          store.dispatch('setReverse', 0)
-      }
-      console.log(store.state.reverse)
-      system.$commonFun.checkMode()
-    }
-    async function checkMode () {
-      const check = await system.$commonFun.checkDarkMode()
-      if (reverse.value === '1') theme.value = 'Dark'
-      else if (reverse.value === '2') theme.value = 'Light'
-      else theme.value = 'Auto'
-    }
-    onMounted(async () => {
-      checkMode()
-    })
+    onMounted(async () => {})
     return {
       system,
       bodyWidth,
       searchValue,
       collapse,
-      theme,
-      themeMethod
+      theme
     }
   }
 })
 </script>
 
 <style lang="less" scoped>
-#container-settings {
+#container-templates {
   font-size: 18px;
   letter-spacing: 1px;
   word-break: break-word;

@@ -63,8 +63,8 @@ export default defineComponent({
       color: transparent;
       background-image: linear-gradient(
         to right,
-        rgb(239, 140, 61),
-        rgb(229, 67, 72)
+        @theme-color-opacity,
+        @theme-color
       );
       -webkit-background-clip: text;
     }
