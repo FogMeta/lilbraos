@@ -64,7 +64,7 @@ export default defineComponent({
       }]
     })
 
-    onMounted(async () => {})
+    onMounted(async () => { })
     return {
       system,
       bodyWidth,
@@ -101,7 +101,7 @@ export default defineComponent({
               margin: 16px 0 24px;
               .el-input__wrapper {
                 background-color: transparent;
-                border: 1px solid @primary-color;
+                border: 1px solid @primary-color-opacity1;
                 box-shadow: none;
                 .el-input__inner {
                   height: auto;

@@ -356,7 +356,7 @@ export default defineComponent({
                   text-align: left;
                   color: @primary-color;
                   box-shadow: none;
-                  border: 1px solid @primary-color-opacity;
+                  border: 1px solid @primary-color-opacity1;
                   .el-input__inner {
                     color: inherit;
                   }
@@ -405,7 +405,7 @@ export default defineComponent({
                     position: relative;
                     width: 100%;
                     margin: 0 8px 0 0;
-                    border: 1px solid @primary-color-opacity;
+                    border: 1px solid @primary-color-opacity1;
                     border-radius: 4px;
                     small {
                       position: absolute;
