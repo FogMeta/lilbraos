@@ -63,8 +63,8 @@
                 </div>
               </div>
             </div>
-            <div class="main-body padding-16">
-              <div class="root">
+            <div class="main-body" :class="{'hide': item.collapse}">
+              <div class="root padding-16">
                 <el-row :gutter="16">
                   <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
                     <div class="piece flex-row space-between">
@@ -346,7 +346,14 @@ export default defineComponent({
             }
           }
           .main-body {
+            max-height: unset;
             border-top: 1px solid @dot-color;
+            animation: showing 0.1s linear 1 forwards;
+            transition: all 0.8s;
+            overflow: hidden;
+            &.hide {
+              animation: hiddening 0.2s linear 1 forwards;
+            }
             .el-row {
               .el-col {
                 .piece {
