@@ -1,18 +1,18 @@
 <template>
   <section id="container-header">
-    <div class="header both-margin flex-row space-between">
+    <div class="header both-margin flex-row space-between nowrap">
       <img :src="libraLogoDark" class="logo-img mit" alt='libra' @click="goMain" />
       <el-input v-model="searchValue" class="w-50 m-2 font-14" clearable placeholder="Search by Address, Block Height, TxHash...">
         <template #append>
           <el-button :class="{'is-active': searchValue !== ''}">{{ searchValue ? 'Search Block': 'Search'}}</el-button>
         </template>
       </el-input>
-      <div class="header-right flex-row" v-show="clientWidth">
+      <div class="header-right flex-row nowrap" v-show="clientWidth">
         <div class="get-started">
           <router-link :to="{name:'get-started'}" :class="{'no-color': route.name !== 'get-started'}">Get Started</router-link>
           <span></span>
         </div>
-        <div class="connect flex-row" @click="connetShow=true">
+        <div class="connect flex-row nowrap" @click="connetShow=true">
           <svg class="width-icon small" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="AccountBalanceWalletIcon">
             <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
           </svg>
@@ -118,7 +118,6 @@ export default defineComponent({
   width: 100%;
   white-space: nowrap;
   :deep(.header) {
-    flex-wrap: nowrap;
     margin: auto;
     font-size: 16px;
     .logo-img,
@@ -202,7 +201,6 @@ export default defineComponent({
     }
     .header-right {
       color: @primary-color;
-      flex-wrap: nowrap;
       .get-started {
         position: relative;
         min-width: 64px;
@@ -241,7 +239,6 @@ export default defineComponent({
         }
       }
       .connect {
-        flex-wrap: nowrap;
         padding: 6px 15px;
         margin: 0 20px;
         text-transform: uppercase;

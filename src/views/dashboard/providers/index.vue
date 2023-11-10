@@ -89,7 +89,7 @@
             <el-checkbox label="Audited" />
           </el-checkbox-group>
         </h1>
-        <div class="search-body flex-row">
+        <div class="search-body flex-row flex-start nowrap">
           <el-input v-model="networkInput" placeholder="Search Providers" />
           <div class="flex-row center">
             <small class="font-12">Rows per page</small>
@@ -683,8 +683,6 @@ export default defineComponent({
         }
       }
       .search-body {
-        justify-content: flex-start;
-        flex-wrap: nowrap;
         margin: 0.24rem 0 0;
         @media screen and (max-width: 600px) {
           flex-wrap: wrap;

@@ -54,7 +54,7 @@
       <h1 class="font-20 weight-6 padding-16">Your Account</h1>
       <div class="area flex-row center padding-16">
         <p class="font-20 weight-3 tit">Connect your wallet to deploy!</p>
-        <div class="connect flex-row" @click="connetShow=true">
+        <div class="connect flex-row nowrap" @click="connetShow=true">
           <svg class="width-icon small" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="AccountBalanceWalletIcon">
             <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
           </svg>
@@ -70,7 +70,7 @@
         </el-col>
         <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4">
           <h6 class="font-16 weight-4">Donate</h6>
-          <div class="copy flex-row space-between font-12">
+          <div class="copy flex-row space-between nowrap font-12">
             <p>{{donateValue}}</p>
             <span class="width-icon min-small" @click="system.$commonFun.notificationTip('Address copied!', 'success', donateValue)">
               <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FileCopyIcon">
@@ -188,18 +188,17 @@ export default defineComponent({
       height: auto;
       max-height: unset;
       text-align: center;
-      transition: all 0.8s;
+      transition: all 0.3s;
       overflow: hidden;
       border-top: 1px solid rgb(238, 238, 238);
-      animation: showing 0.2s linear 1 forwards;
+      animation: showing 0.1s linear 1 forwards;
       &.hide {
-        animation: hiddening 0.2s linear 1 forwards;
+        animation: hiddening 0.1s linear 1 forwards;
       }
       p.tit {
         width: 100%;
       }
       .connect {
-        flex-wrap: nowrap;
         padding: 6px 15px;
         margin: 0.16rem auto;
         text-transform: uppercase;
@@ -247,7 +246,6 @@ export default defineComponent({
       .copy {
         padding: 4px 8px;
         margin: 4px 0;
-        flex-wrap: nowrap;
         background-color: rgba(0, 0, 0, 0.16);
         border-radius: 50px;
         transition: all 0.2s;

@@ -1,7 +1,7 @@
 <template>
   <section id="container-settings" class="lang-max top-margin both-margin">
     <div class="module">
-      <div class="area flex-row flex-start">
+      <div class="area flex-row flex-start nowrap">
         <div class="button width-icon" @click="rollback">
           <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ChevronLeftIcon">
             <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
@@ -121,7 +121,6 @@ export default defineComponent({
   :deep(.module) {
     margin: 0 auto 15px;
     .area {
-      flex-wrap: nowrap;
       height: auto;
       transition: all 0.8s;
       .el-steps {

@@ -18,45 +18,50 @@
         </div>
         <div class="builder">
           <div class="list" v-for="(item, l) in builderData" :key="l">
-            <div class="top padding-16 flex-row space-between">
-              <div class="top-left flex-row center">
+            <div class="top padding-16 flex-row space-between nowrap">
+              <div class="top-left flex-row center nowrap">
                 <small class="font-12">Service Name</small>
                 <el-input v-model="item.name" placeholder="Service Name" class="font-16" />
+                <div class="m-16">
+                  <pop-over :textData="item.cpuPop"></pop-over>
+                </div>
               </div>
-              <div class="top-right flex-row center">
-                <div class="flex-row center font-12 weight-4">
-                  <div class="width-icon big">
-                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SpeedIcon">
-                      <path d="m20.38 8.57-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"></path>
+              <div class="top-right flex-row center nowrap">
+                <div class="flex-row center nowrap" v-show="item.collapse">
+                  <div class="flex-row center nowrap font-12 weight-4">
+                    <div class="width-icon big">
+                      <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SpeedIcon">
+                        <path d="m20.38 8.57-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"></path>
+                      </svg>
+                    </div>
+                    <span class="font-16 weight-6">1</span>
+                    CPU
+                  </div>
+                  <div class="flex-row center nowrap font-12 weight-4">
+                    <div class="width-icon big">
+                      <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MemoryIcon">
+                        <path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"></path>
+                      </svg>
+                    </div>
+                    <span class="font-16 weight-6">2 GB</span>
+                    RAM
+                  </div>
+                  <div class="flex-row center nowrap font-12 weight-4">
+                    <div class="width-icon big">
+                      <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="StorageIcon">
+                        <path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"></path>
+                      </svg>
+                    </div>
+                    <span class="font-16 weight-6">1 GB</span>
+                    Disk
+                  </div>
+                  <div class="flex-row center nowrap button width-icon">
+                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DeleteIcon">
+                      <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
                     </svg>
                   </div>
-                  <span class="font-16 weight-6">1</span>
-                  CPU
                 </div>
-                <div class="flex-row center font-12 weight-4">
-                  <div class="width-icon big">
-                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MemoryIcon">
-                      <path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"></path>
-                    </svg>
-                  </div>
-                  <span class="font-16 weight-6">2 GB</span>
-                  RAM
-                </div>
-                <div class="flex-row center font-12 weight-4">
-                  <div class="width-icon big">
-                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="StorageIcon">
-                      <path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"></path>
-                    </svg>
-                  </div>
-                  <span class="font-16 weight-6">1 GB</span>
-                  Disk
-                </div>
-                <div class="flex-row center button width-icon">
-                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DeleteIcon">
-                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
-                  </svg>
-                </div>
-                <div :class="{'flex-row center button width-icon':true, 'transform': item.collapse}" @click="item.collapse=!item.collapse">
+                <div :class="{'flex-row center nowrap button width-icon':true, 'transform': item.collapse}" @click="item.collapse=!item.collapse">
                   <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ExpandMoreIcon">
                     <path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
                   </svg>
@@ -67,7 +72,7 @@
               <div class="root padding-16">
                 <el-row :gutter="16">
                   <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-                    <div class="piece flex-row space-between">
+                    <div class="piece flex-row space-between nowrap">
                       <div class="flex-row center">
                         <small class="font-12">Docker Image / OS</small>
                         <el-input v-model="item.docker" placeholder="Example: mydockerimage:1.01">
@@ -89,6 +94,27 @@
                         </el-input>
                       </div>
                       <pop-over :textData="item.dockerPop"></pop-over>
+                    </div>
+
+                    <div class="background-main padding-16">
+                      <div class="flex-row">
+                        <h3 class="flex-row">
+                          <div class="flex-row center font-14 weight-6">
+                            <div class="width-icon">
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SpeedIcon">
+                                <path d="m20.38 8.57-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"></path>
+                              </svg>
+                            </div>
+                            <span>CPU</span>
+                          </div>
+                          <div class="m-16">
+                            <pop-over :textData="item.cpuPop"></pop-over>
+                          </div>
+                        </h3>
+                      </div>
+                      <div class="slider-demo-block">
+                        <el-slider v-model="item.cpuValue" show-input :min="0.1" :max="256" />
+                      </div>
                     </div>
                   </el-col>
                   <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
@@ -136,7 +162,7 @@
                         <b>Accept</b> None</h6>
                     </div>
 
-                    <div class="piece flex-row space-between">
+                    <div class="piece flex-row space-between nowrap">
                       <div class="flex-row center">
                         <small class="font-12">Count</small>
                         <el-input v-model="item.count" placeholder="Count">
@@ -163,10 +189,10 @@ import { useRouter, useRoute } from 'vue-router'
 // import {
 //   Search
 // } from '@element-plus/icons-vue'
-import { ElButton, ElInput, ElRow, ElCol } from "element-plus"
+import { ElButton, ElInput, ElRow, ElCol, ElSlider } from "element-plus"
 export default defineComponent({
   components: {
-    popOver, ElButton, ElInput, ElRow, ElCol
+    popOver, ElButton, ElInput, ElRow, ElCol, ElSlider
   },
   setup () {
     const store = useStore()
@@ -178,8 +204,23 @@ export default defineComponent({
     const builderData = ref([
       {
         name: 'service-1',
-        collapse: true,
+        collapse: false,
         count: '',
+        cpuValue: 0,
+        cpuPop: [
+          {
+            desc: "The amount of vCPU's required for this workload.",
+            link: ''
+          },
+          {
+            desc: "The maximum for a single instance is 256 vCPU's.",
+            link: ''
+          },
+          {
+            desc: "The maximum total multiplied by the count of instances is 512 vCPU's.",
+            link: ''
+          }
+        ],
         docker: '',
         dockerPop: [
           {
@@ -290,11 +331,13 @@ export default defineComponent({
           border-radius: 8px;
           box-sizing: border-box;
           .top {
-            flex-wrap: nowrap;
             .top-left {
               width: 100%;
               position: relative;
-              margin: 0 8px 0 0;
+              margin: 0;
+              .m-16 {
+                margin-right: 8px;
+              }
               small {
                 position: absolute;
                 top: -6px;
@@ -321,26 +364,26 @@ export default defineComponent({
               }
             }
             .top-right {
-              flex-wrap: nowrap;
               line-height: 25px;
               color: @grey-color;
               .flex-row {
-                margin: 2px 8px;
-                flex-wrap: nowrap;
-                white-space: nowrap;
-                span {
-                  margin: 0 8px;
-                  color: @primary-color;
+                .flex-row {
+                  margin: 2px 8px;
+                  white-space: nowrap;
+                  span {
+                    margin: 0 8px;
+                    color: @primary-color;
+                  }
                 }
-              }
-              .width-icon {
-                fill: @grey-color;
-                &.transform {
-                  transform: rotate(180deg);
-                }
-                svg,
-                path {
-                  fill: inherit;
+                .width-icon {
+                  fill: @grey-color;
+                  &.transform {
+                    transform: rotate(180deg);
+                  }
+                  svg,
+                  path {
+                    fill: inherit;
+                  }
                 }
               }
             }
@@ -349,16 +392,15 @@ export default defineComponent({
             max-height: unset;
             border-top: 1px solid @dot-color;
             animation: showing 0.1s linear 1 forwards;
-            transition: all 0.8s;
+            transition: all 0.3s;
             overflow: hidden;
             &.hide {
-              animation: hiddening 0.2s linear 1 forwards;
+              animation: hiddening 0.1s linear 1 forwards;
             }
             .el-row {
               .el-col {
                 .piece {
                   margin: 0 0 16px;
-                  flex-wrap: nowrap;
                   .center {
                     position: relative;
                     width: 100%;
@@ -400,6 +442,12 @@ export default defineComponent({
                   margin: 0 0 16px;
                   background-color: @bg-color;
                   border-radius: 4px;
+                  h3 {
+                    span {
+                      padding: 2px 0 0 8px;
+                      line-height: 24px;
+                    }
+                  }
                   h4 {
                     padding: 0 0 16px;
                     text-transform: capitalize;
@@ -418,6 +466,9 @@ export default defineComponent({
                       padding: 0 4px 0 0;
                       color: @primary-color;
                     }
+                  }
+                  .slider-demo-block {
+                    margin-top: 8px;
                   }
                 }
               }

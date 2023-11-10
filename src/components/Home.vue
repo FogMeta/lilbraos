@@ -5,7 +5,7 @@
         <v-head></v-head>
       </el-header>
       <el-main class="el-main-mit">
-        <div class="content flex-row">
+        <div class="content flex-row nowrap">
           <v-aside v-show="clientWidth"></v-aside>
           <div class="container">
             <router-view v-slot="{ Component }">
@@ -55,7 +55,6 @@ export default defineComponent({
   .content {
     height: 100%;
     align-items: stretch;
-    flex-wrap: nowrap;
     :deep(.el-backtop) {
       background-color: @primary-color;
       color: #231f20;
@@ -405,6 +404,9 @@ a {
   }
   &.flex-start {
     justify-content: flex-start;
+  }
+  &.nowrap {
+    flex-wrap: nowrap;
   }
 }
 
