@@ -13,11 +13,11 @@
             <template #default="scope">
               <div class="flex-row center filter" v-if="scope.$index === 0">
                 <div class="flex-row center">
-                  <small>vCPUs</small>
+                  <small class="font-12">vCPUs</small>
                   <el-input-number :min="0.1" controls-position="right" v-model="vcpu" placeholder="vCPUs" class="input-with-select" />
                 </div>
                 <div class="flex-row center">
-                  <small>Memory</small>
+                  <small class="font-12">Memory</small>
                   <el-input-number :min="0.1" controls-position="right" v-model="memory.value" placeholder="Memory" class="input-with-select" />
                   <el-select v-model="memory.select" placeholder="Select" style="width: 80px">
                     <el-option label="MB" value="1" />
@@ -27,7 +27,7 @@
                   </el-select>
                 </div>
                 <div class="flex-row center">
-                  <small>Storage</small>
+                  <small class="font-12">Storage</small>
                   <el-input-number :min="0.1" controls-position="right" v-model="storage.value" placeholder="Storage" class="input-with-select" />
                   <el-select v-model="storage.select" placeholder="Select" style="width: 80px">
                     <el-option label="MB" value="1" />
@@ -206,7 +206,7 @@ export default defineComponent({
       color: transparent;
       background-image: linear-gradient(
         to right,
-        @theme-color-opacity,
+        @theme-color-opacity1,
         @theme-color
       );
       -webkit-background-clip: text;
@@ -250,7 +250,7 @@ export default defineComponent({
                   color: transparent;
                   background-image: linear-gradient(
                     to right,
-                    @theme-color-opacity,
+                    @theme-color-opacity1,
                     @theme-color
                   );
                   -webkit-background-clip: text;

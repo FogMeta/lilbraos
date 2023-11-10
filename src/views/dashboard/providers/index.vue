@@ -91,16 +91,22 @@
         </h1>
         <div class="search-body flex-row">
           <el-input v-model="networkInput" placeholder="Search Providers" />
-          <el-select v-model="rowsPerPage.value" placeholder="Select">
-            <el-option-group v-for="group in rowsPerPage.options" :key="group.label" :label="group.label">
-              <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value" />
-            </el-option-group>
-          </el-select>
-          <el-select v-model="sortBy.value" placeholder="Select">
-            <el-option-group v-for="group in sortBy.options" :key="group.label" :label="group.label">
-              <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value" />
-            </el-option-group>
-          </el-select>
+          <div class="flex-row center">
+            <small class="font-12">Rows per page</small>
+            <el-select v-model="rowsPerPage.value" placeholder="Select">
+              <el-option-group v-for="group in rowsPerPage.options" :key="group.label" :label="group.label">
+                <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value" />
+              </el-option-group>
+            </el-select>
+          </div>
+          <div class="flex-row center">
+            <small class="font-12">Sort by</small>
+            <el-select v-model="sortBy.value" placeholder="Select">
+              <el-option-group v-for="group in sortBy.options" :key="group.label" :label="group.label">
+                <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value" />
+              </el-option-group>
+            </el-select>
+          </div>
         </div>
         <el-table stripe :data="providersData" @expand-change="expandChange" style="width: 100%" empty-text="No Data">
           <el-table-column type="expand" width="40">
@@ -228,7 +234,7 @@
 </template>
 
 <script>
-import { defineComponent, computed, onMounted, watch, ref, reactive, getCurrentInstance } from 'vue'
+import { defineComponent, computed, onMounted, onActivated, onDeactivated, watch, ref, reactive, getCurrentInstance } from 'vue'
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
 import {
@@ -542,6 +548,9 @@ export default defineComponent({
     onMounted(() => {
       reset('init')
     })
+    onActivated(() => {
+      reset('init')
+    })
     return {
       system,
       checkList,
@@ -680,6 +689,23 @@ export default defineComponent({
         @media screen and (max-width: 600px) {
           flex-wrap: wrap;
         }
+        .center {
+          position: relative;
+          margin: 0 0 0 0.16rem;
+          small {
+            position: absolute;
+            top: -6px;
+            left: 6px;
+            max-width: calc(100% - 20px);
+            padding: 0 4px;
+            background-color: @bg-color;
+            color: @primary-color-opacity;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            z-index: 9;
+          }
+        }
         .el-input {
           width: 100%;
           .el-input__wrapper {
@@ -709,7 +735,6 @@ export default defineComponent({
           max-width: 80px;
         }
         .el-select {
-          margin: 0 0 0 0.16rem;
           .el-input {
             .el-input__wrapper {
               font-size: 12px;

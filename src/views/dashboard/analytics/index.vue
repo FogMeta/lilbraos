@@ -143,8 +143,8 @@ export default defineComponent({
       color: transparent;
       background-image: linear-gradient(
         to right,
-        @theme-color,
-        @theme-color-opacity
+        @theme-color-opacity1,
+        @theme-color
       );
       -webkit-background-clip: text;
       text-align: center;

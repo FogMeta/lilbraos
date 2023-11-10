@@ -24,7 +24,7 @@
               </div>.
             </div>
             <div class="desc desc-root flex-row flex-start font-14 weight-5">
-              <el-button @click="active='2'">Next</el-button>
+              <el-button @click="active='2'" class="button-shadow">Next</el-button>
               <div class="flex-row font-16">Learn how
                 <span class="width-icon small">
                   <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="LaunchIcon">
@@ -50,7 +50,7 @@
               <br /><br /> For the sake of getting started, we will deploy a simple Next.js app that you can find in the deploy page.
             </div>
             <div class="desc desc-root flex-row flex-start font-14 weight-5">
-              <el-button @click="active='3'">Next</el-button>
+              <el-button @click="active='3'" class="button-shadow">Next</el-button>
               <div class="flex-row font-16">Learn how
                 <span class="width-icon small">
                   <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="LaunchIcon">
@@ -81,7 +81,7 @@
               </div>
             </div>
             <div class="desc desc-root flex-row flex-start font-14 weight-5">
-              <el-button>
+              <el-button class="button-shadow">
                 <router-link :to="{path:'deploy'}">Deploy!</router-link>
               </el-button>
               <div class="flex-row font-16">Reset

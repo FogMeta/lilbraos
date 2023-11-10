@@ -52,6 +52,7 @@ module.exports = {
           'theme-color': 'rgba(72, 176, 255, 1)',
           'theme-color-opacity': 'rgba(72, 176, 255, 0.5)',
           'theme-color-opacity1': 'rgba(72, 176, 255, 0.8)',
+          'theme-color-opacity2': 'rgba(72, 176, 255, 0.8)',
           'dot-color': 'rgb(234, 234, 240)',
           'dot-fusco-color': 'rgb(189, 189, 189)',
           'dot-fusco-color-hover': 'rgba(12, 11, 11, 0.12)',

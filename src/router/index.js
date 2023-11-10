@@ -16,6 +16,8 @@ const deployNew = () =>
     import ("@/views/dashboard/deploy/new")
 const templates = () =>
     import ("@/views/dashboard/templates/index")
+const spaceBuilder = () =>
+    import ("@/views/dashboard/spaceBuilder/index")
 const providers = () =>
     import ("@/views/dashboard/providers/index")
 const analytics = () =>
@@ -69,6 +71,14 @@ const routes = [{
             meta: {
                 keepAlive: true,
                 title: 'Template Gallery'
+            }
+        }, {
+            path: '/space-builder',
+            name: 'spaceBuilder',
+            component: spaceBuilder,
+            meta: {
+                keepAlive: true,
+                title: 'Space Builder'
             }
         }, {
             path: '/providers',

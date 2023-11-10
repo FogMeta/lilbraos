@@ -186,13 +186,14 @@ export default defineComponent({
     }
     .area {
       height: auto;
+      max-height: unset;
       text-align: center;
       transition: all 0.8s;
       overflow: hidden;
       border-top: 1px solid rgb(238, 238, 238);
+      animation: showing 0.2s linear 1 forwards;
       &.hide {
-        height: 0px;
-        // animation: hidden 0.8s ease-in-out 1 forwards;
+        animation: hiddening 0.2s linear 1 forwards;
       }
       p.tit {
         width: 100%;

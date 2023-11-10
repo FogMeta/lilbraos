@@ -94,7 +94,6 @@ export default defineComponent({
     }
     .el-header {
       background-color: @white-color;
-      z-index: 3333;
     }
     .el-main-mit {
       height: calc(100vh - 60px);
@@ -119,7 +118,10 @@ export default defineComponent({
 a {
   color: @font-color;
 }
-
+.button-shadow {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px -2px,
+    rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+}
 .button {
   display: inline-block;
   padding: 8px;
@@ -140,6 +142,9 @@ a {
 }
 .mt-border {
   margin: 32px auto;
+}
+.m-16 {
+  margin: 0 16px;
 }
 .top-margin {
   padding-top: 16px;

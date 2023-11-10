@@ -4,7 +4,7 @@
       @open="handleOpen" @close="handleClose">
       <ul class="wid">
         <el-menu-item index="deployNew">
-          <div class="root flex-row center">
+          <div class="root flex-row center button-shadow">
             <span class="hide">Deploy</span>
             <i class="el-icon width-icon small">
               <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="RocketLaunchIcon">
@@ -37,7 +37,7 @@
           </i>
           <template #title>Templates</template>
         </el-menu-item>
-        <el-menu-item index="4" class="menu" disabled>
+        <el-menu-item index="spaceBuilder" class="menu">
           <i class="el-icon width-icon">
             <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ConstructionIcon">
               <path d="m13.7826 15.1719 2.1213-2.1213 5.9963 5.9962-2.1213 2.1213zM17.5 10c1.93 0 3.5-1.57 3.5-3.5 0-.58-.16-1.12-.41-1.6l-2.7 2.7-1.49-1.49 2.7-2.7c-.48-.25-1.02-.41-1.6-.41C15.57 3 14 4.57 14 6.5c0 .41.08.8.21 1.16l-1.85 1.85-1.78-1.78.71-.71-1.41-1.41L12 3.49c-1.17-1.17-3.07-1.17-4.24 0L4.22 7.03l1.41 1.41H2.81l-.71.71 3.54 3.54.71-.71V9.15l1.41 1.41.71-.71 1.78 1.78-7.41 7.41 2.12 2.12L16.34 9.79c.36.13.75.21 1.16.21z"></path>
@@ -189,6 +189,7 @@ export default defineComponent({
       else if (key === 'deploy') router.push({ name: 'deploy' })
       else if (key === 'deployNew') router.push({ name: 'deployNew' })
       else if (key === 'templates') router.push({ name: 'templates' })
+      else if (key === 'spaceBuilder') router.push({ name: 'spaceBuilder' })
       else if (key === 'providers') router.push({ name: 'providers' })
       else if (key === 'analytics') router.push({ name: 'analytics' })
       else if (key === 'priceCompare') router.push({ name: 'priceCompare' })
@@ -207,6 +208,7 @@ export default defineComponent({
       if (nameMenu.indexOf('home') > -1) activeIndex.value = 'home'
       else if (nameMenu.indexOf('deploy') > -1 || nameMenu.indexOf('new-deployment') > -1) activeIndex.value = 'deploy'
       else if (nameMenu.indexOf('templates') > -1) activeIndex.value = 'templates'
+      else if (nameMenu.indexOf('spaceBuilder') > -1) activeIndex.value = 'spaceBuilder'
       else if (nameMenu.indexOf('providers') > -1) activeIndex.value = 'providers'
       else if (nameMenu.indexOf('analytics') > -1) activeIndex.value = 'analytics'
       else if (nameMenu.indexOf('priceCompare') > -1) activeIndex.value = 'priceCompare'
@@ -241,7 +243,6 @@ export default defineComponent({
   height: 100%;
   background-color: @white-color;
   transition: all 0.2s;
-  z-index: 3333;
   .el-menu {
     align-items: start;
     align-content: space-between;

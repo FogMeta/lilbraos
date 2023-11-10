@@ -11,7 +11,7 @@
                 <ul>
                   <li class="flex-row font-16 weight-4">
                     <label>Network</label>
-                    <div class="edit flex-row weight-6">
+                    <div class="edit flex-row weight-6 m-16">
                       Mainnet
                       <i class="el-icon width-icon small">
                         <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="EditIcon">
@@ -168,7 +168,6 @@ export default defineComponent({
                 li {
                   cursor: no-drop;
                   .edit {
-                    margin: 0 16px;
                     i {
                       margin-left: 8px;
                       fill: rgba(0, 0, 0, 0.54);

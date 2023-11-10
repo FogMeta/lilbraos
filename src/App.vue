@@ -16,6 +16,11 @@ export default {
   .el-select,
   .el-popper,
   .el-button,
+  #container-settings .module .area .el-row .el-col .el-card,
+  #container-templates .module .area .el-row .el-col .el-card,
+  #container-analytics .module .area .tem-row .el-col .el-card,
+  .el-input,
+  .el-select .el-input__inner,
   .aside-main .el-menu .el-menu-item .root,
   .inner,
   .image {
@@ -36,6 +41,15 @@ export default {
   #container-settings .module .area .el-row .el-col .cont,
   #container-main .module {
     background-color: rgba(223, 223, 223, 1) !important;
+  }
+  #container-settings .module .area .el-row .el-col .el-card,
+  #container-templates .module .area .el-row .el-col .el-card,
+  #container-analytics .module .area .tem-row .el-col .el-card,
+  .el-input__inner {
+    color: @white-color !important;
+    .desc {
+      color: @white-color !important;
+    }
   }
 }
 </style>

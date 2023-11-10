@@ -12,7 +12,7 @@
       </h1>
       <div class="area padding-64 flex-row center">
         <div class="tit font-24 weight-4">{{ checked? 'No active deployments' : 'No deployments'}}</div>
-        <router-link :to="{ name: 'deployNew'}" class="root flex-row center">
+        <router-link :to="{ name: 'deployNew'}" class="root flex-row center button-shadow">
           <span class="hide">Deploy</span>
           <i class="el-icon width-icon small">
             <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="RocketLaunchIcon">
