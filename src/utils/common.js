@@ -77,6 +77,12 @@ function sizeChange(bytes) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
 }
 
+function strToHexCharCode(str) {
+  if (str === "") return "";
+  const code = Number(str)
+  return `0x${code.toString(16)}`
+}
+
 function copyContent(text, tipCont) {
   var txtArea = document.createElement('textarea')
   txtArea.id = 'txt'
@@ -186,6 +192,16 @@ async function checkMode() {
   return mode
 }
 
+function NumFormat(value) {
+  if (String(value) === '0') return '0'
+  else if (!value) return '-'
+  var intPartArr = String(value).split('.')
+  var intPartFormat = intPartArr[0]
+    .toString()
+    .replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
+  return intPartArr[1] ? `${intPartFormat}.${intPartArr[1]}` : intPartFormat
+}
+
 let web3Init
 if (typeof window.ethereum === 'undefined') {
   // window.open('https://metamask.io/download.html')
@@ -217,10 +233,12 @@ export default {
   messageTip,
   notificationTip,
   sizeChange,
+  strToHexCharCode,
   copyContent,
   goLink,
   Init,
   web3Init,
   checkDarkMode,
-  checkMode
+  checkMode,
+  NumFormat
 }

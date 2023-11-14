@@ -95,10 +95,10 @@ export default defineComponent({
       // console.log(key, keyPath) //  
       switch (key) {
         case 'login':
-          router.push({ name: 'login' })
+          router.push({ name: 'login', query: { state: 'LogIn' } })
           break;
         case 'register':
-          router.push({ name: 'register' })
+          router.push({ name: 'login', query: { state: 'SignUp' } })
           break;
       }
       // store.dispatch('setMenu', key)

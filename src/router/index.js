@@ -24,18 +24,14 @@ const analytics = () =>
     import ("@/views/analytics/index")
 const priceCompare = () =>
     import ("@/views/priceCompare/index")
+const RPC = () =>
+    import ("@/views/Infrastructure/RPC")
 const faq = () =>
     import ("@/views/faq/index")
 const settings = () =>
     import ("@/views/settings/index")
 const login = () =>
-    import ("@/views/login/index");
-const register = () =>
-    import ("@/views/register/index");
-const reset = () =>
-    import ("@/views/reset/index");
-const changeEmail = () =>
-    import ("@/views/changeEmail/index");
+    import ("@/views/login/index")
 
 const routes = [{
         path: '/',
@@ -113,6 +109,14 @@ const routes = [{
                 title: 'Price comparision'
             }
         }, {
+            path: '/RPC',
+            name: 'RPC',
+            component: RPC,
+            meta: {
+                keepAlive: true,
+                title: 'RPC'
+            }
+        }, {
             path: '/faq',
             name: 'faq',
             component: faq,
@@ -134,33 +138,6 @@ const routes = [{
         name: 'login',
         components: {
             default: login
-        },
-        meta: {
-            keepAlive: true,
-        }
-    }, {
-        path: '/register',
-        name: 'register',
-        components: {
-            default: register
-        },
-        meta: {
-            keepAlive: true,
-        }
-    }, {
-        path: '/reset',
-        name: 'reset',
-        components: {
-            default: reset
-        },
-        meta: {
-            keepAlive: true,
-        }
-    }, {
-        path: '/changeEmail',
-        name: 'changeEmail',
-        components: {
-            default: changeEmail
         },
         meta: {
             keepAlive: true,

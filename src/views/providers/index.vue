@@ -302,26 +302,26 @@ export default defineComponent({
         }]
     })
     const sortBy = reactive({
-      value: 'Active Leases (desc)',
+      value: 'Active Deployments (desc)',
       options: [
         {
           label: 'Sort by',
           options: [
             {
-              value: 'Active Leases (desc)',
-              label: 'Active Leases (desc)',
+              value: 'Active Deployments (desc)',
+              label: 'Active Deployments (desc)',
             },
             {
-              value: 'Active Leases (asc)',
-              label: 'Active Leases (asc)',
+              value: 'Active Deployments (asc)',
+              label: 'Active Deployments (asc)',
             },
             {
-              value: 'Your Leases (desc)',
-              label: 'Your Leases (desc)',
+              value: 'Your Deployments (desc)',
+              label: 'Your Deployments (desc)',
             },
             {
-              value: 'Your Active Leases (desc)',
-              label: 'Your Active Leases (desc)',
+              value: 'Your Active Deployments (desc)',
+              label: 'Your Active Deployments (desc)',
             },
             {
               value: 'GPUs Available (desc)',

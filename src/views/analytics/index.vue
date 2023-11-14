@@ -4,11 +4,35 @@
       <h1 class="font-32 weight-6 mt-border">Lagrange Network Mainnet Dashboard</h1>
       <div class="area flex-row space-between">
         <el-row :gutter="16" class="tem-row">
-          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="n in 4" :key="n">
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
             <el-card class="is-disabled" shadow="hover">
-              <div class="font-16 weight-4">AKT PRICE</div>
+              <div class="font-16 weight-4">USD PRICE</div>
               <div class="font-24 weight-4 desc">
-                <span class="font-16">US$</span> 1.{{n}}
+                <span class="font-16">US$</span> {{system.$commonFun.NumFormat(0.97)}}
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">MARKET CAP</div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">US$</span> {{system.$commonFun.NumFormat(214446276)}}
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">VOLUME (24H)</div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">US$</span> {{system.$commonFun.NumFormat(2811345)}}
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">RANK</div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">US$</span> {{system.$commonFun.NumFormat(180)}}
               </div>
             </el-card>
           </el-col>
@@ -17,11 +41,55 @@
       <div class="area flex-row space-between">
         <h3 class="font-24 weight-3 padding-16">Network Summary</h3>
         <el-row :gutter="16" class="tem-row">
-          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="n in 4" :key="n">
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
             <el-card class="is-disabled" shadow="hover">
-              <div class="font-16 weight-4">AKT PRICE</div>
+              <div class="font-16 weight-4">USD SPENT (24H)</div>
               <div class="font-24 weight-4 desc">
-                <span class="font-16">US$</span> 2.{{n+5}}
+                {{system.$commonFun.NumFormat(812.44)}}
+                <span class="font-16">$USD</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+91.25</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">TOTAL SPENT USD</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(135889.58)}}
+                <span class="font-16">$USD</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+813.06</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">NEW DEPLOYMENTS (24H)</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(207)}}
+                <span class="font-16">$USD</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+111</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">TOTAL DEPLOYMENTS</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(135361)}}
+                <span class="font-16">$USD</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+207</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
               </div>
             </el-card>
           </el-col>
@@ -30,11 +98,55 @@
       <div class="area flex-row space-between">
         <h3 class="font-24 weight-3 padding-16">Spent Assets</h3>
         <el-row :gutter="16" class="tem-row">
-          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="n in 4" :key="n">
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
             <el-card class="is-disabled" shadow="hover">
-              <div class="font-16 weight-4">AKT PRICE</div>
+              <div class="font-16 weight-4">USD SPENT (24H)</div>
               <div class="font-24 weight-4 desc">
-                <span class="font-16">US$</span> 1.{{n+10}}
+                {{system.$commonFun.NumFormat(791.41)}}
+                <span class="font-16">USD</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+101.76</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">TOTAL SPENT USD</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(185521.32)}}
+                <span class="font-16">USD</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+791.41</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">USDC SPENT (24H)</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(0.02)}}
+                <span class="font-16">USDC</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+0.02</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">TOTAL SPENT USDC</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(2.3)}}
+                <span class="font-16">USDC</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+0.02</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
               </div>
             </el-card>
           </el-col>
@@ -42,12 +154,68 @@
       </div>
       <div class="area flex-row space-between">
         <h3 class="font-24 weight-3 padding-16">Total resources leased</h3>
-        <el-row :gutter="16" class="tem-row">
-          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="n in 4" :key="n">
+        <el-row :gutter="16" class="tem-row tem-col">
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
             <el-card class="is-disabled" shadow="hover">
-              <div class="font-16 weight-4">AKT PRICE</div>
+              <div class="font-16 weight-4">ACTIVE DEPLOYMENTS</div>
               <div class="font-24 weight-4 desc">
-                <span class="font-16">US$</span> 5.{{n+35}}
+                {{system.$commonFun.NumFormat(399)}}
+                <span class="font-16"></span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">-18</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">COMPUTE</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(1319.77)}}
+                <span class="font-16">CPU</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+144.2</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">GRAPHICS</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(79)}}
+                <span class="font-16">CPU</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+11</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">MEMORY</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(4.29)}}
+                <span class="font-16">TB</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+5.01 GB</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">STORAGE</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(36.38)}}
+                <span class="font-16">TB</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+1.51 TB</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
               </div>
             </el-card>
           </el-col>
@@ -55,12 +223,68 @@
       </div>
       <div class="area flex-row space-between">
         <h3 class="font-24 weight-3 padding-16">Network Capacity</h3>
-        <el-row :gutter="16" class="tem-row">
-          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="n in 4" :key="n">
+        <el-row :gutter="16" class="tem-row tem-col">
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
             <el-card class="is-disabled" shadow="hover">
-              <div class="font-16 weight-4">AKT PRICE</div>
+              <div class="font-16 weight-4">ACTIVE PROVIDERS</div>
               <div class="font-24 weight-4 desc">
-                <span class="font-16">US$</span> 1.{{n+55}}
+                {{system.$commonFun.NumFormat(46)}}
+                <span class="font-16"></span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+1</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">COMPUTE</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(5259)}}
+                <span class="font-16">CPU</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+122.81</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">GRAPHICS</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(164)}}
+                <span class="font-16">CPU</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">-2</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">MEMORY</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(31.77)}}
+                <span class="font-16">TB</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+463.72 GB</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-card class="is-disabled" shadow="hover">
+              <div class="font-16 weight-4">STORAGE</div>
+              <div class="font-24 weight-4 desc">
+                {{system.$commonFun.NumFormat(261.19)}}
+                <span class="font-16">TB</span>
+              </div>
+              <div class="font-24 weight-4 desc">
+                <span class="font-16">+1.97 TB</span>
+                <span class="font-12 weight-6 rise">+3.85%</span>
               </div>
             </el-card>
           </el-col>
@@ -163,6 +387,14 @@ export default defineComponent({
       transition: all 0.8s;
       .tem-row {
         width: 100%;
+        &.tem-col {
+          .el-col {
+            @media screen and (min-width: 1200px) {
+              max-width: 20%;
+              flex: 0 0 20%;
+            }
+          }
+        }
         .el-col {
           margin-bottom: 16px;
           .el-card {
@@ -175,6 +407,15 @@ export default defineComponent({
               padding: 0;
               .desc {
                 color: @primary-color;
+                span {
+                  line-height: 1;
+                }
+                .rise {
+                  padding: 1px 8px;
+                  margin: 0 0 0 8px;
+                  background-color: #9cff6b;
+                  border-radius: 20px;
+                }
               }
             }
           }

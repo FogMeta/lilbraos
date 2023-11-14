@@ -164,7 +164,7 @@ a {
     height: 20px;
   }
   &.min-small {
-    width: 16px;
+    width: 16px !important;
     height: 16px;
   }
   &.minimum-small {

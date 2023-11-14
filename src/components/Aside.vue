@@ -70,6 +70,21 @@
           </i>
           <template #title>Price Compare</template>
         </el-menu-item>
+        <el-sub-menu index="Infrastructure" class="menu">
+          <template #title>
+            <span class="el-icon width-icon flex-row icon">
+              <i class="width-icon min-small flex-row">
+                <svg t="1699950348264" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4386" width="200" height="200">
+                  <path d="M341.333 0h-204.8A136.533 136.533 0 0 0 0 136.533v204.8a136.533 136.533 0 0 0 136.533 136.534h204.8a136.533 136.533 0 0 0 136.534-136.534v-204.8A136.533 136.533 0 0 0 341.333 0zM409.6 341.333a68.267 68.267 0 0 1-68.267 68.267h-204.8a68.267 68.267 0 0 1-68.266-68.267v-204.8a68.267 68.267 0 0 1 68.266-68.266h204.8a68.267 68.267 0 0 1 68.267 68.266zM887.467 0h-204.8a136.533 136.533 0 0 0-136.534 136.533v204.8a136.533 136.533 0 0 0 136.534 136.534h204.8A136.533 136.533 0 0 0 1024 341.333v-204.8A136.533 136.533 0 0 0 887.467 0z m68.266 341.333a68.267 68.267 0 0 1-68.266 68.267h-204.8a68.267 68.267 0 0 1-68.267-68.267v-204.8a68.267 68.267 0 0 1 68.267-68.266h204.8a68.267 68.267 0 0 1 68.266 68.266z m-614.4 204.8h-204.8A136.533 136.533 0 0 0 0 682.667v204.8A136.533 136.533 0 0 0 136.533 1024h204.8a136.533 136.533 0 0 0 136.534-136.533v-204.8a136.533 136.533 0 0 0-136.534-136.534zM409.6 887.467a68.267 68.267 0 0 1-68.267 68.266h-204.8a68.267 68.267 0 0 1-68.266-68.266v-204.8a68.267 68.267 0 0 1 68.266-68.267h204.8a68.267 68.267 0 0 1 68.267 68.267z m477.867-341.334h-204.8a136.533 136.533 0 0 0-136.534 136.534v204.8A136.533 136.533 0 0 0 682.667 1024h204.8A136.533 136.533 0 0 0 1024 887.467v-204.8a136.533 136.533 0 0 0-136.533-136.534z m68.266 341.334a68.267 68.267 0 0 1-68.266 68.266h-204.8a68.267 68.267 0 0 1-68.267-68.266v-204.8a68.267 68.267 0 0 1 68.267-68.267h204.8a68.267 68.267 0 0 1 68.266 68.267z"
+                    p-id="4387"></path>
+                </svg>
+              </i>
+            </span>
+            <span class="font-16 weight-5">Infrastructure</span>
+          </template>
+          <el-menu-item index="Storage">- Storage</el-menu-item>
+          <el-menu-item index="RPC">- RPC</el-menu-item>
+        </el-sub-menu>
         <el-menu-item index="faq" class="menu">
           <i class="el-icon width-icon">
             <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="HelpIcon">
@@ -193,6 +208,8 @@ export default defineComponent({
       else if (key === 'providers') router.push({ name: 'providers' })
       else if (key === 'analytics') router.push({ name: 'analytics' })
       else if (key === 'priceCompare') router.push({ name: 'priceCompare' })
+      // else if (key === 'Storage') router.push({ name: 'Storage' })
+      else if (key === 'RPC') router.push({ name: 'RPC' })
       else if (key === 'faq') router.push({ name: 'faq' })
       else if (key === 'settings') router.push({ name: 'settings' })
       // else if (key === '3-1') router.push({ name: 'swan' })
@@ -212,6 +229,7 @@ export default defineComponent({
       else if (nameMenu.indexOf('providers') > -1) activeIndex.value = 'providers'
       else if (nameMenu.indexOf('analytics') > -1) activeIndex.value = 'analytics'
       else if (nameMenu.indexOf('priceCompare') > -1) activeIndex.value = 'priceCompare'
+      else if (nameMenu.indexOf('Storage') > -1 || nameMenu.indexOf('RPC') > -1) activeIndex.value = 'Infrastructure'
       else if (nameMenu.indexOf('faq') > -1) activeIndex.value = 'faq'
       else if (nameMenu.indexOf('settings') > -1) activeIndex.value = 'settings'
       else activeIndex.value = '100'
@@ -243,7 +261,7 @@ export default defineComponent({
   height: 100%;
   background-color: @white-color;
   transition: all 0.2s;
-  .el-menu {
+  .el-menu-vertical-demo {
     align-items: start;
     align-content: space-between;
     width: 255px;
@@ -274,6 +292,53 @@ export default defineComponent({
         }
         .el-icon {
           margin: 3px !important;
+        }
+      }
+    }
+    .el-sub-menu {
+      .el-sub-menu__title {
+        height: 46px;
+        padding: 0 12px 0 16px;
+        line-height: 30px;
+        &:hover {
+          background-color: @primary-color-opacity2;
+        }
+        &.is-active {
+          font-weight: 600;
+          .el-icon {
+            svg,
+            path {
+              fill: @theme-color;
+              opacity: 1;
+            }
+          }
+        }
+        .el-icon {
+          &.icon {
+            margin-right: 16px;
+          }
+          &.el-sub-menu__icon-arrow {
+            svg {
+              opacity: 1;
+            }
+          }
+          svg {
+            width: inherit;
+            height: inherit;
+            opacity: 0.3;
+          }
+        }
+      }
+      ul {
+        padding-bottom: 8px;
+        li {
+          min-height: auto;
+          text-indent: 50px;
+          line-height: 1;
+          color: @grey-color;
+          &:hover {
+            background-color: @primary-color-opacity2;
+          }
         }
       }
     }
