@@ -8,7 +8,7 @@
             <el-card class="is-disabled" shadow="hover">
               <div class="font-16 weight-4">AKT PRICE</div>
               <div class="font-24 weight-4 desc">
-                <span class="font-16">US$</span> 1.18
+                <span class="font-16">US$</span> 1.{{n}}
               </div>
             </el-card>
           </el-col>
@@ -21,7 +21,7 @@
             <el-card class="is-disabled" shadow="hover">
               <div class="font-16 weight-4">AKT PRICE</div>
               <div class="font-24 weight-4 desc">
-                <span class="font-16">US$</span> 1.18
+                <span class="font-16">US$</span> 2.{{n+5}}
               </div>
             </el-card>
           </el-col>
@@ -34,7 +34,7 @@
             <el-card class="is-disabled" shadow="hover">
               <div class="font-16 weight-4">AKT PRICE</div>
               <div class="font-24 weight-4 desc">
-                <span class="font-16">US$</span> 1.18
+                <span class="font-16">US$</span> 1.{{n+10}}
               </div>
             </el-card>
           </el-col>
@@ -47,7 +47,7 @@
             <el-card class="is-disabled" shadow="hover">
               <div class="font-16 weight-4">AKT PRICE</div>
               <div class="font-24 weight-4 desc">
-                <span class="font-16">US$</span> 1.18
+                <span class="font-16">US$</span> 5.{{n+35}}
               </div>
             </el-card>
           </el-col>
@@ -60,7 +60,7 @@
             <el-card class="is-disabled" shadow="hover">
               <div class="font-16 weight-4">AKT PRICE</div>
               <div class="font-24 weight-4 desc">
-                <span class="font-16">US$</span> 1.18
+                <span class="font-16">US$</span> 1.{{n+55}}
               </div>
             </el-card>
           </el-col>

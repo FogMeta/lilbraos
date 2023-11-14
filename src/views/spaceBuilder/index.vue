@@ -228,7 +228,7 @@ export default defineComponent({
             link: ''
           },
           {
-            desc: 'Best practices: avoid using :latest image tags as Akash Providers heavily cache images.',
+            desc: 'Best practices: avoid using :latest image tags as Lagrange Providers heavily cache images.',
             link: ''
           }
         ],

@@ -19,7 +19,7 @@
           <span>Connect Wallet</span>
         </div>
         <div class="sign">
-          <el-dropdown class="sign-popper" popper-class="menu-popper" placement="bottom-end" :teleported="true">
+          <el-dropdown @command="handleSelect" class="sign-popper" popper-class="menu-popper" placement="bottom-end" :teleported="true">
             <span class="el-dropdown-link">
               <svg class="width-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="PersonIcon">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
@@ -27,10 +27,10 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>
+                <el-dropdown-item command="register">
                   <span class="font-16">Sign Up</span>
                 </el-dropdown-item>
-                <el-dropdown-item>
+                <el-dropdown-item command="login">
                   <span class="font-16">Sign In</span>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -91,6 +91,18 @@ export default defineComponent({
     function hardClose (dialog) {
       connetShow.value = dialog
     }
+    async function handleSelect (key, keyPath) {
+      // console.log(key, keyPath) //  
+      switch (key) {
+        case 'login':
+          router.push({ name: 'login' })
+          break;
+        case 'register':
+          router.push({ name: 'register' })
+          break;
+      }
+      // store.dispatch('setMenu', key)
+    }
     onMounted(async () => { })
     onBeforeUnmount(() => { })
     watch(clientWidth, () => {
@@ -108,7 +120,7 @@ export default defineComponent({
       searchValue,
       menuDialog,
       connetShow,
-      handleClose, hardClose
+      handleClose, hardClose, handleSelect
     }
   }
 })

@@ -7,27 +7,35 @@ import writer from '@/utils/router'
 const home = () =>
     import ("@/components/Home")
 const main = () =>
-    import ("@/views/dashboard/home/index")
+    import ("@/views/home/index")
 const getStarted = () =>
-    import ("@/views/dashboard/getStarted/index")
+    import ("@/views/getStarted/index")
 const deploy = () =>
-    import ("@/views/dashboard/deploy/index")
+    import ("@/views/deploy/index")
 const deployNew = () =>
-    import ("@/views/dashboard/deploy/new")
+    import ("@/views/deploy/new")
 const templates = () =>
-    import ("@/views/dashboard/templates/index")
+    import ("@/views/templates/index")
 const spaceBuilder = () =>
-    import ("@/views/dashboard/spaceBuilder/index")
+    import ("@/views/spaceBuilder/index")
 const providers = () =>
-    import ("@/views/dashboard/providers/index")
+    import ("@/views/providers/index")
 const analytics = () =>
-    import ("@/views/dashboard/analytics/index")
+    import ("@/views/analytics/index")
 const priceCompare = () =>
-    import ("@/views/dashboard/priceCompare/index")
+    import ("@/views/priceCompare/index")
 const faq = () =>
-    import ("@/views/dashboard/faq/index")
+    import ("@/views/faq/index")
 const settings = () =>
-    import ("@/views/dashboard/settings/index")
+    import ("@/views/settings/index")
+const login = () =>
+    import ("@/views/login/index");
+const register = () =>
+    import ("@/views/register/index");
+const reset = () =>
+    import ("@/views/reset/index");
+const changeEmail = () =>
+    import ("@/views/changeEmail/index");
 
 const routes = [{
         path: '/',
@@ -121,6 +129,42 @@ const routes = [{
                 title: 'Settings'
             }
         }]
+    }, {
+        path: '/login',
+        name: 'login',
+        components: {
+            default: login
+        },
+        meta: {
+            keepAlive: true,
+        }
+    }, {
+        path: '/register',
+        name: 'register',
+        components: {
+            default: register
+        },
+        meta: {
+            keepAlive: true,
+        }
+    }, {
+        path: '/reset',
+        name: 'reset',
+        components: {
+            default: reset
+        },
+        meta: {
+            keepAlive: true,
+        }
+    }, {
+        path: '/changeEmail',
+        name: 'changeEmail',
+        components: {
+            default: changeEmail
+        },
+        meta: {
+            keepAlive: true,
+        }
     },
     {
         path: '/:pathMatch(.*)*',

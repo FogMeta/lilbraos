@@ -108,8 +108,8 @@
       <h4 class="font-34 weight-6">Disclaimer</h4>
       <ul>
         <li class="font-16 weight-4">These prices may vary. We strongly suggest that you do your own research as we may have miss-calculated some of the providers pricing.</li>
-        <li class="font-16 weight-4">To calculate the pricing for Akash, we use the same calculations from the provider bidding engine in the
-          <span @click="system.$commonFun.goLink('')">helm-charts</span> repo from Akash.</li>
+        <li class="font-16 weight-4">To calculate the pricing for Lagrange, we use the same calculations from the provider bidding engine in the
+          <span @click="system.$commonFun.goLink('')">helm-charts</span> repo from Lagrange.</li>
         <li class="font-16 weight-4">For the other cloud providers, we use the same logic of price per GB of ram/storage and price per thread.</li>
         <li class="font-16 weight-4">
           <b @click="system.$commonFun.goLink('')">Amazon Web Service pricing calculator</b>
