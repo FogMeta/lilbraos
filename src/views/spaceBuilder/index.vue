@@ -34,7 +34,7 @@
                         <path d="m20.38 8.57-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"></path>
                       </svg>
                     </div>
-                    <span class="font-16 weight-6">1</span>
+                    <span class="font-16 weight-6">{{item.cpuValue}}</span>
                     CPU
                   </div>
                   <div class="flex-row center nowrap font-12 weight-4">
@@ -43,7 +43,7 @@
                         <path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"></path>
                       </svg>
                     </div>
-                    <span class="font-16 weight-6">2 GB</span>
+                    <span class="font-16 weight-6">{{item.MemoryValue}} {{item.MemorySelect.value}}</span>
                     RAM
                   </div>
                   <div class="flex-row center nowrap font-12 weight-4">
@@ -52,10 +52,10 @@
                         <path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"></path>
                       </svg>
                     </div>
-                    <span class="font-16 weight-6">1 GB</span>
+                    <span class="font-16 weight-6">{{item.EphemeralValue}} {{item.EphemeralSelect.value}}</span>
                     Disk
                   </div>
-                  <div class="flex-row center nowrap button width-icon">
+                  <div class="flex-row center nowrap button width-icon" v-if="builderData.length>1" @click="removeService(l)">
                     <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DeleteIcon">
                       <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path>
                     </svg>
@@ -96,7 +96,7 @@
                       <pop-over :textData="item.dockerPop"></pop-over>
                     </div>
 
-                    <div class="background-main padding-16">
+                    <div class="background-main">
                       <div class="flex-row">
                         <h3 class="flex-row">
                           <div class="flex-row center font-14 weight-6">
@@ -110,15 +110,114 @@
                           <div class="m-16">
                             <pop-over :textData="item.cpuPop"></pop-over>
                           </div>
+                          <el-input-number :min="0.1" :max="256" controls-position="right" v-model="item.cpuValue" placeholder="Storage" class="input-with-select font-16" />
                         </h3>
                       </div>
                       <div class="slider-demo-block">
-                        <el-slider v-model="item.cpuValue" show-input :min="0.1" :max="256" />
+                        <el-slider v-model="item.cpuValue" :min="0.1" :max="256" />
+                      </div>
+                    </div>
+
+                    <div class="background-main">
+                      <div class="flex-row">
+                        <h3 class="flex-row">
+                          <div class="flex-row center font-14 weight-6">
+                            <div class="width-icon">
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SpeedIcon">
+                                <path d="m20.38 8.57-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"></path>
+                              </svg>
+                            </div>
+                            <span>GPU</span>
+                          </div>
+                          <div class="m-16">
+                            <pop-over :textData="item.gpuPop"></pop-over>
+                          </div>
+                          <el-checkbox v-model="item.gpuCheck" />
+                          <el-input-number v-show="item.gpuCheck" :min="1" :max="100" controls-position="right" v-model="item.gpuValue" placeholder="Storage" class="input-with-select font-16" />
+                        </h3>
+                      </div>
+                      <div v-show="item.gpuCheck">
+                        <div class="slider-demo-block">
+                          <el-slider v-model="item.gpuValue" :min="1" :max="100" />
+                        </div>
+                        <div class="flex-row center font-16">
+                          <el-select v-model="item.gpuSelect.value" placeholder="Select">
+                            <el-option v-for="s in item.gpuSelect.options" :key="s.value" :label="s.label" :value="s.value">
+                              <span class="font-16">{{s.label}}</span>
+                            </el-option>
+                          </el-select>
+                        </div>
+                        <div class="flex-row center font-16">
+                          <small class="font-12">GPU models (any if empty)</small>
+                          <el-select v-model="item.gpuModels.value" placeholder="Select">
+                            <el-option v-for="mo in item.gpuModels.options" :key="mo.value" :label="mo.label" :value="mo.value">
+                              <span class="font-16">{{mo.label}}</span>
+                            </el-option>
+                          </el-select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="background-main">
+                      <div class="flex-row">
+                        <h3 class="flex-row">
+                          <div class="flex-row center font-14 weight-6">
+                            <div class="width-icon">
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MemoryIcon">
+                                <path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"></path>
+                              </svg>
+                            </div>
+                            <span>Memory</span>
+                          </div>
+                          <div class="m-16">
+                            <pop-over :textData="item.MemoryPop"></pop-over>
+                          </div>
+                          <el-input-number :min="1" :max="512" controls-position="right" v-model="item.MemoryValue" placeholder="Storage" class="input-with-select font-16" />
+                          <div class="flex-row center font-16">
+                            <el-select v-model="item.MemorySelect.value" placeholder="Select">
+                              <el-option v-for="s in item.MemorySelect.options" :key="s.value" :label="s.label" :value="s.value">
+                                <span class="font-16">{{s.label}}</span>
+                              </el-option>
+                            </el-select>
+                          </div>
+                        </h3>
+                      </div>
+                      <div class="slider-demo-block">
+                        <el-slider v-model="item.MemoryValue" :min="1" :max="512" />
+                      </div>
+                    </div>
+
+                    <div class="background-main">
+                      <div class="flex-row">
+                        <h3 class="flex-row">
+                          <div class="flex-row center font-14 weight-6">
+                            <div class="width-icon">
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="StorageIcon">
+                                <path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"></path>
+                              </svg>
+                            </div>
+                            <span>Ephemeral Storage</span>
+                          </div>
+                          <div class="m-16">
+                            <pop-over :textData="item.EphemeralPop"></pop-over>
+                          </div>
+                          <el-input-number :min="1" :max="512" controls-position="right" v-model="item.EphemeralValue" placeholder="Storage" class="input-with-select font-16" />
+                          <div class="flex-row center font-16">
+                            <el-select v-model="item.EphemeralSelect.value" placeholder="Select">
+                              <el-option v-for="s in item.EphemeralSelect.options" :key="s.value" :label="s.label" :value="s.value">
+                                <span class="font-16">{{s.label}}</span>
+                              </el-option>
+                            </el-select>
+                          </div>
+                        </h3>
+                      </div>
+                      <div class="slider-demo-block">
+                        <el-slider v-model="item.EphemeralValue" :min="1" :max="512" />
                       </div>
                     </div>
                   </el-col>
                   <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-                    <div class="background-main padding-16">
+                    <div class="background-main">
                       <div class="flex-row">
                         <h4 class="font-16 weight-6 flex-row">
                           Environment Variables
@@ -131,7 +230,7 @@
                       <h6 class="font-12 weight-4">None</h6>
                     </div>
 
-                    <div class="background-main padding-16">
+                    <div class="background-main">
                       <div class="flex-row">
                         <h4 class="font-16 weight-6 flex-row">
                           Commands
@@ -144,7 +243,7 @@
                       <h6 class="font-12 weight-4">None</h6>
                     </div>
 
-                    <div class="background-main padding-16">
+                    <div class="background-main">
                       <div class="flex-row">
                         <h4 class="font-16 weight-6 flex-row">
                           Expose
@@ -176,6 +275,12 @@
             </div>
           </div>
         </div>
+        <div class="tab flex-row space-between">
+          <div class="left"></div>
+          <div class="right">
+            <el-button class="active button-shadow" @click="addService">Add Service</el-button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -189,10 +294,12 @@ import { useRouter, useRoute } from 'vue-router'
 // import {
 //   Search
 // } from '@element-plus/icons-vue'
-import { ElButton, ElInput, ElRow, ElCol, ElSlider } from "element-plus"
+import {  ElButton, ElInput, ElRow, ElCol, ElSlider, ElInputNumber, ElSelect, ElOption, ElOptionGroup,
+  ElCheckbox, ElCheckboxGroup} from "element-plus"
 export default defineComponent({
   components: {
-    popOver, ElButton, ElInput, ElRow, ElCol, ElSlider
+    popOver, ElButton, ElInput, ElRow, ElCol, ElSlider, ElInputNumber, ElSelect, ElOption, ElOptionGroup,
+    ElCheckbox, ElCheckboxGroup
   },
   setup () {
     const store = useStore()
@@ -201,7 +308,7 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const activeIndex = ref('1')
-    const builderData = ref([
+    const optionCont = ref([
       {
         name: 'service-1',
         collapse: false,
@@ -221,6 +328,169 @@ export default defineComponent({
             link: ''
           }
         ],
+        gpuValue: 1,
+        gpuPop: [
+          {
+            desc: "The amount of GPUs required for this workload.",
+            link: ''
+          },
+          {
+            desc: "You can also specify the GPU vendor and model you want specifically. If you don't specify any model, providers with any GPU model will bid on your workload.",
+            link: ''
+          },
+          {
+            desc: "View official documentation.",
+            link: 'https://docs.lagrangedao.org/'
+          }
+        ],
+        gpuCheck: false,
+        gpuSelect: {
+          value: 'nvidia',
+          options: [
+            {
+              value: 'nvidia',
+              label: 'nvidia',
+            }]
+        },
+        gpuModels: {
+          value: 'Nvidia a40',
+          options: [
+            {
+              value: 'Nvidia a40',
+              label: 'Nvidia a40',
+            },
+            {
+              value: 'Nvidia a16',
+              label: 'Nvidia a16',
+            },
+            {
+              value: 'Nvidia t4',
+              label: 'Nvidia t4',
+            },
+            {
+              value: 'Nvidia v100',
+              label: 'Nvidia v100',
+            },
+            {
+              value: 'Nvidia tesla-p100',
+              label: 'Nvidia tesla-p100',
+            },
+            {
+              value: 'Nvidia tesla-k80',
+              label: 'Nvidia tesla-k80',
+            },
+            {
+              value: 'Nvidia Quadro RTX 4000',
+              label: 'Nvidia Quadro RTX 4000',
+            },
+            {
+              value: 'Nvidia Quadro RTX 5000',
+              label: 'Nvidia Quadro RTX 5000',
+            },
+            {
+              value: 'Nvidia Quadro RTX 6000',
+              label: 'Nvidia Quadro RTX 6000',
+            },
+            {
+              value: 'Nvidia Quadro RTX 8000',
+              label: 'Nvidia Quadro RTX 8000',
+            },
+            {
+              value: 'Nvidia Quadro A2000',
+              label: 'Nvidia Quadro A2000',
+            },
+            {
+              value: 'Nvidia Quadro A4000',
+              label: 'Nvidia Quadro A4000',
+            },
+            {
+              value: 'Nvidia Quadro A5000',
+              label: 'Nvidia Quadro A5000',
+            }
+          ]
+        },
+        MemoryValue: 512,
+        MemoryPop: [
+          {
+            desc: "The amount of memory required for this workload.",
+            link: ''
+          },
+          {
+            desc: "The maximum for a single instance is 512 Gi.",
+            link: ''
+          },
+          {
+            desc: "The maximum total multiplied by the count of instances is 1024 Gi.",
+            link: ''
+          }
+        ],
+        MemorySelect: {
+          value: 'Mb',
+          options: [
+            {
+              value: 'Mb',
+              label: 'Mb',
+            },
+            {
+              value: 'Mi',
+              label: 'Mi',
+            },
+            {
+              value: 'GB',
+              label: 'GB',
+            },
+            {
+              value: 'Gi',
+              label: 'Gi',
+            }]
+        },
+        EphemeralValue: 1,
+        EphemeralPop: [
+          {
+            desc: "The amount of ephemeral disk storage required for this workload.",
+            link: ''
+          },
+          {
+            desc: "This disk storage is ephemeral, meaning it will be wiped out on every deployment update or provider reboot.",
+            link: ''
+          },
+          {
+            desc: "The maximum for a single instance is 32 Ti.",
+            link: ''
+          },
+          {
+            desc: "The maximum total multiplied by the count of instances is also 32 Ti.",
+            link: ''
+          }
+        ],
+        EphemeralSelect: {
+          value: 'Mb',
+          options: [
+            {
+              value: 'Mb',
+              label: 'Mb',
+            },
+            {
+              value: 'Mi',
+              label: 'Mi',
+            },
+            {
+              value: 'GB',
+              label: 'GB',
+            },
+            {
+              value: 'Gi',
+              label: 'Gi',
+            },
+            {
+              value: 'TB',
+              label: 'TB',
+            },
+            {
+              value: 'Ti',
+              label: 'Ti',
+            }]
+        },
         docker: '',
         dockerPop: [
           {
@@ -264,13 +534,26 @@ export default defineComponent({
         ]
       }
     ])
+    const builderData = ref([])
 
-    onMounted(() => { })
+    async function removeService (index) {
+      builderData.value.splice(index, 1)
+    }
+    async function addService (params) {
+      const child = JSON.parse(JSON.stringify(optionCont.value))
+      child[0].name = `service-${builderData.value.length + 1}`
+      builderData.value = builderData.value.concat(child)
+    }
+    onMounted(() => {
+      addService()
+    })
+    // watch(builderData, () => {})
     return {
       system,
       bodyWidth,
       activeIndex,
-      builderData
+      builderData,
+      addService, removeService
     }
   }
 })
@@ -326,7 +609,7 @@ export default defineComponent({
       .builder {
         .list {
           width: 100%;
-          margin: 16px 0 0;
+          margin: 16px 0;
           background-color: @white-color;
           border-radius: 8px;
           box-sizing: border-box;
@@ -439,6 +722,7 @@ export default defineComponent({
                   }
                 }
                 .background-main {
+                  padding: 8px 16px;
                   margin: 0 0 16px;
                   background-color: @bg-color;
                   border-radius: 4px;
@@ -446,6 +730,11 @@ export default defineComponent({
                     span {
                       padding: 2px 0 0 8px;
                       line-height: 24px;
+                    }
+                    .el-select {
+                      width: auto;
+                      max-width: 85px;
+                      margin: 0 0 0 16px;
                     }
                   }
                   h4 {
@@ -469,6 +758,78 @@ export default defineComponent({
                   }
                   .slider-demo-block {
                     margin-top: 8px;
+                  }
+                  .el-input-number {
+                    width: auto;
+                    .el-input-number__increase,
+                    .el-input-number__decrease {
+                      background-color: transparent;
+                      border: 0;
+                    }
+                    .el-input {
+                      font-size: inherit;
+                      color: inherit;
+                      .el-input__wrapper {
+                        width: 100px;
+                        height: 40px;
+                        padding: 0 32px 0 14px;
+                        background-color: transparent;
+                        box-shadow: none;
+                        border: 1px solid @primary-color-opacity1;
+                        box-sizing: border-box;
+                        .el-input__inner {
+                          text-align: left;
+                        }
+                      }
+                    }
+                  }
+                  .center {
+                    position: relative;
+                    small {
+                      position: absolute;
+                      top: 8px;
+                      left: 6px;
+                      max-width: calc(100% - 20px);
+                      padding: 0 4px;
+                      background-color: @bg-color;
+                      color: @primary-color-opacity;
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      z-index: 9;
+                    }
+                  }
+                  .el-select {
+                    width: 100%;
+                    margin: 16px 0 0;
+                    .el-input {
+                      font-size: inherit;
+                      .el-input__wrapper {
+                        height: 40px;
+                        background-color: transparent;
+                        box-shadow: none;
+                        border: 1px solid @primary-color-opacity1;
+                        box-sizing: border-box;
+                        .el-input__inner {
+                          color: @primary-color;
+                        }
+                      }
+                    }
+                  }
+                  .el-checkbox {
+                    color: inherit;
+                    .el-checkbox__input {
+                      padding: 0 16px 0 0;
+                      background-color: transparent;
+                      border-color: @primary-color-opacity;
+                    }
+                    .el-checkbox__input.is-checked .el-checkbox__inner {
+                      background-color: @theme-color;
+                      border-color: @theme-color;
+                    }
+                    .el-checkbox__label {
+                      color: inherit;
+                    }
                   }
                 }
               }

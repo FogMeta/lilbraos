@@ -26,7 +26,15 @@
               </svg>
             </span>
             <template #dropdown>
-              <el-dropdown-menu>
+              <el-dropdown-menu v-if="emailAddress">
+                <el-dropdown-item command="">
+                  <span class="font-16">{{emailAddress}}</span>
+                </el-dropdown-item>
+                <el-dropdown-item command="logout">
+                  <span class="font-16">Logout</span>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+              <el-dropdown-menu v-else>
                 <el-dropdown-item command="register">
                   <span class="font-16">Sign Up</span>
                 </el-dropdown-item>
@@ -72,6 +80,7 @@ export default defineComponent({
   setup () {
     const store = useStore()
     const reverse = computed(() => (store.state.reverse))
+    const emailAddress = computed(() => (store.state.emailAddress))
     const clientWidth = computed(() => (store.state.clientWidth))
     const bodyWidth = ref(document.body.clientWidth < 992)
     const system = getCurrentInstance().appContext.config.globalProperties
@@ -100,6 +109,9 @@ export default defineComponent({
         case 'register':
           router.push({ name: 'login', query: { state: 'SignUp' } })
           break;
+        case 'logout':
+          system.$commonFun.signOutMeta()
+          break;
       }
       // store.dispatch('setMenu', key)
     }
@@ -111,6 +123,7 @@ export default defineComponent({
     watch(route, (to, from) => { })
     return {
       system,
+      emailAddress,
       route,
       bodyWidth,
       clientWidth,

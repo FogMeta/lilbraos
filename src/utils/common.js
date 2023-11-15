@@ -28,7 +28,7 @@ async function sendRequest(apilink, type, jsonObject, api_token) {
     }
   } catch (err) {
     console.error(err, err.response)
-    notificationTip(err.response ? err.response.statusText : 'Request failed. Please try again later!', 'error')
+    notificationTip(err.response ? err.response.statusText || err.response.data.msg : 'Request failed. Please try again later!', 'error')
     // messageTip('error', err.response ? err.response.statusText : 'Request failed. Please try again later!')
     if (err.response) {
       // The request has been sent, but the status code of the server response is not within the range of 2xx
@@ -202,6 +202,14 @@ function NumFormat(value) {
   return intPartArr[1] ? `${intPartFormat}.${intPartArr[1]}` : intPartFormat
 }
 
+function signOutMeta() {
+  store.dispatch('setAccessToken', '')
+  store.dispatch('setEmailAddress', '')
+  // router.push({
+  //   name: 'home'
+  // })
+}
+
 let web3Init
 if (typeof window.ethereum === 'undefined') {
   // window.open('https://metamask.io/download.html')
@@ -240,5 +248,6 @@ export default {
   web3Init,
   checkDarkMode,
   checkMode,
-  NumFormat
+  NumFormat,
+  signOutMeta
 }

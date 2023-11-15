@@ -939,8 +939,6 @@ export default defineComponent({
             background-color: @theme-color;
             border-color: @theme-color;
           }
-          &:not(.disabled):hover {
-          }
         }
       }
     }

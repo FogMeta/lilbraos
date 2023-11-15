@@ -21,13 +21,20 @@
         </div>
       </header>
       <el-row class="rpc-body" justify="space-between">
-        <el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="18" class="rpc-left">
+        <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="rpc-right">
+          <div class="content" v-for="d in describeData" :key="d">
+            <div class="title">{{d.title}}</div>
+            <div :class="{'sub_title color':true, 'u': d.nav}" @click="goToken(d.nav, d.tabs)">{{d.subTitle}}</div>
+            <div class="sub_title">{{d.desc}}</div>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="rpc-left">
           <el-row class="rpc-list" :gutter="32" v-if="chainsData.length > 0">
-            <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" v-for="chain in chainsData" :key="chain">
+            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" v-for="chain in chainsData" :key="chain">
               <el-card class="box-card">
                 <div class="grid-content">
-                  <div class="flex-row head">
-                    <img :src="chain.icon" width="32" height="32" :alt="`${chain.chain}`"> {{chain.chain}} - {{chain.network}}
+                  <div class="flex-row head font-14">
+                    <img :src="chain.icon" width="24" height="24" :alt="`${chain.chain}`"> {{chain.chain}} - {{chain.network}}
                   </div>
                   <ul class="flex-row">
                     <li class="wide">
@@ -53,13 +60,6 @@
           <el-empty :image-size="200" v-else />
           <el-pagination hide-on-single-page :page-size="pagin.pageSize" :current-page="pagin.pageNo" :pager-count="5" :small="small" :background="background" layout="total, prev, pager, next" :total="pagin.total" @size-change="handleSizeChange" @current-change="handleCurrentChange"
           />
-        </el-col>
-        <el-col :xs="24" :sm="24" :md="6" :lg="6" :xl="6" class="rpc-right">
-          <div class="content" v-for="d in describeData" :key="d">
-            <div class="title">{{d.title}}</div>
-            <div :class="{'sub_title color':true, 'u': d.nav}" @click="goToken(d.nav, d.tabs)">{{d.subTitle}}</div>
-            <div class="sub_title">{{d.desc}}</div>
-          </div>
         </el-col>
       </el-row>
 
@@ -349,7 +349,7 @@ export default defineComponent({
               padding: 0.16rem;
               .grid-content {
                 .head {
-                  font-size: 0.162rem;
+                  flex-wrap: nowrap;
                   font-weight: 600;
                   img {
                     margin-right: 0.08rem;
@@ -425,7 +425,7 @@ export default defineComponent({
       }
       .rpc-right {
         position: relative;
-        padding: 0 0.25rem 0.35rem;
+        padding: 0 0.25rem;
         &::before {
           position: absolute;
           content: "";
@@ -439,7 +439,7 @@ export default defineComponent({
           }
         }
         .content {
-          padding: 0.4rem 0 0;
+          padding: 0.2rem 0 0;
           .title {
             padding: 0 0 0.15rem;
             font-size: 0.2rem;

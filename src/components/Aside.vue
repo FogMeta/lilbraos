@@ -74,16 +74,22 @@
           <template #title>
             <span class="el-icon width-icon flex-row icon">
               <i class="width-icon min-small flex-row">
-                <svg t="1699950348264" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4386" width="200" height="200">
-                  <path d="M341.333 0h-204.8A136.533 136.533 0 0 0 0 136.533v204.8a136.533 136.533 0 0 0 136.533 136.534h204.8a136.533 136.533 0 0 0 136.534-136.534v-204.8A136.533 136.533 0 0 0 341.333 0zM409.6 341.333a68.267 68.267 0 0 1-68.267 68.267h-204.8a68.267 68.267 0 0 1-68.266-68.267v-204.8a68.267 68.267 0 0 1 68.266-68.266h204.8a68.267 68.267 0 0 1 68.267 68.266zM887.467 0h-204.8a136.533 136.533 0 0 0-136.534 136.533v204.8a136.533 136.533 0 0 0 136.534 136.534h204.8A136.533 136.533 0 0 0 1024 341.333v-204.8A136.533 136.533 0 0 0 887.467 0z m68.266 341.333a68.267 68.267 0 0 1-68.266 68.267h-204.8a68.267 68.267 0 0 1-68.267-68.267v-204.8a68.267 68.267 0 0 1 68.267-68.266h204.8a68.267 68.267 0 0 1 68.266 68.266z m-614.4 204.8h-204.8A136.533 136.533 0 0 0 0 682.667v204.8A136.533 136.533 0 0 0 136.533 1024h204.8a136.533 136.533 0 0 0 136.534-136.533v-204.8a136.533 136.533 0 0 0-136.534-136.534zM409.6 887.467a68.267 68.267 0 0 1-68.267 68.266h-204.8a68.267 68.267 0 0 1-68.266-68.266v-204.8a68.267 68.267 0 0 1 68.266-68.267h204.8a68.267 68.267 0 0 1 68.267 68.267z m477.867-341.334h-204.8a136.533 136.533 0 0 0-136.534 136.534v204.8A136.533 136.533 0 0 0 682.667 1024h204.8A136.533 136.533 0 0 0 1024 887.467v-204.8a136.533 136.533 0 0 0-136.533-136.534z m68.266 341.334a68.267 68.267 0 0 1-68.266 68.266h-204.8a68.267 68.267 0 0 1-68.267-68.266v-204.8a68.267 68.267 0 0 1 68.267-68.267h204.8a68.267 68.267 0 0 1 68.266 68.267z"
-                    p-id="4387"></path>
+                <svg t="1699955574256" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6270" width="200" height="200">
+                  <path d="M885.44 132.992a5.568 5.568 0 0 1 5.504 5.504v278.464a5.504 5.504 0 0 1-5.504 5.44H606.976a5.44 5.44 0 0 1-5.44-5.44V138.496a5.504 5.504 0 0 1 5.44-5.504h278.464m0-59.776H606.976a65.28 65.28 0 0 0-65.28 65.28v278.464a65.28 65.28 0 0 0 65.28 65.28h278.464a65.28 65.28 0 0 0 65.28-65.28V138.496a65.216 65.216 0 0 0-65.28-65.28z"
+                    p-id="6271"></path>
+                  <path d="M417.024 132.992a5.504 5.504 0 0 1 5.44 5.504v278.464a5.44 5.44 0 0 1-5.44 5.44H138.56a5.504 5.504 0 0 1-5.504-5.44V138.496a5.568 5.568 0 0 1 5.504-5.504h278.464m0-59.776H138.56a65.216 65.216 0 0 0-65.28 65.28v278.464a65.28 65.28 0 0 0 65.28 65.28h278.464a65.28 65.28 0 0 0 65.28-65.28V138.496a65.28 65.28 0 0 0-65.28-65.28z"
+                    p-id="6272"></path>
+                  <path d="M885.44 600.896a5.504 5.504 0 0 1 5.504 5.44v278.464a5.504 5.504 0 0 1-5.504 5.504H606.976a5.44 5.44 0 0 1-5.44-5.504V606.336a5.44 5.44 0 0 1 5.44-5.44h278.464m0-59.84H606.976a65.28 65.28 0 0 0-65.28 65.28v278.464a65.344 65.344 0 0 0 65.28 65.344h278.464a65.28 65.28 0 0 0 65.28-65.344V606.336a65.28 65.28 0 0 0-65.28-65.28z"
+                    p-id="6273"></path>
+                  <path d="M417.024 600.896a5.44 5.44 0 0 1 5.44 5.44v278.464a5.44 5.44 0 0 1-5.44 5.504H138.56a5.504 5.504 0 0 1-5.504-5.504V606.336a5.504 5.504 0 0 1 5.504-5.44h278.464m0-59.84H138.56a65.28 65.28 0 0 0-65.28 65.28v278.464a65.28 65.28 0 0 0 65.28 65.344h278.464a65.344 65.344 0 0 0 65.28-65.344V606.336a65.28 65.28 0 0 0-65.28-65.28z"
+                    p-id="6274"></path>
                 </svg>
               </i>
             </span>
-            <span class="font-16 weight-5">Infrastructure</span>
+            <span class="font-16 weight-5 hide">Infrastructure</span>
           </template>
-          <el-menu-item index="Storage">- Storage</el-menu-item>
-          <el-menu-item index="RPC">- RPC</el-menu-item>
+          <el-menu-item index="Storage" disabled>Storage</el-menu-item>
+          <el-menu-item index="RPC">RPC</el-menu-item>
         </el-sub-menu>
         <el-menu-item index="faq" class="menu">
           <i class="el-icon width-icon">
@@ -104,14 +110,6 @@
       </ul>
       <ul class="wid">
         <li class="el-menu-item hide" index="10">
-          <!-- <div class="mainnet">
-          <b class="font-12">Mainnet</b>
-          <div class="net-root font-12 flex-row center">
-            <span>akashnet.net</span>
-            <span>276ms</span>
-            <span class="border"></span>
-          </div>
-        </div> -->
           <div class="support flex-row center">
             <span class="font-10 weight-8">Support our Validator </span>
             <i class="el-icon width-icon small">
@@ -229,7 +227,8 @@ export default defineComponent({
       else if (nameMenu.indexOf('providers') > -1) activeIndex.value = 'providers'
       else if (nameMenu.indexOf('analytics') > -1) activeIndex.value = 'analytics'
       else if (nameMenu.indexOf('priceCompare') > -1) activeIndex.value = 'priceCompare'
-      else if (nameMenu.indexOf('Storage') > -1 || nameMenu.indexOf('RPC') > -1) activeIndex.value = 'Infrastructure'
+      else if (nameMenu.indexOf('Storage') > -1) activeIndex.value = 'Storage'
+      else if (nameMenu.indexOf('RPC') > -1) activeIndex.value = 'RPC'
       else if (nameMenu.indexOf('faq') > -1) activeIndex.value = 'faq'
       else if (nameMenu.indexOf('settings') > -1) activeIndex.value = 'settings'
       else activeIndex.value = '100'
@@ -272,6 +271,22 @@ export default defineComponent({
     border: 0;
     &.el-menu--collapse {
       width: 65px;
+      .el-sub-menu {
+        padding: 0 !important;
+        text-transform: capitalize;
+        .el-sub-menu__title {
+          height: 40px;
+          padding: 8px;
+          justify-content: center;
+          .el-icon.icon {
+            margin: 0;
+          }
+        }
+        .el-sub-menu__icon-arrow,
+        .hide {
+          display: none;
+        }
+      }
       .hide {
         display: none;
       }
@@ -296,22 +311,23 @@ export default defineComponent({
       }
     }
     .el-sub-menu {
+      &.is-active {
+        font-weight: 600;
+        color: @primary-color;
+        .el-icon {
+          svg,
+          path {
+            fill: @theme-color;
+            opacity: 1 !important;
+          }
+        }
+      }
       .el-sub-menu__title {
         height: 46px;
         padding: 0 12px 0 16px;
         line-height: 30px;
         &:hover {
           background-color: @primary-color-opacity2;
-        }
-        &.is-active {
-          font-weight: 600;
-          .el-icon {
-            svg,
-            path {
-              fill: @theme-color;
-              opacity: 1;
-            }
-          }
         }
         .el-icon {
           &.icon {
@@ -336,6 +352,9 @@ export default defineComponent({
           text-indent: 50px;
           line-height: 1;
           color: @grey-color;
+          &.is-active {
+            color: @primary-color;
+          }
           &:hover {
             background-color: @primary-color-opacity2;
           }
@@ -359,6 +378,7 @@ export default defineComponent({
       }
       &.is-active {
         font-weight: 600;
+        color: @primary-color;
         .el-icon {
           svg,
           path {
@@ -475,8 +495,6 @@ export default defineComponent({
             color: @white-color;
           }
         }
-      }
-      .foot-collapse {
       }
     }
   }

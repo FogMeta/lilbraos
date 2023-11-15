@@ -62,6 +62,7 @@ export default defineComponent({
   text-align: left;
   .link {
     color: @theme-color;
+    cursor: pointer;
     &:hover {
       text-decoration: underline;
     }

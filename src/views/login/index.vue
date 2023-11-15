@@ -2,6 +2,14 @@
   <section id="login">
     <div class="login_body flex-row">
       <div class="module">
+        <div class="el-loading-mask is-fullscreen" v-show="createLoad">
+          <div class="el-loading-spinner">
+            <svg class="circular" viewBox="0 0 50 50">
+              <circle class="path" cx="25" cy="25" r="20" fill="none"></circle>
+            </svg>
+            <p class="el-loading-text">loading...</p>
+          </div>
+        </div>
         <div class="logo-style">
           <div class="button" @click="sliderDisplay=false" v-if="sliderDisplay">
             <span class="width-icon minimum-small">
@@ -17,54 +25,103 @@
               <el-tab-pane label="Log In" name="LogIn"></el-tab-pane>
               <el-tab-pane label="Sign Up" name="SignUp"></el-tab-pane>
             </el-tabs>
-            <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" class="demo-ruleForm" status-icon @submit.native.prevent>
-              <el-form-item prop="email">
-                <label class="label" for="email">
-                  <div class="flex-row">
-                    <el-input v-model="ruleForm.email" placeholder="yours@example.com">
-                      <template #prepend>
-                        <span class="width-icon minimum-small flex-row">
-                          <svg aria-hidden="true" focusable="false" width="14px" height="13px" viewBox="0 0 32 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                              <g id="32px" transform="translate(-2155.000000, -2317.000000)" fill="#373A39">
-                                <g id="Group-856" transform="translate(1.000000, 1.000000)">
-                                  <path id="Fill-419" d="M2184,2339 C2184,2339.55 2183.55,2340 2183,2340 L2157,2340 C2156.45,2340 2156,2339.55 2156,2339 L2156,2319 C2156,2318.45 2156.45,2318 2157,2318 L2183,2318 C2183.55,2318 2184,2318.45 2184,2319 L2184,2339 L2184,2339 Z M2184,2316 L2156,2316 C2154.89,2316 2154,2316.89 2154,2318 L2154,2340 C2154,2341.1 2154.89,2342 2156,2342 L2184,2342 C2185.1,2342 2186,2341.1 2186,2340 L2186,2318 C2186,2316.89 2185.1,2316 2184,2316 L2184,2316 Z M2176,2322 L2180,2322 L2180,2326 L2176,2326 L2176,2322 Z M2174,2328 L2182,2328 L2182,2320 L2174,2320 L2174,2328 Z M2158,2332 L2172,2332 L2172,2330 L2158,2330 L2158,2332 Z M2158,2336 L2172,2336 L2172,2334 L2158,2334 L2158,2336 Z"></path>
+            <div v-show="activeName === 'LogIn'">
+              <el-form ref="ruleLogInRef" :model="ruleForm" :rules="rules" class="demo-ruleForm" status-icon @submit.native.prevent>
+                <el-form-item prop="email">
+                  <label class="label" for="email">
+                    <div class="flex-row">
+                      <el-input v-model="ruleForm.email" placeholder="yours@example.com">
+                        <template #prepend>
+                          <span class="width-icon minimum-small flex-row">
+                            <svg aria-hidden="true" focusable="false" width="14px" height="13px" viewBox="0 0 32 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="32px" transform="translate(-2155.000000, -2317.000000)" fill="#373A39">
+                                  <g id="Group-856" transform="translate(1.000000, 1.000000)">
+                                    <path id="Fill-419" d="M2184,2339 C2184,2339.55 2183.55,2340 2183,2340 L2157,2340 C2156.45,2340 2156,2339.55 2156,2339 L2156,2319 C2156,2318.45 2156.45,2318 2157,2318 L2183,2318 C2183.55,2318 2184,2318.45 2184,2319 L2184,2339 L2184,2339 Z M2184,2316 L2156,2316 C2154.89,2316 2154,2316.89 2154,2318 L2154,2340 C2154,2341.1 2154.89,2342 2156,2342 L2184,2342 C2185.1,2342 2186,2341.1 2186,2340 L2186,2318 C2186,2316.89 2185.1,2316 2184,2316 L2184,2316 Z M2176,2322 L2180,2322 L2180,2326 L2176,2326 L2176,2322 Z M2174,2328 L2182,2328 L2182,2320 L2174,2320 L2174,2328 Z M2158,2332 L2172,2332 L2172,2330 L2158,2330 L2158,2332 Z M2158,2336 L2172,2336 L2172,2334 L2158,2334 L2158,2336 Z"></path>
+                                  </g>
                                 </g>
                               </g>
-                            </g>
-                          </svg>
-                        </span>
-                      </template>
-                    </el-input>
-                  </div>
-                </label>
-              </el-form-item>
-              <el-form-item prop="password">
-                <label class="label" for="password">
-                  <div class="flex-row">
-                    <el-input v-model="ruleForm.password" placeholder="your password" type="password" show-password>
-                      <template #prepend>
-                        <span class="width-icon minimum-small flex-row">
-                          <Lock />
-                        </span>
-                      </template>
-                    </el-input>
-                  </div>
-                </label>
-              </el-form-item>
-              <el-form-item prop="entered">
-                <div class="forget" v-if="activeName === 'LogIn'" @click="sliderMethod">Don't remember your password?</div>
-                <el-checkbox v-model="ruleForm.entered" v-else label="agreement">Yes, I would also like to sign up for the newsletter.</el-checkbox>
-              </el-form-item>
-            </el-form>
-            <div class="flex-row center agreement-style" v-if="activeName !== 'LogIn'">
-              <el-checkbox v-model="ruleForm.agreement" label="agreement">I have read and agree to
-                <a class="agree" href="/" target="_blank">Terms of Services</a>.
-              </el-checkbox>
+                            </svg>
+                          </span>
+                        </template>
+                      </el-input>
+                    </div>
+                  </label>
+                </el-form-item>
+                <el-form-item prop="password">
+                  <label class="label" for="password">
+                    <div class="flex-row">
+                      <el-input v-model="ruleForm.password" placeholder="your password" type="password" show-password>
+                        <template #prepend>
+                          <span class="width-icon minimum-small flex-row">
+                            <Lock />
+                          </span>
+                        </template>
+                      </el-input>
+                    </div>
+                  </label>
+                </el-form-item>
+                <el-form-item prop="">
+                  <div class="forget" @click="sliderMethod">Don't remember your password?</div>
+                </el-form-item>
+              </el-form>
+            </div>
+            <div v-show="activeName === 'SignUp'">
+              <el-form ref="ruleRegisterRef" :model="ruleForm" :rules="rulesRegister" class="demo-ruleForm" status-icon @submit.native.prevent>
+                <el-form-item prop="email">
+                  <label class="label" for="email">
+                    <div class="flex-row">
+                      <el-input v-model="ruleForm.email" @input="emailBlur" placeholder="yours@example.com">
+                        <template #prepend>
+                          <span class="width-icon minimum-small flex-row">
+                            <svg aria-hidden="true" focusable="false" width="14px" height="13px" viewBox="0 0 32 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="32px" transform="translate(-2155.000000, -2317.000000)" fill="#373A39">
+                                  <g id="Group-856" transform="translate(1.000000, 1.000000)">
+                                    <path id="Fill-419" d="M2184,2339 C2184,2339.55 2183.55,2340 2183,2340 L2157,2340 C2156.45,2340 2156,2339.55 2156,2339 L2156,2319 C2156,2318.45 2156.45,2318 2157,2318 L2183,2318 C2183.55,2318 2184,2318.45 2184,2319 L2184,2339 L2184,2339 Z M2184,2316 L2156,2316 C2154.89,2316 2154,2316.89 2154,2318 L2154,2340 C2154,2341.1 2154.89,2342 2156,2342 L2184,2342 C2185.1,2342 2186,2341.1 2186,2340 L2186,2318 C2186,2316.89 2185.1,2316 2184,2316 L2184,2316 Z M2176,2322 L2180,2322 L2180,2326 L2176,2326 L2176,2322 Z M2174,2328 L2182,2328 L2182,2320 L2174,2320 L2174,2328 Z M2158,2332 L2172,2332 L2172,2330 L2158,2330 L2158,2332 Z M2158,2336 L2172,2336 L2172,2334 L2158,2334 L2158,2336 Z"></path>
+                                  </g>
+                                </g>
+                              </g>
+                            </svg>
+                          </span>
+                        </template>
+                      </el-input>
+                    </div>
+                  </label>
+                </el-form-item>
+                <el-form-item prop="code">
+                  <label class="label" for="code">
+                    <div class="flex flex-row">
+                      <el-input v-model="ruleForm.code" placeholder=" " />
+                      <el-button class="el-code is-disabled" size="large" disabled v-if="sms.disabled">Try again in {{sms.count}}s</el-button>
+                      <el-button :class="{'is-disabled' : ruleForm.email_err}" class="el-code" size="large" v-else @click="sendCode">Send code</el-button>
+                    </div>
+                  </label>
+                  <div class="el-form-item__error error" v-if="sms.tip">Please enter the verification code</div>
+                </el-form-item>
+                <el-form-item prop="password">
+                  <label class="label" for="password">
+                    <div class="flex-row">
+                      <el-input v-model="ruleForm.password" placeholder="your password" type="password" show-password>
+                        <template #prepend>
+                          <span class="width-icon minimum-small flex-row">
+                            <Lock />
+                          </span>
+                        </template>
+                      </el-input>
+                    </div>
+                  </label>
+                </el-form-item>
+              </el-form>
+              <div class="flex-row center agreement-style">
+                <el-checkbox v-model="ruleForm.agreement" label="agreement">I have read and agree to
+                  <a class="agree" href="/" target="_blank">Terms of Services</a>.
+                </el-checkbox>
+              </div>
             </div>
           </div>
           <div class="right">
-            <el-form ref="ruleFormRef" :model="ruleForm" :rules="rulesReset" class="demo-ruleForm" status-icon @submit.native.prevent>
+            <el-form ref="ruleResetRef" :model="ruleForm" :rules="rulesReset" class="demo-ruleForm" status-icon @submit.native.prevent>
               <el-form-item prop="email">
                 <label class="label" for="email">
                   <div class="flex flex-row">
@@ -112,9 +169,9 @@
             </el-form>
           </div>
         </div>
-        <el-button v-if="activeName === 'LogIn' && !sliderDisplay" size="large" @click="submitForm('ruleFormRef')">Log in &gt;</el-button>
-        <el-button v-else-if="activeName === 'SignUp' && !sliderDisplay" size="large" :disabled="!(ruleForm.agreement && ruleForm.entered)" @click="submitForm('ruleFormRef')">Sign Up &gt;</el-button>
-        <el-button v-else @click="submitForm('ruleFormRef')">Reset password &gt;</el-button>
+        <el-button v-if="activeName === 'LogIn' && !sliderDisplay" size="large" @click="getLogIn('ruleLogInRef', 'LogIn')">Log in &gt;</el-button>
+        <el-button v-else-if="activeName === 'SignUp' && !sliderDisplay" size="large" :disabled="!ruleForm.agreement" @click="getRegister('ruleRegisterRef', 'SignUp')">Sign Up &gt;</el-button>
+        <el-button v-else @click="getReset('ruleResetRef', 'Reset')">Reset password &gt;</el-button>
       </div>
     </div>
   </section>
@@ -123,6 +180,7 @@
 import { defineComponent, computed, onMounted, onActivated, watch, ref, reactive, getCurrentInstance } from 'vue'
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
+import md5 from 'js-md5'
 import { Lock, Back } from '@element-plus/icons-vue'
 import { ElButton, ElRow, ElCol, ElInput, ElForm, ElFormItem, ElTabs, ElTabPane, ElCheckbox, ElCheckboxGroup } from 'element-plus'
 export default defineComponent({
@@ -146,7 +204,6 @@ export default defineComponent({
     const ruleForm = reactive({
       email: '',
       password: '',
-      entered: false,
       agreement: false,
       code: '',
       email_err: true
@@ -184,7 +241,28 @@ export default defineComponent({
         // { validator: validatePass, trigger: "blur" }
       ]
     })
-
+    const rulesRegister = reactive({
+      email: [
+        {
+          required: true,
+          message: 'Please input email address',
+          trigger: 'blur',
+        },
+        { validator: validateEmail, trigger: "blur" }
+        // {
+        //   type: 'email',
+        //   message: 'Please input correct email address',
+        //   trigger: ['blur', 'change'],
+        // },
+      ],
+      code: [
+        { required: true, message: 'Please enter the verification code', trigger: 'blur' }
+      ],
+      password: [
+        { required: true, message: 'Please input a password', trigger: 'blur' },
+        // { validator: validatePass, trigger: "blur" }
+      ]
+    })
     const rulesReset = reactive({
       email: [
         {
@@ -207,7 +285,9 @@ export default defineComponent({
         // { validator: validatePass, trigger: "blur" }
       ]
     })
-    const ruleFormRef = ref(null)
+    const ruleLogInRef = ref(null)
+    const ruleRegisterRef = ref(null)
+    const ruleResetRef = ref(null)
     const createLoad = ref(false)
     const activeName = ref('LogIn')
     const sliderDisplay = ref(false)
@@ -216,7 +296,7 @@ export default defineComponent({
       // console.log(tab.props.name)
       activeName.value = tab.props.name
       router.push({ name: 'login', query: { state: tab.props.name } })
-      ruleFormRef.value.resetFields()
+      resetFields()
     }
     function checkSpecialKey (str) {
       let specialKey =
@@ -228,30 +308,84 @@ export default defineComponent({
       }
       return true;
     }
-    const submitForm = async (formEl) => {
+    async function getRegister (formEl, type) {
       if (!formEl) return
-      await ruleFormRef.value.validate(async (valid, fields) => {
+      await ruleRegisterRef.value.validate(async (valid, fields) => {
         if (valid) {
           createLoad.value = true
-          // const emailParams = {
-          //   "email": ruleForm.email,
-          //   "password": system.$commonFun.encrypt(ruleForm.password)
-          // }
-          // const userRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_BASEAPI}/user/login`, 'post', emailParams)
-          // if (userRes && userRes.code === 0) {
-          //   store.dispatch('setAccessToken', userRes.data ? userRes.data.token : '')
-          //   store.dispatch('setEmailAddress', ruleForm.email)
-          //   router.push({ name: 'metaarkDemo', params: { type: 'filelist' } })
-          // } else system.$commonFun.messageTip('error', userRes.msg ? userRes.msg : 'Login Failed!')
+          const hash = md5(ruleForm.password)
+          const emailParams = {
+            "email": ruleForm.email,
+            "password": hash,
+            "auth_code": ruleForm.code,
+            "wallet_token": "", //wallet login token, only required when type = 1
+            "type": 2 //login type, 1: wallet, 2: email
+          }
+          const userRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/user`, 'post', emailParams)
+          if (userRes && userRes.code === 0) {
+            system.$commonFun.notificationTip(userRes.msg ? userRes.msg : 'Register successfully!', 'success')
+            // system.$commonFun.signOutMeta()
+            activeName.value = 'LogIn'
+          }
           createLoad.value = false
-        } else {
-          console.log('error submit!', fields)
-          return false
         }
       })
     }
+    async function getLogIn (formEl, type) {
+      if (!formEl) return
+      await ruleLogInRef.value.validate(async (valid, fields) => {
+        if (valid) {
+          createLoad.value = true
+          const hash = md5(ruleForm.password)
+          const params = {
+            "email": ruleForm.email,
+            "password": hash,
+            "wallet_token": "", //wallet login token, only required when type = 1
+            "type": 2 //login type, 1: wallet, 2: email
+          }
+          const userRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/user/login`, 'post', params)
+          if (userRes && userRes.code === 0) {
+            store.dispatch('setAccessToken', userRes.data ? userRes.data.token : '')
+            store.dispatch('setEmailAddress', ruleForm.email)
+            router.push({ name: 'home' })
+          }
+          createLoad.value = false
+        }
+      })
+    }
+    async function getReset (formEl, type) {
+      if (!formEl) return
+      await ruleResetRef.value.validate(async (valid, fields) => {
+        if (valid) {
+          createLoad.value = true
+          const hash = md5(ruleForm.password)
+          const emailParams = {
+            "email": ruleForm.email,
+            "password": hash,
+            "auth_code": ruleForm.code
+          }
+          const userRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/user/login`, 'put', emailParams)
+          if (userRes && userRes.code === 0) {
+            system.$commonFun.notificationTip(userRes.msg ? userRes.msg : 'Reset successfully!', 'success')
+            // system.$commonFun.signOutMeta()
+            sliderDisplay.value = false
+          }
+          createLoad.value = false
+        }
+      })
+    }
+    function resetFields () {
+      ruleLogInRef.value.resetFields()
+      ruleRegisterRef.value.resetFields()
+      ruleResetRef.value.resetFields()
+      ruleForm.email_err = true
+      sms.disabled = false
+      sms.total = 60
+      sms.count = 0
+      sms.tip = false
+    }
     function sliderMethod () {
-      ruleFormRef.value.resetFields()
+      resetFields()
       sliderDisplay.value = true
     }
     function emailBlur () {
@@ -275,17 +409,17 @@ export default defineComponent({
     const sendCode = async () => {
       if (regEmail.test(ruleForm.email)) {
         timerHandler()
-        // const emailParams = {
-        //   "email": ruleForm.email
-        // }
-        // const emailRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_BASEAPI}/email`, 'post', emailParams)
-        // if (emailRes && emailRes.code === 0) console.log('Send code successfully!')
+        const emailParams = {
+          "email": ruleForm.email
+        }
+        const emailRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/email`, 'post', emailParams)
+        if (emailRes && emailRes.code === 0) console.log('Send code successfully!')
         // else system.$commonFun.messageTip('error', emailRes.msg ? emailRes.msg : 'Send code Failed!')
       } else sms.tip = true
     }
     onMounted(async () => {
       activeName.value = route.query.state === 'SignUp' ? 'SignUp' : 'LogIn'
-      ruleFormRef.value.resetFields()
+      resetFields()
       sms.disabled = false
       sms.total = 60
       sms.count = 0
@@ -296,15 +430,18 @@ export default defineComponent({
       router,
       logoImg,
       sms,
-      ruleFormRef,
+      ruleLogInRef,
+      ruleRegisterRef,
+      ruleResetRef,
       ruleForm,
       rules,
+      rulesRegister,
       rulesReset,
       createLoad,
       system,
       activeName,
       sliderDisplay,
-      submitForm, handleClick, emailBlur, timerHandler, sendCode, sliderMethod
+      getRegister, getLogIn, getReset, handleClick, emailBlur, timerHandler, sendCode, sliderMethod
     }
   },
 });
@@ -323,11 +460,20 @@ export default defineComponent({
     margin: auto;
     font-size: 14px;
     .module {
+      position: relative;
       width: 300px;
       margin: auto;
       background-color: #fff;
       border-radius: 6px;
       overflow: hidden;
+      .el-loading-mask.is-fullscreen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9;
+      }
       .logo-style {
         position: relative;
         padding: 10px;
@@ -445,7 +591,8 @@ export default defineComponent({
                 &.el-code {
                   // width: 200px;
                   width: 70%;
-                  padding: 0.12rem 0.15rem 0.1rem;
+                  height: 40px;
+                  padding: 0 0.15rem;
                   margin-left: 0.1rem;
                 }
                 &.is-disabled {
@@ -565,6 +712,7 @@ export default defineComponent({
           }
         }
         .agreement-style {
+          margin: 32px 0 0;
           background-color: @bg-color;
           .el-checkbox {
             margin: 12px auto;

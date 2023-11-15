@@ -6,7 +6,9 @@ export default createStore({
   state: {
     metaAddress: sessionStorage.getItem('metaAddressClaim') || '',
     clientWidth: document.body.clientWidth < 992 ? false : true,
-    reverse: localStorage.getItem('libraReverse') || '0' // 0:not set, 1:dark, 2:light
+    reverse: localStorage.getItem('libraReverse') || '0', // 0:not set, 1:dark, 2:light
+    accessToken: sessionStorage.getItem('access_token_libraos') || '',
+    emailAddress: sessionStorage.getItem('email_address_libraos') || '',
   },
   mutations: {
     SET_METAADDRESS: (state, metaAddress) => {
@@ -19,6 +21,14 @@ export default createStore({
     SET_REVERSE: (state, reverse) => {
       state.reverse = reverse
       localStorage.setItem('libraReverse', reverse)
+    },
+    SET_ACCESSTOKEN: (state, accessToken) => {
+      state.accessToken = accessToken
+      sessionStorage.setItem('access_token_libraos', accessToken)
+    },
+    SET_EMAILADDRESS: (state, emailAddress) => {
+      state.emailAddress = emailAddress
+      sessionStorage.setItem('email_address_libraos', emailAddress)
     }
   },
   actions: {
@@ -36,7 +46,17 @@ export default createStore({
       commit
     }, reverse) {
       commit('SET_REVERSE', reverse)
-    }
+    },
+    setAccessToken({
+      commit
+    }, accessToken) {
+      commit('SET_ACCESSTOKEN', accessToken)
+    },
+    setEmailAddress({
+      commit
+    }, emailAddress) {
+      commit('SET_EMAILADDRESS', emailAddress)
+    },
   },
   modules: {}
 })
