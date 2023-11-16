@@ -13,14 +13,15 @@ export default {
 @import "./assets/css/style.less";
 .dark {
   filter: invert(1) hue-rotate(180deg);
+  .el-input,
   .el-select,
+  .el-select .el-input__inner,
   .el-popper,
   .el-button,
+  .el-checkbox,
   #container-settings .module .area .el-row .el-col .el-card,
   #container-templates .module .area .el-row .el-col .el-card,
   #container-analytics .module .area .tem-row .el-col .el-card,
-  .el-input,
-  .el-select .el-input__inner,
   .aside-main .el-menu .el-menu-item .root,
   .inner,
   .image {
@@ -45,6 +46,7 @@ export default {
   #container-settings .module .area .el-row .el-col .el-card,
   #container-templates .module .area .el-row .el-col .el-card,
   #container-analytics .module .area .tem-row .el-col .el-card,
+  #container-builder .module .area .tab .el-button,
   .el-input__inner {
     color: @white-color !important;
     .desc {

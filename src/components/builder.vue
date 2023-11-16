@@ -47,11 +47,11 @@
           <div class="flex-row space-between nowrap">
             <div class="flex-row center">
               <small class="font-12">Port</small>
-              <el-input v-model="item.port" placeholder="Port" class="font-16" />
+              <el-input-number controls-position="right" v-model="item.port" placeholder="Port" class="font-16 input-with-select" />
             </div>
             <div class="flex-row center m-16">
               <small class="font-12">As</small>
-              <el-input v-model="item.as" placeholder="As" class="font-16" />
+              <el-input-number controls-position="right" v-model="item.as" placeholder="As" class="font-16 input-with-select" />
             </div>
             <div class="flex-row center">
               <el-select v-model="item.httpValue" placeholder="Select">
@@ -268,7 +268,6 @@ export default defineComponent({
       }
       .center {
         position: relative;
-
         small {
           position: absolute;
           top: -6px;
@@ -306,6 +305,19 @@ export default defineComponent({
           .el-input__inner {
             color: @primary-color;
           }
+        }
+      }
+      .el-input-number {
+        width: 100%;
+        .el-input__inner {
+          text-align: left;
+        }
+        .el-input-number__increase,
+        .el-input-number__decrease {
+          height: 20px;
+          background-color: transparent;
+          box-shadow: none;
+          border: 0;
         }
       }
     }

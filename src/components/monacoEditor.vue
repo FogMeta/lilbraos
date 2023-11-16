@@ -9,7 +9,7 @@
             </header>
             <div class="cont flex-row">
                 <div v-show="props.title === 'Preview'" class="root flex-row center button-shadow" @click="getCodeContext">
-                    <span class="font-14 weight-5">Copy the SDL</span>
+                    <span class="font-14 weight-5">Copy the YAML</span>
                     <i class="icon width-icon small">
                         <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FileCopyIcon">
                             <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4 6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z"></path>
@@ -56,6 +56,7 @@ export default defineComponent({
     },
     setup (props, context) {
         const store = useStore()
+        const reverse = computed(() => (store.state.reverse))
         const system = getCurrentInstance().appContext.config.globalProperties
         const route = useRoute()
         const router = useRouter()
@@ -86,21 +87,20 @@ export default defineComponent({
                 lineNumbers: "on", // 行号 取值： "on" | "off" | "relative" | "interval" | function
                 lineNumbersMinChars: 5, // 行号最小字符   number
                 enableSplitViewResizing: false,
-                readOnly: false, //是否只读  取值 true | false
-
+                readOnly: props.title === 'Preview', //是否只读  取值 true | false
                 // value: this.editorValue, // 编辑器初始显示文字
-                overviewRulerBorder: true, // 滚动是否有边框
+                overviewRulerBorder: false, // 滚动是否有边框
                 minimap: { // 关闭代码缩略图
                     enabled: true // 是否启用预览图
                 },
                 scrollbar: {
-                    verticalScrollbarSize: 4, // 垂直滚动条宽度，默认px
+                    verticalScrollbarSize: 0, // 垂直滚动条宽度，默认px
                     horizontalScrollbarSize: 4 // 水平滚动条高度
                 },
-                contextmenu: false // 禁用右键菜单
+                contextmenu: true // 禁用右键菜单
             });
 
-            // if (props.builderData && props.builderData.length > 0) handelSet()
+            if (props.builderData && props.builderData.length > 0) handelSet()
 
             return
             // monacoEditor.value = monaco.editor.create(editorContainer.value, {
@@ -138,83 +138,71 @@ export default defineComponent({
         }
 
         const handelSet = async () => {
-            let text = `
----
-version: "2.0"
-            `
+            let text = `---
+version: "2.0"`
             let service = `
-services: 
-            `
+services: `
+            let deployment = `
+deployment: `
 
             const c = await props.builderData.forEach(element => {
+                // ------------ image ---------------
+                service +=
+                    `
+  ${element.name}:
+    image: ${element.docker || '""'}`
+                // ------------ env ---------------
+                if (element.evList.length > 0) {
+                    service +=
+                        `
+    env:`
+                    element.evList.forEach(ev => {
+                        service +=
+                            `
+      - ${ev.key}=${ev.value}`
+                    })
+                }
+                // ------------ Commands ---------------
+                if (element.commandsList.length > 0) {
+                    service +=
+                        `
+    command:
+      - ${element.commandsList[0].command || '""'}
+    args:
+      - ${element.commandsList[0].textarea || '""'}`
+                }
+                // ------------ expose ---------------
+                service +=
+                    `
+    expose:`
+                element.exposeList.forEach(expose => {
+                    service +=
+                        `
+      - port: ${expose.port}
+        as: ${expose.as}
+        http: ${expose.httpValue}
+        global: ${expose.global}
+        accept: ${expose.accept}`
+                })
 
+                // ------------ deployment ---------------
+                deployment +=
+                    `
+  ${element.name}:
+    lagrange:
+      count: ${element.count || '1'}`
             })
 
-            toRaw(monacoEditor.value).setModel(monaco.editor.createModel(`
----
-version: "2.0"
-services:
-  service-xyy:
-    image: ""
-    expose:
-      - port: 80
-        as: 80
-        to:
-          - global: true
-    command:
-      - "222"
-    args:
-      - 22 222 222
-  service-2wwww:
-    image: ""
-    expose:
-      - port: 80
-        as: 80
-        to:
-          - global: true
-profiles:
-  compute:
-    service-xyy:
-      resources:
-        cpu:
-          units: 0.1
-        memory:
-          size: 512Mi
-        storage:
-          - size: 1Gi
-    service-2wwww:
-      resources:
-        cpu:
-          units: 0.1
-        memory:
-          size: 512Mi
-        storage:
-          - size: 1Gi
-  placement:
-    dcloud:
-      pricing:
-        service-xyy:
-          denom: uakt
-          amount: 1000
-        service-2wwww:
-          denom: uakt
-          amount: 1000
-deployment:
-  service-xyy:
-    dcloud:
-      profile: service-xyy
-      count: 1
-  service-2wwww:
-    dcloud:
-      profile: service-2wwww
-      count: 1
 
-            `, 'yaml'))
+            text += service
+            text += deployment
+            console.log(text)
+            toRaw(monacoEditor.value).setModel(monaco.editor.createModel(text, 'yaml'))
         }
 
         const getCodeContext = () => {
-            let demo = toRaw(monacoEditor.value).getValue()
-            system.$commonFun.notificationTip('YAML copied to clipboard!', 'success', demo)
+            let codeText = toRaw(monacoEditor.value).getValue()
+            if (codeText) system.$commonFun.notificationTip('YAML copied to clipboard!', 'success', codeText)
         }
 
         // 设置错误提示

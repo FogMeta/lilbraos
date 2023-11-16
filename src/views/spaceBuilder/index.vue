@@ -164,8 +164,7 @@
                     <div class="piece flex-row space-between nowrap">
                       <div class="flex-row center">
                         <small class="font-12">Count</small>
-                        <el-input v-model="item.count" placeholder="Count">
-                        </el-input>
+                        <el-input-number :min="1" controls-position="right" v-model="item.count" placeholder="Count" class="input-with-select" />
                       </div>
                       <pop-over :textData="item.dockerPop"></pop-over>
                     </div>
@@ -401,22 +400,22 @@ export default defineComponent({
           }
         ],
         exposeList: [{
-        port: 80,
-        as: 80,
-        httpValue: 'http',
-        httpOption: [
-          {
-            label: 'http',
-            value: 'http'
-          },
-          {
-            label: 'tcp',
-            value: 'tcp'
-          }
-        ],
-        global: false,
-        accept: ''
-      }],
+          port: 80,
+          as: 80,
+          httpValue: 'http',
+          httpOption: [
+            {
+              label: 'http',
+              value: 'http'
+            },
+            {
+              label: 'tcp',
+              value: 'tcp'
+            }
+          ],
+          global: false,
+          accept: ''
+        }],
         exposePop: [
           {
             desc: 'Expose is a list of port settings describing what can connect to the service.',
@@ -567,8 +566,8 @@ export default defineComponent({
     .area {
       .tab {
         .el-button {
-          background-color: @bg-color;
-          border-color: @bg-color;
+          background-color: transparent;
+          border-color: transparent;
           color: @primary-color;
           text-transform: uppercase;
           transition: all 0.2s;
@@ -679,6 +678,19 @@ export default defineComponent({
                       color: @primary-color-opacity;
                       z-index: 9;
                       line-height: 1;
+                    }
+                  }
+                  .el-input-number {
+                    width: 100%;
+                    .el-input__inner {
+                      text-align: left;
+                    }
+                    .el-input-number__increase,
+                    .el-input-number__decrease {
+                      height: 20px;
+                      background-color: transparent;
+                      box-shadow: none;
+                      border: 0;
                     }
                   }
                   .el-input {
