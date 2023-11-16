@@ -8,9 +8,9 @@
       <div class="area mt-border">
         <div class="tab flex-row space-between">
           <div class="left">
-            <el-button :class="{'active button-shadow': activeIndex === '1'}">Deploy</el-button>
-            <el-button :class="{'active button-shadow': activeIndex === '2'}">Preview</el-button>
-            <el-button :class="{'active button-shadow': activeIndex === '3'}">Import</el-button>
+            <el-button class="active button-shadow">Deploy</el-button>
+            <el-button @click="monacoShow=true">Preview</el-button>
+            <el-button @click="importShow=true">Import</el-button>
           </div>
           <div class="right">
             <el-button class="active button-shadow">Save</el-button>
@@ -34,26 +34,7 @@
                         <path d="m20.38 8.57-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"></path>
                       </svg>
                     </div>
-                    <span class="font-16 weight-6">{{item.cpuValue}}</span>
-                    CPU
-                  </div>
-                  <div class="flex-row center nowrap font-12 weight-4">
-                    <div class="width-icon big">
-                      <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MemoryIcon">
-                        <path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"></path>
-                      </svg>
-                    </div>
-                    <span class="font-16 weight-6">{{item.MemoryValue}} {{item.MemorySelect.value}}</span>
-                    RAM
-                  </div>
-                  <div class="flex-row center nowrap font-12 weight-4">
-                    <div class="width-icon big">
-                      <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="StorageIcon">
-                        <path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"></path>
-                      </svg>
-                    </div>
-                    <span class="font-16 weight-6">{{item.EphemeralValue}} {{item.EphemeralSelect.value}}</span>
-                    Disk
+                    <span class="font-16 weight-6">{{item.gpuModels.value}}</span>
                   </div>
                   <div class="flex-row center nowrap button width-icon" v-if="builderData.length>1" @click="removeService(l)">
                     <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DeleteIcon">
@@ -61,7 +42,7 @@
                     </svg>
                   </div>
                 </div>
-                <div :class="{'flex-row center nowrap button width-icon':true, 'transform': item.collapse}" @click="item.collapse=!item.collapse">
+                <div :class="{'flex-row center nowrap button width-icon':true, 'transform': !item.collapse}" @click="item.collapse=!item.collapse">
                   <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ExpandMoreIcon">
                     <path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
                   </svg>
@@ -101,118 +82,26 @@
                         <h3 class="flex-row">
                           <div class="flex-row center font-14 weight-6">
                             <div class="width-icon">
-                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SpeedIcon">
-                                <path d="m20.38 8.57-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"></path>
+                              <svg data-v-77e679a4="" class="mr-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12">
+                                <path data-v-77e679a4="" fill-rule="evenodd" clip-rule="evenodd" d="M9.92865 7.42863H10.643C10.7377 7.42863 10.8285 7.39098 10.8955 7.32405C10.9625 7.25705 11.0001 7.16619 11.0001 7.07148C11.0001 6.97676 10.9625 6.88591 10.8955 6.81891C10.8285 6.75198 10.7377 6.71433 10.643 6.71433H9.92865V5.28575H10.643C10.7377 5.28575 10.8285 5.24812 10.8955 5.18114C10.9625 5.11417 11.0001 5.02333 11.0001 4.9286C11.0001 4.83388 10.9625 4.74304 10.8955 4.67607C10.8285 4.60909 10.7377 4.57146 10.643 4.57146H9.92865V2.78573C9.92865 2.59628 9.85336 2.4146 9.71943 2.28065C9.5855 2.1467 9.40378 2.07144 9.21435 2.07144H7.42862V1.35715C7.42862 1.26242 7.39098 1.17158 7.32405 1.10461C7.25705 1.03763 7.16619 1 7.07148 1C6.97676 1 6.88591 1.03763 6.81891 1.10461C6.75198 1.17158 6.71433 1.26242 6.71433 1.35715V2.07144H5.28575V1.35715C5.28575 1.26242 5.24812 1.17158 5.18114 1.10461C5.11417 1.03763 5.02333 1 4.9286 1C4.83388 1 4.74304 1.03763 4.67607 1.10461C4.60909 1.17158 4.57146 1.26242 4.57146 1.35715V2.07144H2.78573C2.59628 2.07144 2.4146 2.1467 2.28065 2.28065C2.14669 2.4146 2.07144 2.59628 2.07144 2.78573V4.57146H1.35714C1.26242 4.57146 1.17158 4.60909 1.10461 4.67607C1.03763 4.74304 1 4.83388 1 4.9286C1 5.02333 1.03763 5.11417 1.10461 5.18114C1.17158 5.24812 1.26242 5.28575 1.35714 5.28575H2.07144V6.71433H1.35714C1.26242 6.71433 1.17158 6.75198 1.10461 6.81891C1.03763 6.88591 1 6.97676 1 7.07148C1 7.16619 1.03763 7.25705 1.10461 7.32405C1.17158 7.39098 1.26242 7.42863 1.35714 7.42863H2.07144V9.21435C2.07144 9.40378 2.14669 9.5855 2.28065 9.71943C2.4146 9.85336 2.59628 9.92865 2.78573 9.92865H4.57146V10.6429C4.57146 10.7377 4.60909 10.8285 4.67607 10.8955C4.74304 10.9624 4.83388 11.0001 4.9286 11.0001C5.02333 11.0001 5.11417 10.9624 5.18114 10.8955C5.24812 10.8285 5.28575 10.7377 5.28575 10.6429V9.92865H6.71433V10.6429C6.71433 10.7377 6.75198 10.8285 6.81891 10.8955C6.88591 10.9624 6.97676 11.0001 7.07148 11.0001C7.16619 11.0001 7.25705 10.9624 7.32405 10.8955C7.39098 10.8285 7.42862 10.7377 7.42862 10.6429V9.92865H9.21435C9.40378 9.92865 9.5855 9.85336 9.71943 9.71943C9.85336 9.5855 9.92865 9.40378 9.92865 9.21435V7.42863Z"
+                                  fill="currentColor" fill-opacity="0.3"></path>
+                                <path data-v-77e679a4="" fill-rule="evenodd" clip-rule="evenodd" d="M5 4C4.44771 4 4 4.44771 4 5V7C4 7.55227 4.44771 8 5 8H7C7.55227 8 8 7.55227 8 7V5C8 4.44771 7.55227 4 7 4H5Z" fill-opacity="0.5"></path>
                               </svg>
                             </div>
-                            <span>CPU</span>
-                          </div>
-                          <div class="m-16">
-                            <pop-over :textData="item.cpuPop"></pop-over>
-                          </div>
-                          <el-input-number :min="0.1" :max="256" controls-position="right" v-model="item.cpuValue" placeholder="Storage" class="input-with-select font-16" />
-                        </h3>
-                      </div>
-                      <div class="slider-demo-block">
-                        <el-slider v-model="item.cpuValue" :min="0.1" :max="256" />
-                      </div>
-                    </div>
-
-                    <div class="background-main">
-                      <div class="flex-row">
-                        <h3 class="flex-row">
-                          <div class="flex-row center font-14 weight-6">
-                            <div class="width-icon">
-                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SpeedIcon">
-                                <path d="m20.38 8.57-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"></path>
-                              </svg>
-                            </div>
-                            <span>GPU</span>
+                            <span>Space Hardware</span>
                           </div>
                           <div class="m-16">
                             <pop-over :textData="item.gpuPop"></pop-over>
                           </div>
-                          <el-checkbox v-model="item.gpuCheck" />
-                          <el-input-number v-show="item.gpuCheck" :min="1" :max="100" controls-position="right" v-model="item.gpuValue" placeholder="Storage" class="input-with-select font-16" />
                         </h3>
                       </div>
-                      <div v-show="item.gpuCheck">
-                        <div class="slider-demo-block">
-                          <el-slider v-model="item.gpuValue" :min="1" :max="100" />
-                        </div>
-                        <div class="flex-row center font-16">
-                          <el-select v-model="item.gpuSelect.value" placeholder="Select">
-                            <el-option v-for="s in item.gpuSelect.options" :key="s.value" :label="s.label" :value="s.value">
-                              <span class="font-16">{{s.label}}</span>
-                            </el-option>
-                          </el-select>
-                        </div>
-                        <div class="flex-row center font-16">
-                          <small class="font-12">GPU models (any if empty)</small>
-                          <el-select v-model="item.gpuModels.value" placeholder="Select">
-                            <el-option v-for="mo in item.gpuModels.options" :key="mo.value" :label="mo.label" :value="mo.value">
-                              <span class="font-16">{{mo.label}}</span>
-                            </el-option>
-                          </el-select>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="background-main">
-                      <div class="flex-row">
-                        <h3 class="flex-row">
-                          <div class="flex-row center font-14 weight-6">
-                            <div class="width-icon">
-                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MemoryIcon">
-                                <path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"></path>
-                              </svg>
-                            </div>
-                            <span>Memory</span>
-                          </div>
-                          <div class="m-16">
-                            <pop-over :textData="item.MemoryPop"></pop-over>
-                          </div>
-                          <el-input-number :min="1" :max="512" controls-position="right" v-model="item.MemoryValue" placeholder="Storage" class="input-with-select font-16" />
-                          <div class="flex-row center font-16">
-                            <el-select v-model="item.MemorySelect.value" placeholder="Select">
-                              <el-option v-for="s in item.MemorySelect.options" :key="s.value" :label="s.label" :value="s.value">
-                                <span class="font-16">{{s.label}}</span>
-                              </el-option>
-                            </el-select>
-                          </div>
-                        </h3>
-                      </div>
-                      <div class="slider-demo-block">
-                        <el-slider v-model="item.MemoryValue" :min="1" :max="512" />
-                      </div>
-                    </div>
-
-                    <div class="background-main">
-                      <div class="flex-row">
-                        <h3 class="flex-row">
-                          <div class="flex-row center font-14 weight-6">
-                            <div class="width-icon">
-                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="StorageIcon">
-                                <path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"></path>
-                              </svg>
-                            </div>
-                            <span>Ephemeral Storage</span>
-                          </div>
-                          <div class="m-16">
-                            <pop-over :textData="item.EphemeralPop"></pop-over>
-                          </div>
-                          <el-input-number :min="1" :max="512" controls-position="right" v-model="item.EphemeralValue" placeholder="Storage" class="input-with-select font-16" />
-                          <div class="flex-row center font-16">
-                            <el-select v-model="item.EphemeralSelect.value" placeholder="Select">
-                              <el-option v-for="s in item.EphemeralSelect.options" :key="s.value" :label="s.label" :value="s.value">
-                                <span class="font-16">{{s.label}}</span>
-                              </el-option>
-                            </el-select>
-                          </div>
-                        </h3>
-                      </div>
-                      <div class="slider-demo-block">
-                        <el-slider v-model="item.EphemeralValue" :min="1" :max="512" />
+                      <div class="flex-row center font-16">
+                        <small class="font-12">Hardware</small>
+                        <el-select v-model="item.gpuModels.value" placeholder="Select">
+                          <el-option-group v-for="group in item.gpuModels.options" :key="group.label" :label="group.label">
+                            <el-option v-for="mo in group.list" :key="mo.hardware_name" :label="mo.hardware_name" :value="mo.hardware_name" />
+                          </el-option-group>
+                        </el-select>
                       </div>
                     </div>
                   </el-col>
@@ -222,12 +111,16 @@
                         <h4 class="font-16 weight-6 flex-row">
                           Environment Variables
                           <div class="m-16">
-                            <pop-over :textData="item.ev"></pop-over>
+                            <pop-over :textData="item.evPop"></pop-over>
                           </div>
-                          <span class="font-12">Edit</span>
+                          <span class="font-12" @click="builderMethod('env', l)">Edit</span>
                         </h4>
                       </div>
-                      <h6 class="font-12 weight-4">None</h6>
+                      <div v-if="item.evList.length>0">
+                        <h6 class="font-12 weight-4" v-for="(elist, elistIndex) in item.evList" :key="elistIndex">
+                          <b>{{elist.key}} =</b> {{elist.value}}</h6>
+                      </div>
+                      <h6 class="font-12 weight-4" v-else>None</h6>
                     </div>
 
                     <div class="background-main">
@@ -235,12 +128,16 @@
                         <h4 class="font-16 weight-6 flex-row">
                           Commands
                           <div class="m-16">
-                            <pop-over :textData="item.commands"></pop-over>
+                            <pop-over :textData="item.commandsPop"></pop-over>
                           </div>
-                          <span class="font-12">Edit</span>
+                          <span class="font-12" @click="builderMethod('Commands', l)">Edit</span>
                         </h4>
                       </div>
-                      <h6 class="font-12 weight-4">None</h6>
+                      <div v-if="item.commandsList.length>0">
+                        <h6 class="font-12 weight-4" v-for="(comlist, comlistIndex) in item.commandsList" :key="comlistIndex">
+                          <b>{{comlist.command}}</b><br />{{comlist.textarea}}</h6>
+                      </div>
+                      <h6 class="font-12 weight-4" v-else>None</h6>
                     </div>
 
                     <div class="background-main">
@@ -248,17 +145,20 @@
                         <h4 class="font-16 weight-6 flex-row">
                           Expose
                           <div class="m-16">
-                            <pop-over :textData="item.expose"></pop-over>
+                            <pop-over :textData="item.exposePop"></pop-over>
                           </div>
-                          <span class="font-12">Edit</span>
+                          <span class="font-12" @click="builderMethod('Expose', l)">Edit</span>
                         </h4>
                       </div>
-                      <h6 class="font-12 weight-4">
-                        <b>Port</b> 80 : 80 (http)</h6>
-                      <h6 class="font-12 weight-4">
-                        <b>Global</b> True</h6>
-                      <h6 class="font-12 weight-4">
-                        <b>Accept</b> None</h6>
+                      <div v-for="(exposelist, exposelistIndex) in item.exposeList" :key="exposelistIndex">
+                        <el-divider v-show="exposelistIndex>0" />
+                        <h6 class="font-12 weight-4">
+                          <b>Port </b> {{exposelist.port}} : {{exposelist.as}} ({{exposelist.httpValue}})</h6>
+                        <h6 class="font-12 weight-4">
+                          <b>Global </b> {{exposelist.global}}</h6>
+                        <h6 class="font-12 weight-4">
+                          <b>Accept </b> {{exposelist.accept}}</h6>
+                      </div>
                     </div>
 
                     <div class="piece flex-row space-between nowrap">
@@ -268,6 +168,15 @@
                         </el-input>
                       </div>
                       <pop-over :textData="item.dockerPop"></pop-over>
+                    </div>
+
+                    <div class="piece flex-row space-between nowrap">
+                      <div class="flex-row center">
+                        <small class="font-12">Depend On</small>
+                        <el-input v-model="item.dependOn" placeholder="Depend On">
+                        </el-input>
+                      </div>
+                      <!-- <pop-over :textData="item.dependOnPop"></pop-over> -->
                     </div>
                   </el-col>
                 </el-row>
@@ -283,11 +192,26 @@
         </div>
       </div>
     </div>
+
+    <div class="el-loading-mask is-fullscreen" v-show="machinesLoad">
+      <div class="el-loading-spinner">
+        <svg class="circular" viewBox="0 0 50 50">
+          <circle class="path" cx="25" cy="25" r="20" fill="none"></circle>
+        </svg>
+        <p class="el-loading-text">loading...</p>
+      </div>
+    </div>
+
+    <builder-over v-if="builderShow" :builderTheme="builderTheme" @hardBuilder="hardBuilder"></builder-over>
+    <monaco-editor v-if="importShow" :monacoShow="importShow" :title="'Import'" :builderData="[]" @handleMonaco="handleMonaco"></monaco-editor>
+    <monaco-editor v-if="monacoShow" :monacoShow="monacoShow" :title="'Preview'" :builderData="builderData" @handleMonaco="handleMonaco"></monaco-editor>
   </section>
 </template>
 
 <script>
 import popOver from "@/components/popover"
+import builderOver from "@/components/builder"
+import monacoEditor from "@/components/monacoEditor"
 import { defineComponent, computed, onMounted, watch, ref, reactive, getCurrentInstance } from 'vue'
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
@@ -295,11 +219,11 @@ import { useRouter, useRoute } from 'vue-router'
 //   Search
 // } from '@element-plus/icons-vue'
 import {  ElButton, ElInput, ElRow, ElCol, ElSlider, ElInputNumber, ElSelect, ElOption, ElOptionGroup,
-  ElCheckbox, ElCheckboxGroup} from "element-plus"
+  ElCheckbox, ElCheckboxGroup, ElDivider} from "element-plus"
 export default defineComponent({
   components: {
-    popOver, ElButton, ElInput, ElRow, ElCol, ElSlider, ElInputNumber, ElSelect, ElOption, ElOptionGroup,
-    ElCheckbox, ElCheckboxGroup
+    popOver, monacoEditor, builderOver, ElButton, ElInput, ElRow, ElCol, ElSlider, ElInputNumber, ElSelect, ElOption, ElOptionGroup,
+    ElCheckbox, ElCheckboxGroup, ElDivider
   },
   setup () {
     const store = useStore()
@@ -307,12 +231,12 @@ export default defineComponent({
     const system = getCurrentInstance().appContext.config.globalProperties
     const route = useRoute()
     const router = useRouter()
-    const activeIndex = ref('1')
-    const optionCont = ref([
-      {
+    const activeIndex = ref(0)
+    const optionCont = reactive({
+      data: {
         name: 'service-1',
         collapse: false,
-        count: '',
+        count: '1',
         cpuValue: 0,
         cpuPop: [
           {
@@ -353,59 +277,11 @@ export default defineComponent({
             }]
         },
         gpuModels: {
-          value: 'Nvidia a40',
+          value: '',
           options: [
             {
-              value: 'Nvidia a40',
-              label: 'Nvidia a40',
-            },
-            {
-              value: 'Nvidia a16',
-              label: 'Nvidia a16',
-            },
-            {
-              value: 'Nvidia t4',
-              label: 'Nvidia t4',
-            },
-            {
-              value: 'Nvidia v100',
-              label: 'Nvidia v100',
-            },
-            {
-              value: 'Nvidia tesla-p100',
-              label: 'Nvidia tesla-p100',
-            },
-            {
-              value: 'Nvidia tesla-k80',
-              label: 'Nvidia tesla-k80',
-            },
-            {
-              value: 'Nvidia Quadro RTX 4000',
-              label: 'Nvidia Quadro RTX 4000',
-            },
-            {
-              value: 'Nvidia Quadro RTX 5000',
-              label: 'Nvidia Quadro RTX 5000',
-            },
-            {
-              value: 'Nvidia Quadro RTX 6000',
-              label: 'Nvidia Quadro RTX 6000',
-            },
-            {
-              value: 'Nvidia Quadro RTX 8000',
-              label: 'Nvidia Quadro RTX 8000',
-            },
-            {
-              value: 'Nvidia Quadro A2000',
-              label: 'Nvidia Quadro A2000',
-            },
-            {
-              value: 'Nvidia Quadro A4000',
-              label: 'Nvidia Quadro A4000',
-            },
-            {
-              value: 'Nvidia Quadro A5000',
-              label: 'Nvidia Quadro A5000',
+              label: '',
+              list: []
             }
           ]
         },
@@ -502,7 +378,8 @@ export default defineComponent({
             link: ''
           }
         ],
-        ev: [
+        evList: [],
+        evPop: [
           {
             desc: 'A list of environment variables to expose to the running container.',
             link: ''
@@ -512,7 +389,8 @@ export default defineComponent({
             link: 'https://docs.lagrangedao.org/'
           }
         ],
-        commands: [
+        commandsList: [],
+        commandsPop: [
           {
             desc: 'Custom command use when executing container.',
             link: ''
@@ -522,7 +400,24 @@ export default defineComponent({
             link: ''
           }
         ],
-        expose: [
+        exposeList: [{
+        port: 80,
+        as: 80,
+        httpValue: 'http',
+        httpOption: [
+          {
+            label: 'http',
+            value: 'http'
+          },
+          {
+            label: 'tcp',
+            value: 'tcp'
+          }
+        ],
+        global: false,
+        accept: ''
+      }],
+        exposePop: [
           {
             desc: 'Expose is a list of port settings describing what can connect to the service.',
             link: ''
@@ -531,29 +426,103 @@ export default defineComponent({
             desc: 'View official documentation.',
             link: 'https://docs.lagrangedao.org/'
           }
-        ]
-      }
-    ])
+        ],
+        dependOn: ''
+      }    })
     const builderData = ref([])
+    const builderShow = ref(false)
+    const builderTheme = ref('env')
+    const monacoShow = ref(false)
+    const importShow = ref(false)
+    const machinesLoad = ref(false)
+    const hardwareOptions = ref([])
 
     async function removeService (index) {
       builderData.value.splice(index, 1)
     }
+    async function init (params) {
+      machinesLoad.value = true
+      const machinesRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_BASEAPI}cp/machines`, 'get')
+      if (machinesRes && machinesRes.status === 'success') hardwareOptions.value = await listArray(machinesRes.data.hardware)
+      machinesLoad.value = false
+      addService()
+    }
+    async function listArray (arrayList) {
+      let listArr = [
+        {
+          label: 'CPU',
+          list: []
+        },
+        {
+          label: 'GPU',
+          list: []
+        }
+      ]
+      // arrayList.sort((a, b) => a['hardware_name'].localeCompare(b['hardware_name']))
+      arrayList.forEach(async hard => {
+        hard.regionOption = await regionList(hard.region)
+        hard.regionValue = hard.region && hard.region[0] ? hard.region[0] : ''
+        if (hard.hardware_type.toLowerCase() === 'cpu') listArr[0].list.push(hard)
+        else listArr[1].list.push(hard)
+      })
+      return listArr
+    }
+    async function regionList (list) {
+      if (!list || !Array.isArray(list) || list.length === 0) {
+        return [];
+      }
+
+      let arr = [{
+        value: "Global",
+        label: "Global"
+      }];
+
+      list.forEach(l => {
+        arr.push({
+          value: l,
+          label: l
+        });
+      });
+
+      return arr;
+    }
     async function addService (params) {
-      const child = JSON.parse(JSON.stringify(optionCont.value))
-      child[0].name = `service-${builderData.value.length + 1}`
+      const child = await system.$commonFun.jsonFilter(optionCont.data)
+      child.name = `service-${builderData.value.length + 1}`
+      child.gpuModels.value = hardwareOptions.value && hardwareOptions.value.length > 0 ? hardwareOptions.value[0].list[0].hardware_name : ''
+      child.gpuModels.options = hardwareOptions.value
       builderData.value = builderData.value.concat(child)
     }
+    function handleMonaco (dialog) {
+      monacoShow.value = dialog
+      importShow.value = dialog
+    }
+    function hardBuilder (dialog, type, row) {
+      if (type === 'env') builderData.value[activeIndex.value].evList = row
+      else if (type === 'Commands') builderData.value[activeIndex.value].commandsList = [].concat(row)
+      else if (type === 'Expose') builderData.value[activeIndex.value].exposeList = [].concat(row)
+      builderShow.value = dialog
+    }
+    function builderMethod (theme, l) {
+      activeIndex.value = l
+      builderTheme.value = theme
+      builderShow.value = true
+    }
     onMounted(() => {
-      addService()
+      init()
     })
     // watch(builderData, () => {})
     return {
       system,
       bodyWidth,
+      builderShow,
+      builderTheme,
+      monacoShow,
+      importShow,
       activeIndex,
       builderData,
-      addService, removeService
+      machinesLoad,
+      addService, removeService, handleMonaco, hardBuilder, builderMethod
     }
   }
 })
@@ -561,10 +530,17 @@ export default defineComponent({
 
 <style lang="less" scoped>
 #container-builder {
+  position: relative;
+  min-height: 90vh;
   font-size: 18px;
   letter-spacing: 1px;
   word-break: break-word;
   line-height: 1.5;
+  .el-loading-mask {
+    position: absolute;
+    background-color: @bg-color;
+    z-index: 2005;
+  }
   :deep(.module) {
     margin: 0 auto 15px;
     h1 {
@@ -658,15 +634,16 @@ export default defineComponent({
                     color: @primary-color;
                   }
                 }
-                .width-icon {
-                  fill: @grey-color;
-                  &.transform {
-                    transform: rotate(180deg);
-                  }
-                  svg,
-                  path {
-                    fill: inherit;
-                  }
+              }
+              .width-icon {
+                fill: @grey-color;
+                transition: all 0.1s;
+                &.transform {
+                  transform: rotate(180deg);
+                }
+                svg,
+                path {
+                  fill: inherit;
                 }
               }
             }
@@ -726,6 +703,9 @@ export default defineComponent({
                   margin: 0 0 16px;
                   background-color: @bg-color;
                   border-radius: 4px;
+                  .el-divider--horizontal {
+                    margin: 8px 0;
+                  }
                   h3 {
                     span {
                       padding: 2px 0 0 8px;
@@ -752,7 +732,6 @@ export default defineComponent({
                   h6 {
                     color: @grey-color;
                     b {
-                      padding: 0 4px 0 0;
                       color: @primary-color;
                     }
                   }

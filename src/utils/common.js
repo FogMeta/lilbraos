@@ -115,6 +115,9 @@ function goLink(link) {
   window.open(link)
 }
 
+async function jsonFilter(content) {
+  return JSON.parse(JSON.stringify(content))
+}
 
 async function Init(callback) {
   if (typeof window.ethereum === 'undefined') {
@@ -244,6 +247,7 @@ export default {
   strToHexCharCode,
   copyContent,
   goLink,
+  jsonFilter,
   Init,
   web3Init,
   checkDarkMode,

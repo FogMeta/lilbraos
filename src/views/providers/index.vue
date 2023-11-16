@@ -473,7 +473,7 @@ export default defineComponent({
       } else return handleNum
     }
 
-    const changetype = () => {
+    const changetype = async () => {
       const machart_gpu = echarts.init(document.getElementById("maychar-gpu"));
       const machart_memory = echarts.init(document.getElementById("maychar-memory"));
       const machart_storage = echarts.init(document.getElementById("maychar-storage"));
@@ -514,10 +514,10 @@ export default defineComponent({
           }
         ]
       }
-      const option2 = JSON.parse(JSON.stringify(option))
-      const option3 = JSON.parse(JSON.stringify(option))
-      const option4 = JSON.parse(JSON.stringify(option))
-      const option5 = JSON.parse(JSON.stringify(option))
+      const option2 = await system.$commonFun.jsonFilter(option)
+      const option3 = await system.$commonFun.jsonFilter(option)
+      const option4 = await system.$commonFun.jsonFilter(option)
+      const option5 = await system.$commonFun.jsonFilter(option)
       option2.series[0].data = [
         { value: providerBody.data.total_gpu - providerBody.data.total_used_gpu, name: providerBody.data.total_gpu - providerBody.data.total_used_gpu },
         { value: providerBody.data.total_used_gpu, name: providerBody.data.total_used_gpu },
