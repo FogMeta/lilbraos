@@ -113,7 +113,7 @@
                           <div class="m-16">
                             <pop-over :textData="item.evPop"></pop-over>
                           </div>
-                          <span class="font-12" @click="builderMethod('env', l)">Edit</span>
+                          <span class="font-12" @click="builderMethod('env', l, item.evList)">Edit</span>
                         </h4>
                       </div>
                       <div v-if="item.evList.length>0">
@@ -130,7 +130,7 @@
                           <div class="m-16">
                             <pop-over :textData="item.commandsPop"></pop-over>
                           </div>
-                          <span class="font-12" @click="builderMethod('Commands', l)">Edit</span>
+                          <span class="font-12" @click="builderMethod('Commands', l, item.commandsList)">Edit</span>
                         </h4>
                       </div>
                       <div v-if="item.commandsList.length>0">
@@ -147,7 +147,7 @@
                           <div class="m-16">
                             <pop-over :textData="item.exposePop"></pop-over>
                           </div>
-                          <span class="font-12" @click="builderMethod('Expose', l)">Edit</span>
+                          <span class="font-12" @click="builderMethod('Expose', l, item.exposeList)">Edit</span>
                         </h4>
                       </div>
                       <div v-for="(exposelist, exposelistIndex) in item.exposeList" :key="exposelistIndex">
@@ -202,7 +202,7 @@
       </div>
     </div>
 
-    <builder-over v-if="builderShow" :builderTheme="builderTheme" @hardBuilder="hardBuilder"></builder-over>
+    <builder-over v-if="builderShow" :builderTheme="builderTheme" :builderRow="builderRow" @hardBuilder="hardBuilder"></builder-over>
     <monaco-editor v-if="importShow" :monacoShow="importShow" :title="'Import'" :builderData="[]" @handleMonaco="handleMonaco"></monaco-editor>
     <monaco-editor v-if="monacoShow" :monacoShow="monacoShow" :title="'Preview'" :builderData="builderData" @handleMonaco="handleMonaco"></monaco-editor>
   </section>
@@ -432,6 +432,7 @@ export default defineComponent({
     const builderData = ref([])
     const builderShow = ref(false)
     const builderTheme = ref('env')
+    const builderRow = ref([])
     const monacoShow = ref(false)
     const importShow = ref(false)
     const machinesLoad = ref(false)
@@ -503,9 +504,10 @@ export default defineComponent({
       else if (type === 'Expose') builderData.value[activeIndex.value].exposeList = [].concat(row)
       builderShow.value = dialog
     }
-    function builderMethod (theme, l) {
+    function builderMethod (theme, l, row) {
       activeIndex.value = l
       builderTheme.value = theme
+      builderRow.value = row
       builderShow.value = true
     }
     onMounted(() => {
@@ -517,6 +519,7 @@ export default defineComponent({
       bodyWidth,
       builderShow,
       builderTheme,
+      builderRow,
       monacoShow,
       importShow,
       activeIndex,

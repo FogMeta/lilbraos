@@ -97,7 +97,8 @@ export default defineComponent({
     ElCheckbox, ElCheckboxGroup
   },
   props: {
-    builderTheme: { type: String, default: 'env' }
+    builderTheme: { type: String, default: 'env' },
+    builderRow: { type: Array, default: [] }
   },
   setup (props, context) {
     const store = useStore()
@@ -170,10 +171,26 @@ export default defineComponent({
       builderEnv.exposeInfo.push(exposeTem)
     }
     async function init () {
-      const exposeTem = await system.$commonFun.jsonFilter(builderEnv.exposeTem)
-      const addTem = await system.$commonFun.jsonFilter(builderEnv.addTem)
-      builderEnv.exposeInfo = builderEnv.exposeInfo.concat(exposeTem)
-      builderEnv.addInformation = builderEnv.addInformation.concat(addTem)
+      console.log(props.builderRow)
+      if (props.builderRow.length === 0) {
+        const exposeTem = await system.$commonFun.jsonFilter(builderEnv.exposeTem)
+        const addTem = await system.$commonFun.jsonFilter(builderEnv.addTem)
+        builderEnv.exposeInfo = builderEnv.exposeInfo.concat(exposeTem)
+        builderEnv.addInformation = builderEnv.addInformation.concat(addTem)
+        return
+      }
+      switch (props.builderTheme) {
+        case 'env':
+          builderEnv.addInformation = props.builderRow
+          break
+        case 'Commands':
+          commands.data.command = props.builderRow[0].command
+          commands.data.textarea = props.builderRow[0].textarea
+          break
+        case 'Expose':
+          builderEnv.exposeInfo = props.builderRow
+          break
+      }
     }
     onMounted(() => init())
     return {
