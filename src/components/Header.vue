@@ -12,7 +12,21 @@
           <router-link :to="{name:'get-started'}" :class="{'no-color': route.name !== 'get-started'}">Get Started</router-link>
           <span></span>
         </div>
-        <div class="connect flex-row nowrap" @click="connetShow=true">
+        <div class="connect flex-row nowrap" v-if="accessToken">
+          <el-dropdown @command="handleSelect" class="sign-popper" popper-class="menu-popper" placement="bottom" :teleported="true">
+            <span class="el-dropdown-link flex-row">
+              <img :src="metaLogo" alt="" class="image" height="20" width="20" /> {{system.$commonFun.hiddAddress(metaAddress)}}
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="logout">
+                  <span class="font-16">Logout</span>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
+        <div class="connect flex-row nowrap" v-else @click="connetShow=true">
           <svg class="width-icon small" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="AccountBalanceWalletIcon">
             <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
           </svg>
@@ -80,6 +94,8 @@ export default defineComponent({
   setup () {
     const store = useStore()
     const reverse = computed(() => (store.state.reverse))
+    const accessToken = computed(() => (store.state.accessToken))
+    const metaAddress = computed(() => (store.state.metaAddress))
     const emailAddress = computed(() => (store.state.emailAddress))
     const clientWidth = computed(() => (store.state.clientWidth))
     const bodyWidth = ref(document.body.clientWidth < 992)
@@ -89,6 +105,7 @@ export default defineComponent({
     // const libraLogo = require("@/assets/images/logo-light.png")
     const libraLogo = require("@/assets/images/logo-light.png")
     const libraLogoDark = require("@/assets/images/logo-dark.png")
+    const metaLogo = require("@/assets/images/metamask.png")
     const searchValue = ref('')
     const menuDialog = ref(false)
     const connetShow = ref(false)
@@ -123,6 +140,8 @@ export default defineComponent({
     watch(route, (to, from) => { })
     return {
       system,
+      accessToken,
+      metaAddress,
       emailAddress,
       route,
       bodyWidth,
@@ -130,6 +149,7 @@ export default defineComponent({
       reverseLogo,
       libraLogo,
       libraLogoDark,
+      metaLogo,
       searchValue,
       menuDialog,
       connetShow,
@@ -274,8 +294,14 @@ export default defineComponent({
         &:hover {
           border-color: @theme-color;
         }
+        * {
+          outline: none !important;
+        }
         .width-icon {
           margin-right: 8px;
+        }
+        .image {
+          margin: 0 5px 0 0;
         }
       }
       .sign {

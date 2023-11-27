@@ -16,10 +16,10 @@ import { useRouter, useRoute } from 'vue-router'
 import {
   Edit
 } from '@element-plus/icons-vue'
-import { ElButton, ElProgress, ElSteps, ElStep } from "element-plus"
+import { ElButton, ElProgress } from "element-plus"
 export default defineComponent({
   components: {
-    Edit, ElButton, ElProgress, ElSteps, ElStep
+    Edit, ElButton, ElProgress
   },
   setup () {
     const store = useStore()

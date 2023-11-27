@@ -192,14 +192,7 @@
       </div>
     </div>
 
-    <div class="el-loading-mask is-fullscreen" v-show="machinesLoad">
-      <div class="el-loading-spinner">
-        <svg class="circular" viewBox="0 0 50 50">
-          <circle class="path" cx="25" cy="25" r="20" fill="none"></circle>
-        </svg>
-        <p class="el-loading-text">loading...</p>
-      </div>
-    </div>
+    <loading-over v-if="machinesLoad" :listLoad="machinesLoad"></loading-over>
 
     <builder-over v-if="builderShow" :builderTheme="builderTheme" :builderRow="builderRow" @hardBuilder="hardBuilder"></builder-over>
     <monaco-editor v-if="importShow" :monacoShow="importShow" :title="'Import'" :builderData="[]" @handleMonaco="handleMonaco"></monaco-editor>
@@ -208,6 +201,7 @@
 </template>
 
 <script>
+import loadingOver from "@/components/loading"
 import popOver from "@/components/popover"
 import builderOver from "@/components/builder"
 import monacoEditor from "@/components/monacoEditor"
@@ -221,7 +215,7 @@ import {  ElButton, ElInput, ElRow, ElCol, ElSlider, ElInputNumber, ElSelect, El
   ElCheckbox, ElCheckboxGroup, ElDivider} from "element-plus"
 export default defineComponent({
   components: {
-    popOver, monacoEditor, builderOver, ElButton, ElInput, ElRow, ElCol, ElSlider, ElInputNumber, ElSelect, ElOption, ElOptionGroup,
+    loadingOver, popOver, monacoEditor, builderOver, ElButton, ElInput, ElRow, ElCol, ElSlider, ElInputNumber, ElSelect, ElOption, ElOptionGroup,
     ElCheckbox, ElCheckboxGroup, ElDivider
   },
   setup () {
@@ -231,203 +225,6 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const activeIndex = ref(0)
-    const optionCont = reactive({
-      data: {
-        name: 'service-1',
-        collapse: false,
-        count: '1',
-        cpuValue: 0,
-        cpuPop: [
-          {
-            desc: "The amount of vCPU's required for this workload.",
-            link: ''
-          },
-          {
-            desc: "The maximum for a single instance is 256 vCPU's.",
-            link: ''
-          },
-          {
-            desc: "The maximum total multiplied by the count of instances is 512 vCPU's.",
-            link: ''
-          }
-        ],
-        gpuValue: 1,
-        gpuPop: [
-          {
-            desc: "The amount of GPUs required for this workload.",
-            link: ''
-          },
-          {
-            desc: "You can also specify the GPU vendor and model you want specifically. If you don't specify any model, providers with any GPU model will bid on your workload.",
-            link: ''
-          },
-          {
-            desc: "View official documentation.",
-            link: 'https://docs.lagrangedao.org/'
-          }
-        ],
-        gpuCheck: false,
-        gpuSelect: {
-          value: 'nvidia',
-          options: [
-            {
-              value: 'nvidia',
-              label: 'nvidia',
-            }]
-        },
-        gpuModels: {
-          value: '',
-          options: [
-            {
-              label: '',
-              list: []
-            }
-          ]
-        },
-        MemoryValue: 512,
-        MemoryPop: [
-          {
-            desc: "The amount of memory required for this workload.",
-            link: ''
-          },
-          {
-            desc: "The maximum for a single instance is 512 Gi.",
-            link: ''
-          },
-          {
-            desc: "The maximum total multiplied by the count of instances is 1024 Gi.",
-            link: ''
-          }
-        ],
-        MemorySelect: {
-          value: 'Mb',
-          options: [
-            {
-              value: 'Mb',
-              label: 'Mb',
-            },
-            {
-              value: 'Mi',
-              label: 'Mi',
-            },
-            {
-              value: 'GB',
-              label: 'GB',
-            },
-            {
-              value: 'Gi',
-              label: 'Gi',
-            }]
-        },
-        EphemeralValue: 1,
-        EphemeralPop: [
-          {
-            desc: "The amount of ephemeral disk storage required for this workload.",
-            link: ''
-          },
-          {
-            desc: "This disk storage is ephemeral, meaning it will be wiped out on every deployment update or provider reboot.",
-            link: ''
-          },
-          {
-            desc: "The maximum for a single instance is 32 Ti.",
-            link: ''
-          },
-          {
-            desc: "The maximum total multiplied by the count of instances is also 32 Ti.",
-            link: ''
-          }
-        ],
-        EphemeralSelect: {
-          value: 'Mb',
-          options: [
-            {
-              value: 'Mb',
-              label: 'Mb',
-            },
-            {
-              value: 'Mi',
-              label: 'Mi',
-            },
-            {
-              value: 'GB',
-              label: 'GB',
-            },
-            {
-              value: 'Gi',
-              label: 'Gi',
-            },
-            {
-              value: 'TB',
-              label: 'TB',
-            },
-            {
-              value: 'Ti',
-              label: 'Ti',
-            }]
-        },
-        docker: '',
-        dockerPop: [
-          {
-            desc: 'Docker image of the container.',
-            link: ''
-          },
-          {
-            desc: 'Best practices: avoid using :latest image tags as Lagrange Providers heavily cache images.',
-            link: ''
-          }
-        ],
-        evList: [],
-        evPop: [
-          {
-            desc: 'A list of environment variables to expose to the running container.',
-            link: ''
-          },
-          {
-            desc: 'View official documentation.',
-            link: 'https://docs.lagrangedao.org/'
-          }
-        ],
-        commandsList: [],
-        commandsPop: [
-          {
-            desc: 'Custom command use when executing container.',
-            link: ''
-          },
-          {
-            desc: 'An example and popular use case is to run a bash script to install packages or run specific commands.',
-            link: ''
-          }
-        ],
-        exposeList: [{
-          port: 80,
-          as: 80,
-          httpValue: 'http',
-          httpOption: [
-            {
-              label: 'http',
-              value: 'http'
-            },
-            {
-              label: 'tcp',
-              value: 'tcp'
-            }
-          ],
-          global: false,
-          accept: ''
-        }],
-        exposePop: [
-          {
-            desc: 'Expose is a list of port settings describing what can connect to the service.',
-            link: ''
-          },
-          {
-            desc: 'View official documentation.',
-            link: 'https://docs.lagrangedao.org/'
-          }
-        ],
-        dependOn: ''
-      }    })
     const builderData = ref([])
     const builderShow = ref(false)
     const builderTheme = ref('env')
@@ -443,51 +240,13 @@ export default defineComponent({
     async function init (params) {
       machinesLoad.value = true
       const machinesRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_BASEAPI}cp/machines`, 'get')
-      if (machinesRes && machinesRes.status === 'success') hardwareOptions.value = await listArray(machinesRes.data.hardware)
+      if (machinesRes && machinesRes.status === 'success') hardwareOptions.value = await system.$commonFun.listArray(machinesRes.data.hardware)
       machinesLoad.value = false
       addService()
     }
-    async function listArray (arrayList) {
-      let listArr = [
-        {
-          label: 'CPU',
-          list: []
-        },
-        {
-          label: 'GPU',
-          list: []
-        }
-      ]
-      // arrayList.sort((a, b) => a['hardware_name'].localeCompare(b['hardware_name']))
-      arrayList.forEach(async hard => {
-        hard.regionOption = await regionList(hard.region)
-        hard.regionValue = hard.region && hard.region[0] ? hard.region[0] : ''
-        if (hard.hardware_type.toLowerCase() === 'cpu') listArr[0].list.push(hard)
-        else listArr[1].list.push(hard)
-      })
-      return listArr
-    }
-    async function regionList (list) {
-      if (!list || !Array.isArray(list) || list.length === 0) {
-        return [];
-      }
-
-      let arr = [{
-        value: "Global",
-        label: "Global"
-      }];
-
-      list.forEach(l => {
-        arr.push({
-          value: l,
-          label: l
-        });
-      });
-
-      return arr;
-    }
+    
     async function addService (params) {
-      const child = await system.$commonFun.jsonFilter(optionCont.data)
+      const child = await system.$commonFun.jsonFilter(system.$commonFun.optionCont.data)
       child.name = `service-${builderData.value.length + 1}`
       child.gpuModels.value = hardwareOptions.value && hardwareOptions.value.length > 0 ? hardwareOptions.value[0].list[0].hardware_name : ''
       child.gpuModels.options = hardwareOptions.value

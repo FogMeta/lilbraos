@@ -131,7 +131,9 @@ export default defineComponent({
           }
         ],
         global: false,
-        accept: ''
+        accept: '',
+        toValue: '',
+        toOption: [],
       }
     })
     const commands = reactive({

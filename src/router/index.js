@@ -12,6 +12,8 @@ const getStarted = () =>
     import ("@/views/getStarted/index")
 const deploy = () =>
     import ("@/views/deploy/index")
+const deployDetail = () =>
+    import ("@/views/deploy/deployDetail")
 const deployNew = () =>
     import ("@/views/deploy/new")
 const templates = () =>
@@ -59,6 +61,14 @@ const routes = [{
             meta: {
                 keepAlive: true,
                 title: 'Deployments'
+            }
+        }, {
+            path: '/deploy/:id',
+            name: 'deployDetail',
+            component: deployDetail,
+            meta: {
+                keepAlive: true,
+                title: 'Deployments Detail'
             }
         }, {
             path: '/new-deployment',

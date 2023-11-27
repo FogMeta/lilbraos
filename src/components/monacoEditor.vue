@@ -81,7 +81,7 @@ export default defineComponent({
                 selectionClipboard: false, // 选择剪切板
                 automaticLayout: true, // 自动布局
                 codeLens: true, // 代码镜头
-                scrollBeyondLastLine: false, // 禁用额外滚动区,滚动完最后一行后再滚动一屏幕
+                scrollBeyondLastLine: true, // 禁用额外滚动区,滚动完最后一行后再滚动一屏幕
                 colorDecorators: true, // 颜色装饰器
                 accessibilitySupport: "on", // 辅助功能支持  "auto" | "off" | "on"
                 lineNumbers: "on", // 行号 取值： "on" | "off" | "relative" | "interval" | function
@@ -143,6 +143,7 @@ version: "2.0"`
             let service = `
 services: `
             let deployment = `
+
 deployment: `
 
             const c = await props.builderData.forEach(element => {
@@ -180,9 +181,17 @@ deployment: `
                         `
       - port: ${expose.port}
         as: ${expose.as}
-        http: ${expose.httpValue}
-        global: ${expose.global}
-        accept: ${expose.accept}`
+        to:
+          - global: ${expose.global}`
+
+                    if (expose.toValue) service +=
+                        `
+          - service: ${expose.toValue}`
+
+                    if (expose.accept) service +=
+                        `
+        accept:
+          - ${expose.accept}`
                 })
 
                 // ------------ deployment ---------------
@@ -196,7 +205,7 @@ deployment: `
 
             text += service
             text += deployment
-            console.log(text)
+            // console.log(text)
             toRaw(monacoEditor.value).setModel(monaco.editor.createModel(text, 'yaml'))
         }
 

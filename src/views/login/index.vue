@@ -2,14 +2,7 @@
   <section id="login">
     <div class="login_body flex-row">
       <div class="module">
-        <div class="el-loading-mask is-fullscreen" v-show="createLoad">
-          <div class="el-loading-spinner">
-            <svg class="circular" viewBox="0 0 50 50">
-              <circle class="path" cx="25" cy="25" r="20" fill="none"></circle>
-            </svg>
-            <p class="el-loading-text">loading...</p>
-          </div>
-        </div>
+      <loading-over v-if="createLoad" :listLoad="createLoad"></loading-over>
         <div class="logo-style">
           <div class="button" @click="sliderDisplay=false" v-if="sliderDisplay">
             <span class="width-icon minimum-small">
@@ -177,6 +170,7 @@
   </section>
 </template>
 <script>
+import loadingOver from "@/components/loading"
 import { defineComponent, computed, onMounted, onActivated, watch, ref, reactive, getCurrentInstance } from 'vue'
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
@@ -185,7 +179,7 @@ import { Lock, Back } from '@element-plus/icons-vue'
 import { ElButton, ElRow, ElCol, ElInput, ElForm, ElFormItem, ElTabs, ElTabPane, ElCheckbox, ElCheckboxGroup } from 'element-plus'
 export default defineComponent({
   name: "Login",
-  components: {
+  components: {loadingOver,
     Lock, Back, ElButton, ElRow, ElCol, ElInput, ElForm, ElFormItem, ElTabs, ElTabPane, ElCheckbox, ElCheckboxGroup
   },
   setup () {
@@ -466,14 +460,6 @@ export default defineComponent({
       background-color: #fff;
       border-radius: 6px;
       overflow: hidden;
-      .el-loading-mask.is-fullscreen {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 9;
-      }
       .logo-style {
         position: relative;
         padding: 10px;

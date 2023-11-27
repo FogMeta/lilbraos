@@ -8,6 +8,7 @@ export default createStore({
     clientWidth: document.body.clientWidth < 992 ? false : true,
     reverse: localStorage.getItem('libraReverse') || '0', // 0:not set, 1:dark, 2:light
     accessToken: sessionStorage.getItem('access_token_libraos') || '',
+    lagToken: sessionStorage.getItem('lagToken_libraos') || '',
     emailAddress: sessionStorage.getItem('email_address_libraos') || '',
   },
   mutations: {
@@ -25,6 +26,10 @@ export default createStore({
     SET_ACCESSTOKEN: (state, accessToken) => {
       state.accessToken = accessToken
       sessionStorage.setItem('access_token_libraos', accessToken)
+    },
+    SET_LAGTOKEN: (state, lagToken) => {
+      state.lagToken = lagToken
+      sessionStorage.setItem('lagToken_libraos', lagToken)
     },
     SET_EMAILADDRESS: (state, emailAddress) => {
       state.emailAddress = emailAddress
@@ -51,6 +56,11 @@ export default createStore({
       commit
     }, accessToken) {
       commit('SET_ACCESSTOKEN', accessToken)
+    },
+    setLagToken({
+      commit
+    }, lagToken) {
+      commit('SET_LAGTOKEN', lagToken)
     },
     setEmailAddress({
       commit

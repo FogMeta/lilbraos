@@ -1,7 +1,8 @@
 <template>
   <div class="pop-up flex-row center" v-show="props.connetShow">
     <div class="connect-area padding-24">
-      <div class="close" @click="closeHandle">
+      <loading-over v-if="spookyLoad" :listLoad="spookyLoad"></loading-over>
+      <div class="close flex-row" @click="closeHandle">
         <el-icon>
           <Close />
         </el-icon>
@@ -18,36 +19,25 @@
 </template>
 
 <script>
-import {
-  defineComponent,
-  computed,
-  onMounted,
-  onActivated,
-  onDeactivated,
-  watch,
-  ref,
-  reactive,
-  getCurrentInstance,
-  toRefs,
-  nextTick
-} from 'vue'
+import loadingOver from "@/components/loading"
+import { defineComponent, computed, onMounted, onActivated, onDeactivated, watch, ref, reactive, getCurrentInstance, toRefs, nextTick } from 'vue'
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
 import {
   Close
 } from '@element-plus/icons-vue'
 import { ElIcon } from "element-plus"
-import { showLoading, hideLoading } from '@/plugins/loading'
 export default defineComponent({
   name: 'Popup',
   components: {
-    Close, ElIcon
+    loadingOver, Close, ElIcon
   },
   props: {
     connetShow: { type: Boolean, default: false }
   },
   setup (props, context) {
     const store = useStore()
+    const accessToken = computed(() => (store.state.accessToken))
     const bodyWidth = ref(document.body.clientWidth <= 768 ? 30 : 50)
     const system = getCurrentInstance().appContext.config.globalProperties
     const route = useRoute()
@@ -56,8 +46,15 @@ export default defineComponent({
     const active = ref('connect')
     const spookyLoad = ref(false)
     const hash = ref('')
+    const info = reactive({
+      address: '',
+      balance: '',
+      unit: '',
+      network: ''
+    })
 
     function closeHandle () {
+      spookyLoad.value = false
       context.emit('hardClose', false)
     }
 
@@ -74,20 +71,43 @@ export default defineComponent({
       const time = await throttle()
       if (!time) return false
       system.$commonFun.Init(async (addr, chain) => {
-        // if (chain) spookyMethod()
+        spookyLoad.value = true
+        info.address = addr
+        system.$commonFun.web3Init.eth.getBalance(addr).then((balance) => {
+          // console.log(balance)
+          const myBalance = balance
+          const balanceAll = system.$commonFun.web3Init.utils.fromWei(myBalance, 'ether')
+          info.balance = Number(balanceAll).toFixed(4)
+        })
+        const chainId = await system.$commonFun.web3Init.eth.net.getId()
+        const { unit, name } = await system.$commonFun.getUnit(chainId)
+        info.unit = unit
+        info.network = name || chainId
+        // await system.$commonFun.timeout(500)
+        if (accessToken.value) closeHandle()
+        else await signIn()
       })
     }
 
-    async function spookyMethod () {
-      showLoading()
-      try {
+    async function signIn () {
+      const chainId = await ethereum.request({ method: 'eth_chainId' })
+      const [lStatus, signErr] = await system.$commonFun.login()
+      if (lStatus) closeHandle()
+      else if (signErr !== '4001') signSetIn()
+      else spookyLoad.value = false
+      return false
+    }
 
-      } catch (err) {
-        console.log('err', err)
-        if (err && err.message) system.$commonFun.messageTip('error', err.message)
-        active.value = 'failed'
-        hideLoading()
-      }
+    async function signSetIn (t) {
+      let time = t || 0
+      let timer = null
+      timer = setInterval(() => {
+        if (time > 3) {
+          clearInterval(timer)
+          if (accessToken.value) closeHandle()
+          else signIn()
+        } else time += 1
+      }, 1000)
     }
     onMounted(() => { })
     return {
@@ -98,6 +118,7 @@ export default defineComponent({
       active,
       hash,
       spookyLoad,
+      info,
       closeHandle, isLogin
     }
   }
@@ -111,7 +132,7 @@ export default defineComponent({
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 99;
+  z-index: 99999;
   background-color: rgba(0, 0, 0, 0.5);
   color: @primary-color;
   line-height: 1;

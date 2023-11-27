@@ -3,12 +3,12 @@
     <div class="module">
       <h1 class="font-24 weight-6 flex-row">
         Deployments
-        <span class="button width-icon">
+        <span class="button width-icon" @click="getData">
           <el-icon>
             <RefreshRight />
           </el-icon>
         </span>
-        <el-checkbox v-model="checked" label="Active" size="large" />
+        <el-checkbox v-model="checked" label="Active" size="large" @change="getData" />
       </h1>
       <div class="area padding-64 flex-row center">
         <div class="tit font-24 weight-4">{{ checked? 'No active deployments' : 'No deployments'}}</div>
@@ -29,25 +29,92 @@
           </i>
         </router-link>
       </div>
+      <div class="table-cont">
+        <loading-over v-if="listLoad" :listLoad="listLoad"></loading-over>
+        <el-table :data="deployData" table-layout="fixed">
+          <el-table-column prop="space_name">
+            <template #header>
+              <span class="font-14 weight-5 header-style">Space Name</span>
+            </template>
+            <template #default="scope">
+              <div class="flex-row center">
+                <router-link :to="{ name: 'deployDetail', params: {id:scope.row.id }}" class="font-14 weight-4">{{ scope.row.space_name}}</router-link>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="cfg_name">
+            <template #header>
+              <span class="font-14 weight-5 header-style">CFG Name</span>
+            </template>
+            <template #default="scope">
+              <span class="font-14 weight-4">{{ scope.row.cfg_name}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="duration">
+            <template #header>
+              <span class="font-14 weight-5 header-style">Duration</span>
+            </template>
+            <template #default="scope">
+              <span class="font-14 weight-4">{{ scope.row.duration}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="region">
+            <template #header>
+              <span class="font-14 weight-5 header-style">Region</span>
+            </template>
+            <template #default="scope">
+              <span class="font-14 weight-4">{{ scope.row.region}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="result_url">
+            <template #header>
+              <span class="font-14 weight-5 header-style">Result URL</span>
+            </template>
+            <template #default="scope">
+              <span class="font-14 weight-4">{{ scope.row.result_url}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="status_msg">
+            <template #header>
+              <span class="font-14 weight-5 header-style">status msg</span>
+            </template>
+            <template #default="scope">
+              <span class="font-14 weight-4">{{ scope.row.status_msg}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="created_at">
+            <template #header>
+              <span class="font-14 weight-5 header-style">created at</span>
+            </template>
+            <template #default="scope">
+              <span class="font-14 weight-4">{{ system.$commonFun.momentFun(scope.row.created_at)}}</span>
+            </template>
+          </el-table-column>
+        </el-table>
+        <el-pagination class="flex-row" hide-on-single-page :page-size="pagin.pageSize" :current-page="pagin.pageNo" :pager-count="5" layout="total, prev, pager, next" :total="pagin.total" @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        />
+      </div>
     </div>
   </section>
 </template>
 
 <script>
-import { defineComponent, computed, onMounted, watch, ref, reactive, getCurrentInstance } from 'vue'
+import loadingOver from "@/components/loading"
+import { defineComponent, computed, onMounted, onActivated, watch, ref, reactive, getCurrentInstance } from 'vue'
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
 import { RefreshRight } from '@element-plus/icons-vue'
-import { ElButton, ElRow, ElCol, ElSelect, ElOption, ElIcon, ElCheckbox } from "element-plus"
+import { ElButton, ElRow, ElCol, ElSelect, ElOption, ElIcon, ElCheckbox, ElTable, ElTableColumn, ElPagination } from "element-plus"
 export default defineComponent({
   components: {
+    loadingOver,
     RefreshRight,
     ElButton,
     ElRow,
     ElCol,
     ElSelect,
     ElOption,
-    ElIcon, ElCheckbox
+    ElIcon, ElCheckbox, ElTable, ElTableColumn, ElPagination
   },
   setup () {
     const store = useStore()
@@ -56,12 +123,50 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const checked = ref(true)
+    const listLoad = ref(false)
+    const deployData = ref([])
+    const pagin = reactive({
+      pageSize: 20,
+      pageNo: 1,
+      total: 0,
+      sort: 'updated'
+    })
 
+    async function getData () {
+      listLoad.value = true
+      deployData.value = []
+      const page = pagin.pageNo > 0 ? pagin.pageNo - 1 : 0
+      const params = {
+        status: checked.value ? 1 : 0,
+        page_no: page,
+        page_size: pagin.pageSize
+      }
+      const listRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/deployments?${Qs.stringify(params)}`, 'get')
+      if (listRes && String(listRes.code) === '0') {
+        deployData.value = listRes.data.list || []
+        params.total = listRes.data.total || 0
+      }
+      // else system.$commonFun.notificationTip(listRes.msg ? listRes.msg : 'Request failed.', 'error')
+      listLoad.value = false
+    }
+    function handleSizeChange (val) { }
+    async function handleCurrentChange (currentPage) {
+      // console.log('handleCurrentChange:', currentPage)
+      pagin.pageNo = currentPage
+      getData()
+    }
     onMounted(async () => { })
+    onActivated(async () => {
+      getData()
+    })
     return {
       system,
       bodyWidth,
-      checked
+      checked,
+      listLoad,
+      deployData,
+      pagin,
+      handleSizeChange, handleCurrentChange, getData
     }
   }
 })
@@ -111,7 +216,7 @@ export default defineComponent({
         &:hover {
           background-color: @theme-color-opacity1;
         }
-        &.is-disabled{
+        &.is-disabled {
           cursor: no-drop;
           background-color: @primary-color-opacity1;
         }
@@ -126,6 +231,123 @@ export default defineComponent({
         }
         span {
           letter-spacing: 0.5px;
+        }
+      }
+    }
+    .table-cont {
+      position: relative;
+      .el-table {
+        border-radius: 6px;
+        overflow: hidden;
+        tbody {
+          tr {
+            &:first-child {
+              background-color: transparent !important;
+            }
+            &:nth-child(2n + 1) {
+              background-color: @primary-color-opacity2;
+            }
+            &:hover {
+              background-color: none;
+            }
+          }
+        }
+        tr {
+          background-color: transparent;
+          th,
+          td {
+            padding: 16px 0;
+            background-color: transparent;
+            border: 0;
+            .cell {
+              line-height: 1.3;
+              color: @grey-color;
+              .header-style {
+                display: block;
+                text-align: center;
+                text-transform: uppercase;
+                &.color {
+                  color: transparent;
+                  background-image: linear-gradient(
+                    to right,
+                    @theme-color-opacity1,
+                    @theme-color
+                  );
+                  -webkit-background-clip: text;
+                }
+              }
+              a {
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
+          td {
+            border-bottom: 1px solid @primary-color-opacity3;
+            .cell {
+              text-align: center;
+              color: @primary-color;
+              .rise {
+                padding: 1px 8px;
+                margin: 0 0 0 8px;
+                background-color: #9cff6b;
+                border-radius: 20px;
+              }
+              .space-style {
+                line-height: 25px;
+                color: @grey-color;
+                .flex-row {
+                  margin: 2px 8px;
+                  .width-icon {
+                    fill: @grey-color;
+                    svg,
+                    path {
+                      fill: inherit;
+                    }
+                  }
+                  span {
+                    margin: 0 8px;
+                    color: @primary-color;
+                  }
+                }
+              }
+              .filter {
+                .center {
+                  position: relative;
+                  margin: 4px;
+                  small {
+                    position: absolute;
+                    top: -6px;
+                    left: 6px;
+                    padding: 0 4px;
+                    background-color: @white-color;
+                    color: @primary-color-opacity;
+                    z-index: 9;
+                  }
+                }
+                .el-input-number {
+                  width: auto;
+                  .el-input-number__increase,
+                  .el-input-number__decrease {
+                    background-color: transparent;
+                    border: 0;
+                  }
+                  .el-input {
+                    .el-input__wrapper {
+                      width: 80px;
+                      height: 32px;
+                      padding: 0 32px 0 8px;
+                      text-align: left;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          th {
+            border-bottom: 1px solid @grey-color;
+          }
         }
       }
     }

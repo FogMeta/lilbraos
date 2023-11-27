@@ -99,10 +99,10 @@ import { useRouter, useRoute } from 'vue-router'
 import {
   Check
 } from '@element-plus/icons-vue'
-import { ElButton, ElProgress, ElSteps, ElStep, ElIcon, ElCollapse, ElCollapseItem } from "element-plus"
+import { ElButton, ElProgress, ElIcon, ElCollapse, ElCollapseItem } from "element-plus"
 export default defineComponent({
   components: {
-    Check, ElButton, ElProgress, ElSteps, ElStep, ElIcon, ElCollapse, ElCollapseItem
+    Check, ElButton, ElProgress, ElIcon, ElCollapse, ElCollapseItem
   },
   setup () {
     const store = useStore()

@@ -222,18 +222,12 @@
       </div>
     </div>
 
-    <div class="el-loading-mask is-fullscreen" v-show="providersLoad">
-      <div class="el-loading-spinner">
-        <svg class="circular" viewBox="0 0 50 50">
-          <circle class="path" cx="25" cy="25" r="20" fill="none"></circle>
-        </svg>
-        <p class="el-loading-text">loading...</p>
-      </div>
-    </div>
+      <loading-over v-if="providersLoad" :listLoad="providersLoad"></loading-over>
   </section>
 </template>
 
 <script>
+import loadingOver from "@/components/loading"
 import { defineComponent, computed, onMounted, onActivated, onDeactivated, watch, ref, reactive, getCurrentInstance } from 'vue'
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
@@ -245,6 +239,7 @@ import * as echarts from "echarts"
 import '@public/static/js/world.js'
 export default defineComponent({
   components: {
+    loadingOver,
     CircleCheck, RefreshRight,
     ElButton,
     ElRow,
