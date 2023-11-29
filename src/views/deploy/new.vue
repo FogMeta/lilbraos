@@ -70,44 +70,105 @@
       <div class="active-1" v-else-if="active === 2">
         <div class="builder">
           <div class="list">
+            <loading-over v-if="hardwareLoad" :listLoad="hardwareLoad"></loading-over>
             <div class="main-body">
               <div class="root padding-16">
-                <div class="space-hard">
-                  <el-row class="space_hardware" :gutter="30">
-                    <el-col :md="24" :lg="24">
-                      <h2 class="flex-row">
-                        <span class="width-icon small flex-row">
-                          <svg class="mr-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.92865 7.42863H10.643C10.7377 7.42863 10.8285 7.39098 10.8955 7.32405C10.9625 7.25705 11.0001 7.16619 11.0001 7.07148C11.0001 6.97676 10.9625 6.88591 10.8955 6.81891C10.8285 6.75198 10.7377 6.71433 10.643 6.71433H9.92865V5.28575H10.643C10.7377 5.28575 10.8285 5.24812 10.8955 5.18114C10.9625 5.11417 11.0001 5.02333 11.0001 4.9286C11.0001 4.83388 10.9625 4.74304 10.8955 4.67607C10.8285 4.60909 10.7377 4.57146 10.643 4.57146H9.92865V2.78573C9.92865 2.59628 9.85336 2.4146 9.71943 2.28065C9.5855 2.1467 9.40378 2.07144 9.21435 2.07144H7.42862V1.35715C7.42862 1.26242 7.39098 1.17158 7.32405 1.10461C7.25705 1.03763 7.16619 1 7.07148 1C6.97676 1 6.88591 1.03763 6.81891 1.10461C6.75198 1.17158 6.71433 1.26242 6.71433 1.35715V2.07144H5.28575V1.35715C5.28575 1.26242 5.24812 1.17158 5.18114 1.10461C5.11417 1.03763 5.02333 1 4.9286 1C4.83388 1 4.74304 1.03763 4.67607 1.10461C4.60909 1.17158 4.57146 1.26242 4.57146 1.35715V2.07144H2.78573C2.59628 2.07144 2.4146 2.1467 2.28065 2.28065C2.14669 2.4146 2.07144 2.59628 2.07144 2.78573V4.57146H1.35714C1.26242 4.57146 1.17158 4.60909 1.10461 4.67607C1.03763 4.74304 1 4.83388 1 4.9286C1 5.02333 1.03763 5.11417 1.10461 5.18114C1.17158 5.24812 1.26242 5.28575 1.35714 5.28575H2.07144V6.71433H1.35714C1.26242 6.71433 1.17158 6.75198 1.10461 6.81891C1.03763 6.88591 1 6.97676 1 7.07148C1 7.16619 1.03763 7.25705 1.10461 7.32405C1.17158 7.39098 1.26242 7.42863 1.35714 7.42863H2.07144V9.21435C2.07144 9.40378 2.14669 9.5855 2.28065 9.71943C2.4146 9.85336 2.59628 9.92865 2.78573 9.92865H4.57146V10.6429C4.57146 10.7377 4.60909 10.8285 4.67607 10.8955C4.74304 10.9624 4.83388 11.0001 4.9286 11.0001C5.02333 11.0001 5.11417 10.9624 5.18114 10.8955C5.24812 10.8285 5.28575 10.7377 5.28575 10.6429V9.92865H6.71433V10.6429C6.71433 10.7377 6.75198 10.8285 6.81891 10.8955C6.88591 10.9624 6.97676 11.0001 7.07148 11.0001C7.16619 11.0001 7.25705 10.9624 7.32405 10.8955C7.39098 10.8285 7.42862 10.7377 7.42862 10.6429V9.92865H9.21435C9.40378 9.92865 9.5855 9.85336 9.71943 9.71943C9.85336 9.5855 9.92865 9.40378 9.92865 9.21435V7.42863Z"
-                              fill="currentColor" fill-opacity="0.3"></path>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4C4.44771 4 4 4.44771 4 5V7C4 7.55227 4.44771 8 5 8H7C7.55227 8 8 7.55227 8 7V5C8 4.44771 7.55227 4 7 4H5Z" fill-opacity="0.5"></path>
-                          </svg>
-                        </span>
-                        <span>Space Hardware</span>
-                        <span class="button width-icon small flex-row" @click="hardwareInit">
-                          <RefreshRight />
-                        </span>
-                      </h2>
-                      <p class="p-2 flex-row">Choose a hardware for your Space.</p>
+                <el-row :gutter="16">
+                  <el-col :xs="24" :sm="16" :md="16" :lg="16" :xl="16">
+                    <div class="background-main">
+                      <div class="flex-row">
+                        <h3 class="flex-row">
+                          <div class="flex-row center font-14 weight-6">
+                            <span class="width-icon">
+                              <svg data-v-77e679a4="" class="mr-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 12 12">
+                                <path data-v-77e679a4="" fill-rule="evenodd" clip-rule="evenodd" d="M9.92865 7.42863H10.643C10.7377 7.42863 10.8285 7.39098 10.8955 7.32405C10.9625 7.25705 11.0001 7.16619 11.0001 7.07148C11.0001 6.97676 10.9625 6.88591 10.8955 6.81891C10.8285 6.75198 10.7377 6.71433 10.643 6.71433H9.92865V5.28575H10.643C10.7377 5.28575 10.8285 5.24812 10.8955 5.18114C10.9625 5.11417 11.0001 5.02333 11.0001 4.9286C11.0001 4.83388 10.9625 4.74304 10.8955 4.67607C10.8285 4.60909 10.7377 4.57146 10.643 4.57146H9.92865V2.78573C9.92865 2.59628 9.85336 2.4146 9.71943 2.28065C9.5855 2.1467 9.40378 2.07144 9.21435 2.07144H7.42862V1.35715C7.42862 1.26242 7.39098 1.17158 7.32405 1.10461C7.25705 1.03763 7.16619 1 7.07148 1C6.97676 1 6.88591 1.03763 6.81891 1.10461C6.75198 1.17158 6.71433 1.26242 6.71433 1.35715V2.07144H5.28575V1.35715C5.28575 1.26242 5.24812 1.17158 5.18114 1.10461C5.11417 1.03763 5.02333 1 4.9286 1C4.83388 1 4.74304 1.03763 4.67607 1.10461C4.60909 1.17158 4.57146 1.26242 4.57146 1.35715V2.07144H2.78573C2.59628 2.07144 2.4146 2.1467 2.28065 2.28065C2.14669 2.4146 2.07144 2.59628 2.07144 2.78573V4.57146H1.35714C1.26242 4.57146 1.17158 4.60909 1.10461 4.67607C1.03763 4.74304 1 4.83388 1 4.9286C1 5.02333 1.03763 5.11417 1.10461 5.18114C1.17158 5.24812 1.26242 5.28575 1.35714 5.28575H2.07144V6.71433H1.35714C1.26242 6.71433 1.17158 6.75198 1.10461 6.81891C1.03763 6.88591 1 6.97676 1 7.07148C1 7.16619 1.03763 7.25705 1.10461 7.32405C1.17158 7.39098 1.26242 7.42863 1.35714 7.42863H2.07144V9.21435C2.07144 9.40378 2.14669 9.5855 2.28065 9.71943C2.4146 9.85336 2.59628 9.92865 2.78573 9.92865H4.57146V10.6429C4.57146 10.7377 4.60909 10.8285 4.67607 10.8955C4.74304 10.9624 4.83388 11.0001 4.9286 11.0001C5.02333 11.0001 5.11417 10.9624 5.18114 10.8955C5.24812 10.8285 5.28575 10.7377 5.28575 10.6429V9.92865H6.71433V10.6429C6.71433 10.7377 6.75198 10.8285 6.81891 10.8955C6.88591 10.9624 6.97676 11.0001 7.07148 11.0001C7.16619 11.0001 7.25705 10.9624 7.32405 10.8955C7.39098 10.8285 7.42862 10.7377 7.42862 10.6429V9.92865H9.21435C9.40378 9.92865 9.5855 9.85336 9.71943 9.71943C9.85336 9.5855 9.92865 9.40378 9.92865 9.21435V7.42863Z"
+                                  fill="currentColor" fill-opacity="0.3"></path>
+                                <path data-v-77e679a4="" fill-rule="evenodd" clip-rule="evenodd" d="M5 4C4.44771 4 4 4.44771 4 5V7C4 7.55227 4.44771 8 5 8H7C7.55227 8 8 7.55227 8 7V5C8 4.44771 7.55227 4 7 4H5Z" fill-opacity="0.5"></path>
+                              </svg>
+                            </span>
+                            <span>Space Hardware</span>
+                            <span class="button width-icon small flex-row" @click="hardwareInit">
+                              <RefreshRight />
+                            </span>
+                          </div>
+                        </h3>
+                      </div>
+                      <div class="flex-row">
+                        <h6 class="font-12 weight-4">Choose a hardware for your Space.</h6>
+                      </div>
+                      <div class="flex-row center font-14">
+                        <small class="font-12">Hardware</small>
+                        <el-select v-model="gpuModels.value" value-key="hardware_id" placeholder="Select" @change="sleepMethod">
+                          <el-option-group v-for="group in gpuModels.options" :key="group.label" :label="group.label">
+                            <el-option v-for="mo in group.list" :key="mo.hardware_name" :label="mo.hardware_name" :value="mo" :disabled="mo.hardware_status === 'occupied'">
+                              <span style="float: left">{{ mo.hardware_name }}</span>
+                              <span style="float: right; color: var(--el-text-color-secondary);font-size: 13px;">{{ mo.hardware_description }}</span>
+                            </el-option>
+                          </el-option-group>
+                        </el-select>
+                      </div>
+                      <div v-show="gpuModels.value">
+                        <div class="flex-row">
+                          <h6 class="m font-12 weight-4">Hardware Description: {{gpuModels.value.hardware_description}}</h6>
+                        </div>
+                        <div class="flex-row">
+                          <h6 class="m font-12 weight-4">Hardware Price: {{gpuModels.value.hardware_price}} USDC per hour</h6>
+                        </div>
+                      </div>
+                    </div>
 
-                    </el-col>
-                    <el-col :md="24" :lg="24" class="hardware-right">
-                      <el-row :gutter="25" class="space_hardware_list" v-for="(item, index) in hardwareOptions" :key="index">
-                        <el-divider content-position="left">{{ item.label }}</el-divider>
-                        <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="(ol, o) in item.list" :key="o">
-                          <el-card class="box-card" :class="{'is-disabled':ol.hardware_status !== 'available'}" @click="sleepChange(ol)">
-                            <h5>{{ ol.hardware_name }}</h5>
-                            <div class="desc-text">{{ ol.hardware_description }}</div>
-                            <div class="price">
-                              <b v-if="ol.hardware_status.toLowerCase() === 'available'">{{ ol.hardware_price }} USDC per hour</b>
-                              <b v-else>No available CP</b>
-                            </div>
-                          </el-card>
-                        </el-col>
-                      </el-row>
-                    </el-col>
-                  </el-row>
-                </div>
+                    <div class="background-main piece flex-row space-between nowrap">
+                      <div class="flex-row center font-14">
+                        <small class="font-12">Usage Time</small>
+                        <el-input-number v-model="ruleForm.usageTime" :min="24" :max="sleepSelect.hardware_type && sleepSelect.hardware_type.toLowerCase() === 'gpu' ? 168:336" :precision="0" :step="1" controls-position="right" />
+                      </div>
+                      <span class="text-nowrap font-14">hours</span>
+                    </div>
+
+                    <div class="background-main">
+                      <div class="flex-row center font-14">
+                        <small class="font-12">Region</small>
+                        <el-select v-model="sleepSelect.regionValue" class="m-region" placeholder="Region">
+                          <el-option v-for="item in sleepSelect.regionOption" :key="item.value" :label="item.label" :value="item.value" />
+                        </el-select>
+                      </div>
+                    </div>
+
+                    <div class="background-main">
+                      <div class="flex-row">
+                        <h3 class="flex-row">
+                          <div class="flex-row center font-14 weight-6">
+                            <span class="center">Start time settings</span>
+                            <el-popover placement="top-start" :width="200" popper-style="word-break: break-word; text-align: left;" trigger="hover" content="If the task isn't successfully taken by the CP within the specified time, we will consider it as failed and refund your tokens.">
+                              <template #reference>
+                                <div class="width-icon small">
+                                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="InfoIcon" aria-labelledby=":r44:">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path>
+                                  </svg>
+                                </div>
+                              </template>
+                            </el-popover>
+                          </div>
+                        </h3>
+                      </div>
+                      <div class="flex-row  space-between nowrap font-14">
+                        <span class="text-nowrap font-14">Start after</span>
+                        <el-select v-model="ruleForm.sleepTime" class="m-2" placeholder="Select" size="small">
+                          <el-option v-for="item in ruleForm.sleepTimeOption" :key="item.value" :label="item.label" :value="item.value" />
+                        </el-select>
+                      </div>
+                    </div>
+
+                    <div class="background-main">
+                      <h6 class="p-1 font-12 weight-4">Make sure to follow this guide to ensure your Space takes advantage of the improved hardware.</h6>
+                      <h6 class="p-1 font-12 weight-4">You can switch to a different hardware at any time. Monitor your usage in real time from your billing settings.</h6>
+                    </div>
+
+                    <div class="background-main">
+                      <el-button class="active button-shadow" @click="sleepChange">Confirm new hardware</el-button>
+                    </div>
+                  </el-col>
+                </el-row>
               </div>
             </div>
           </div>
@@ -115,92 +176,6 @@
       </div>
     </div>
 
-    <el-dialog class="sleep_body" v-model="sleepVisible" title="Confirm hardware update" :width="dialogWidth">
-      <div style="position: relative;">
-        <loading-over v-if="hardwareLoad" :listLoad="hardwareLoad"></loading-over>
-        <div class="title-hard">The hardware of
-          <span>{{ system.$commonFun.hiddAddress(metaAddress) }}/{{ spaceInfo.data.name }}</span> will be switched to:
-        </div>
-        <el-card class="box-card">
-          <h5>{{ sleepSelect.hardware_name }}</h5>
-          <div class="desc-text">{{ sleepSelect.hardware_description }}</div>
-          <div class="price">
-            <b>{{ sleepSelect.hardware_price }} USDC per hour</b>
-          </div>
-        </el-card>
-        <div class="sleep_style">
-          <div>
-            <div class="title_tip flex-row">
-              <div class="flex-row">
-                Usage Time
-              </div>
-              <el-divider/>
-            </div>
-            <div class="time flex-row">
-              <el-input-number v-model="ruleForm.usageTime" :min="24" :max="sleepSelect.hardware_type.toLowerCase() === 'gpu' ? 168:336" :precision="0" :step="1" controls-position="right" /> &nbsp; hours
-            </div>
-          </div>
-          <div>
-            <div class="title_tip flex-row">
-              <div class="flex-row">
-                Region
-              </div>
-              <el-divider/>
-            </div>
-            <div class="time flex-row">
-              <el-select v-model="sleepSelect.regionValue" class="m-region" placeholder="Region">
-                <el-option v-for="item in sleepSelect.regionOption" :key="item.value" :label="item.label" :value="item.value" />
-              </el-select>
-            </div>
-          </div>
-          <div>
-            <div class="title_tip flex-row">
-              <div class="flex-row">
-                Start time settings
-                <el-popover placement="top-start" :width="200" trigger="hover" content="If the task isn't successfully taken by the CP within the specified time, we will consider it as failed and refund your tokens.">
-                  <template #reference>
-                    <div>
-                      <svg class="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32">
-                        <path d="M17 22v-8h-4v2h2v6h-3v2h8v-2h-3z" fill="currentColor"></path>
-                        <path d="M16 8a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 16 8z" fill="currentColor"></path>
-                        <path d="M16 30a14 14 0 1 1 14-14a14 14 0 0 1-14 14zm0-26a12 12 0 1 0 12 12A12 12 0 0 0 16 4z" fill="currentColor"></path>
-                      </svg>
-                    </div>
-                  </template>
-                </el-popover>
-              </div>
-              <el-divider/>
-            </div>
-            <div class="time flex-row">
-              Start after
-              <el-select v-model="ruleForm.sleepTime" class="m-2" placeholder="Select" size="small">
-                <el-option v-for="item in ruleForm.sleepTimeOption" :key="item.value" :label="item.label" :value="item.value" />
-              </el-select>
-            </div>
-            <p class="p-1 p-small" v-if="sleepSelect.hardware_type.toLowerCase() === 'gpu' && ruleForm.sleepTime < 20">
-              For GPU tasks, we recommend that you choose a longer wait time to ensure that the CP can complete the task within your desired time frame</p>
-          </div>
-          <el-divider/>
-          <p class="p-1">Make sure to follow
-            <router-link to="">this guide</router-link>
-            to ensure your Space takes advantage of the improved hardware.
-          </p>
-          <p class="p-1">You can switch to a different hardware at any time. Monitor your usage in real time from your
-            <router-link to="">billing settings</router-link>
-            .
-          </p>
-        </div>
-      </div>
-
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button-group class="flex-row">
-            <el-button @click="hardwareFun" :disabled="hardwareLoad">Confirm new hardware</el-button>
-            <el-button @click="sleepVisible=false" :disabled="hardwareLoad">Cancel</el-button>
-          </el-button-group>
-        </span>
-      </template>
-    </el-dialog>
     <network-change v-if="networkC" :networkC="networkC" :netEnv="netEnv" @netChange="netChange"></network-change>
   </section>
 </template>
@@ -253,17 +228,23 @@ export default defineComponent({
       }]
     })
     const builderData = ref([])
-    const netEnv = ref([{
-      name: 'OpSwan',
-      id: 8598668088
-    },
-    {
-      name: 'Mumbai Testnet',
-      id: 80001
-    }])
+    const netEnv = ref([
+      {
+        name: 'OpSwan',
+        id: 8598668088
+      },
+      {
+        name: 'Mumbai Testnet',
+        id: 80001
+      }
+    ])
     const networkC = ref(false)
     const hardwareLoad = ref(false)
     const hardwareOptions = ref([])
+    const gpuModels = reactive({
+      value: ref({}),
+      options: []
+    })
     const sleepSelect = ref({})
     const sleepVisible = ref(false)
     const ruleForm = reactive({
@@ -341,15 +322,28 @@ export default defineComponent({
         spaceInfo.data = spaceRes.data || {}
         active.value = 2
         hardwareInit()
-      } else spaceLoad.value = false
+      } else {
+        system.$commonFun.notificationTip(spaceRes.msg ? spaceRes.msg : 'Request failed.', 'error')
+        spaceLoad.value = false
+      }
     }
     async function hardwareInit (params) {
       spaceLoad.value = true
       const machinesRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_BASEAPI}cp/machines`, 'get')
       if (machinesRes && machinesRes.status === 'success') {
         hardwareOptions.value = await system.$commonFun.listArray(machinesRes.data.hardware)
-      }
+        gpuModels.value = hardwareOptions.value && hardwareOptions.value.length > 0 ? hardwareOptions.value[0].list[0] : ''
+        gpuModels.options = hardwareOptions.value
+        await sleepMethod()
+      } else system.$commonFun.notificationTip(machinesRes.message ? machinesRes.message : 'Request failed.', 'error')
       spaceLoad.value = false
+    }
+    async function sleepMethod () {
+      ruleForm.usageTime = 24
+      sleepSelect.value = gpuModels.value
+      sleepSelect.value.regionOption = await system.$commonFun.regionList(gpuModels.value.region)
+      sleepSelect.value.regionValue = gpuModels.value.region && gpuModels.value.region[0] ? 'Global' : ''
+      ruleForm.sleepTime = sleepSelect.value.hardware_type.toLowerCase() === 'gpu' ? '20' : '1'
     }
     function handleHard (val, refresh, net) {
       if (net) {
@@ -364,18 +358,12 @@ export default defineComponent({
       if (rows) system.$commonFun.walletChain(rows)
     }
     async function sleepChange (row) {
-      if (row.hardware_status.toLowerCase() !== 'available') return false
       const net = await networkEstimate()
       if (!net) {
         networkC.value = true
         return
       }
-      ruleForm.usageTime = 24
-      sleepSelect.value = row
-      sleepSelect.value.regionOption = await system.$commonFun.regionList(row.region)
-      sleepSelect.value.regionValue = row.region && row.region[0] ? "Global" : ''
-      ruleForm.sleepTime = sleepSelect.value.hardware_type.toLowerCase() === 'gpu' ? '20' : '1'
-      sleepVisible.value = true
+      hardwareFun()
     }
 
     async function networkEstimate () {
@@ -389,6 +377,7 @@ export default defineComponent({
       const net = await networkEstimate()
       if (!net) return
       hardwareLoad.value = true
+      console.log('sleepSelect', sleepSelect.value)
       try {
         const hardwareInfo = await paymentContract.methods.hardwareInfo(sleepSelect.value.hardware_id).call()
         const pricePerHour = system.$commonFun.web3Init.utils.fromWei(String(hardwareInfo.pricePerHour), 'mwei')
@@ -408,7 +397,6 @@ export default defineComponent({
           .lockRevenue(spaceInfo.data.uuid, sleepSelect.value.hardware_id, ruleForm.usageTime)
 
         let gasLimit = await payMethod.estimateGas({ from: metaAddress.value })
-        console.log('gasLimit:', gasLimit)
         const tx = await payMethod.send({ from: metaAddress.value, gasLimit: gasLimit })
           .on('transactionHash', async (transactionHash) => {
             console.log('transactionHash:', transactionHash)
@@ -427,6 +415,7 @@ export default defineComponent({
       hardwareLoad.value = false
       sleepVisible.value = false
     }
+
     async function hardwareHash (tx_hash, approveAmount) {
       const net = await networkEstimate()
       if (!net) return
@@ -445,6 +434,7 @@ export default defineComponent({
 
       const deployRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/deployments`, 'post', params)
       if (deployRes && String(deployRes.code) === '0') router.push({ name: 'deploy' })
+      else system.$commonFun.notificationTip(deployRes.msg ? deployRes.msg : 'Request failed.', 'error')
     }
 
     async function paymentEnv () {
@@ -462,6 +452,9 @@ export default defineComponent({
       paymentEnv()
       active.value = 1
     })
+    watch(metaAddress, () => {
+      if (!metaAddress.value) active.value = 1
+    })
     return {
       system, metaAddress,
       bodyWidth, dialogWidth, hardwareLoad,
@@ -470,8 +463,8 @@ export default defineComponent({
       active,
       theme,
       rollback, spaceInfo,
-      builderData, networkC, netEnv, hardwareOptions, sleepSelect, sleepVisible, ruleForm,
-      spaceURLMehthod, handleHard, netChange, sleepChange, hardwareFun, hardwareInit
+      builderData, networkC, netEnv, hardwareOptions, gpuModels, sleepSelect, sleepVisible, ruleForm,
+      spaceURLMehthod, handleHard, netChange, sleepChange, hardwareFun, hardwareInit, sleepMethod
     }
   }
 })
@@ -654,18 +647,157 @@ export default defineComponent({
           }
           .el-row {
             .el-col {
+              .background-main {
+                padding: 8px 16px;
+                margin: 0 0 16px;
+                // background-color: @bg-color;
+                border-radius: 4px;
+                .el-button {
+                  background-color: transparent;
+                  border-color: transparent;
+                  color: @primary-color;
+                  text-transform: uppercase;
+                  transition: all 0.2s;
+                  &.active {
+                    background-color: @theme-color;
+                    border-color: @theme-color;
+                    color: @white-color;
+                    &:hover {
+                      background-color: @theme-color-opacity1;
+                    }
+                  }
+                  &:hover {
+                    background-color: @theme-color-opacity2;
+                  }
+                }
+                .el-divider--horizontal {
+                  margin: 8px 0;
+                }
+                h3 {
+                  span {
+                    margin: 0 6px 0 0;
+                    line-height: 24px;
+                  }
+                  .el-select {
+                    width: auto;
+                    max-width: 85px;
+                    margin: 0 0 0 16px;
+                  }
+                }
+                h4 {
+                  padding: 0 0 16px;
+                  text-transform: capitalize;
+                  span {
+                    color: @theme-color;
+                    line-height: 20px;
+                    cursor: pointer;
+                    &:hover {
+                      text-decoration: underline;
+                    }
+                  }
+                }
+                h6 {
+                  padding: 3px 0 6px;
+                  color: @grey-color;
+                  &.m {
+                    padding: 3px 0;
+                  }
+                  b {
+                    color: @primary-color;
+                  }
+                }
+                .slider-demo-block {
+                  margin-top: 8px;
+                }
+                .el-input-number {
+                  width: auto;
+                  .el-input-number__increase,
+                  .el-input-number__decrease {
+                    background-color: transparent;
+                    border: 0;
+                  }
+                  .el-input {
+                    font-size: inherit;
+                    color: inherit;
+                    .el-input__wrapper {
+                      width: 100px;
+                      height: 40px;
+                      padding: 0 32px 0 14px;
+                      background-color: transparent;
+                      box-shadow: none;
+                      border: 1px solid @primary-color-opacity1;
+                      box-sizing: border-box;
+                      .el-input__inner {
+                        text-align: left;
+                      }
+                    }
+                  }
+                }
+                .center {
+                  position: relative;
+                  small {
+                    position: absolute;
+                    top: 2px;
+                    left: 6px;
+                    max-width: calc(100% - 20px);
+                    padding: 0 4px;
+                    background-color: @white-color;
+                    color: @primary-color-opacity;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    z-index: 9;
+                  }
+                }
+                .el-select {
+                  width: 100%;
+                  margin: 8px 0;
+                  .el-input {
+                    font-size: inherit;
+                    .el-input__wrapper {
+                      height: 40px;
+                      background-color: transparent;
+                      box-shadow: none;
+                      border: 1px solid @primary-color-opacity1;
+                      box-sizing: border-box;
+                      .el-input__inner {
+                        color: @primary-color;
+                      }
+                    }
+                  }
+                }
+                .el-checkbox {
+                  color: inherit;
+                  .el-checkbox__input {
+                    padding: 0 16px 0 0;
+                    background-color: transparent;
+                    border-color: @primary-color-opacity;
+                  }
+                  .el-checkbox__input.is-checked .el-checkbox__inner {
+                    background-color: @theme-color;
+                    border-color: @theme-color;
+                  }
+                  .el-checkbox__label {
+                    color: inherit;
+                  }
+                }
+                .el-tooltip__trigger {
+                  cursor: pointer;
+                  fill: @primary-color-opacity1;
+                }
+              }
               .piece {
                 margin: 0 0 16px;
                 .center {
                   position: relative;
                   width: 100%;
                   margin: 0 8px 0 0;
-                  border: 1px solid @primary-color-opacity1;
+                  // border: 1px solid @primary-color-opacity1;
                   border-radius: 4px;
                   small {
                     position: absolute;
                     top: -6px;
-                    left: 10px;
+                    left: 6px;
                     padding: 0 4px;
                     background-color: @white-color;
                     color: @primary-color-opacity;
@@ -706,118 +838,9 @@ export default defineComponent({
                   }
                 }
               }
-              .background-main {
-                padding: 8px 16px;
-                margin: 0 0 16px;
-                background-color: @bg-color;
-                border-radius: 4px;
-                .el-divider--horizontal {
-                  margin: 8px 0;
-                }
-                h3 {
-                  span {
-                    padding: 2px 0 0 8px;
-                    line-height: 24px;
-                  }
-                  .el-select {
-                    width: auto;
-                    max-width: 85px;
-                    margin: 0 0 0 16px;
-                  }
-                }
-                h4 {
-                  padding: 0 0 16px;
-                  text-transform: capitalize;
-                  span {
-                    color: @theme-color;
-                    line-height: 20px;
-                    cursor: pointer;
-                    &:hover {
-                      text-decoration: underline;
-                    }
-                  }
-                }
-                h6 {
-                  color: @grey-color;
-                  b {
-                    color: @primary-color;
-                  }
-                }
-                .slider-demo-block {
-                  margin-top: 8px;
-                }
-                .el-input-number {
-                  width: auto;
-                  .el-input-number__increase,
-                  .el-input-number__decrease {
-                    background-color: transparent;
-                    border: 0;
-                  }
-                  .el-input {
-                    font-size: inherit;
-                    color: inherit;
-                    .el-input__wrapper {
-                      width: 100px;
-                      height: 40px;
-                      padding: 0 32px 0 14px;
-                      background-color: transparent;
-                      box-shadow: none;
-                      border: 1px solid @primary-color-opacity1;
-                      box-sizing: border-box;
-                      .el-input__inner {
-                        text-align: left;
-                      }
-                    }
-                  }
-                }
-                .center {
-                  position: relative;
-                  small {
-                    position: absolute;
-                    top: 8px;
-                    left: 6px;
-                    max-width: calc(100% - 20px);
-                    padding: 0 4px;
-                    background-color: @bg-color;
-                    color: @primary-color-opacity;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    z-index: 9;
-                  }
-                }
-                .el-select {
-                  width: 100%;
-                  margin: 16px 0 0;
-                  .el-input {
-                    font-size: inherit;
-                    .el-input__wrapper {
-                      height: 40px;
-                      background-color: transparent;
-                      box-shadow: none;
-                      border: 1px solid @primary-color-opacity1;
-                      box-sizing: border-box;
-                      .el-input__inner {
-                        color: @primary-color;
-                      }
-                    }
-                  }
-                }
-                .el-checkbox {
-                  color: inherit;
-                  .el-checkbox__input {
-                    padding: 0 16px 0 0;
-                    background-color: transparent;
-                    border-color: @primary-color-opacity;
-                  }
-                  .el-checkbox__input.is-checked .el-checkbox__inner {
-                    background-color: @theme-color;
-                    border-color: @theme-color;
-                  }
-                  .el-checkbox__label {
-                    color: inherit;
-                  }
-                }
+              .text-nowrap {
+                padding: 0 4px;
+                white-space: nowrap;
               }
             }
           }

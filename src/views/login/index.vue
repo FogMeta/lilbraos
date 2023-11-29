@@ -320,7 +320,7 @@ export default defineComponent({
             system.$commonFun.notificationTip(userRes.msg ? userRes.msg : 'Register successfully!', 'success')
             // system.$commonFun.signOutMeta()
             activeName.value = 'LogIn'
-          }
+          }else system.$commonFun.notificationTip(userRes.msg ? userRes.msg : 'Request failed.', 'error')
           createLoad.value = false
         }
       })
@@ -342,7 +342,7 @@ export default defineComponent({
             store.dispatch('setAccessToken', userRes.data ? userRes.data.token : '')
             store.dispatch('setEmailAddress', ruleForm.email)
             router.push({ name: 'home' })
-          }
+          }else system.$commonFun.notificationTip(userRes.msg ? userRes.msg : 'Request failed.', 'error')
           createLoad.value = false
         }
       })
@@ -363,7 +363,7 @@ export default defineComponent({
             system.$commonFun.notificationTip(userRes.msg ? userRes.msg : 'Reset successfully!', 'success')
             // system.$commonFun.signOutMeta()
             sliderDisplay.value = false
-          }
+          }else system.$commonFun.notificationTip(userRes.msg ? userRes.msg : 'Request failed.', 'error')
           createLoad.value = false
         }
       })
@@ -408,7 +408,7 @@ export default defineComponent({
         }
         const emailRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/email`, 'post', emailParams)
         if (emailRes && emailRes.code === 0) console.log('Send code successfully!')
-        // else system.$commonFun.messageTip('error', emailRes.msg ? emailRes.msg : 'Send code Failed!')
+        else system.$commonFun.notificationTip(emailRes.msg ? emailRes.msg : 'Request failed.', 'error')
       } else sms.tip = true
     }
     onMounted(async () => {

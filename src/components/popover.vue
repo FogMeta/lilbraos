@@ -1,5 +1,5 @@
 <template>
-    <el-popover :width="300" popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px;">
+    <el-popover :width="300" popper-style="box-shadow: rgb(14 18 22 / 35%) 0px 10px 38px -10px, rgb(14 18 22 / 20%) 0px 10px 20px -15px; padding: 20px; word-break: break-word; text-align: left;">
         <template #reference>
             <div class="width-icon small">
                 <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="InfoIcon" aria-labelledby=":r44:">

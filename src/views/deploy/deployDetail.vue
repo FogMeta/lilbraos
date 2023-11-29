@@ -24,7 +24,7 @@
             <b>Region: </b>{{ deployData.data.region}}
           </li>
           <li class="flex-row font-16">
-            <b>Result URL: </b>{{ deployData.data.result_url}}
+            <b>Result URL: </b><a @click="system.$commonFun.goLink(deployData.data.result_url)">{{ deployData.data.result_url || '-'}}</a>
           </li>
           <li class="flex-row font-16">
             <b>Status Msg: </b>{{ deployData.data.status_msg}}
@@ -79,7 +79,7 @@ export default defineComponent({
       const listRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/deployments/${route.params.id}`, 'get')
       if (listRes && String(listRes.code) === '0') {
         deployData.data = listRes.data || {}
-      }
+      } else system.$commonFun.notificationTip(listRes.msg ? listRes.msg : 'Request failed.', 'error')
       listLoad.value = false
     }
     function handleSizeChange (val) { }

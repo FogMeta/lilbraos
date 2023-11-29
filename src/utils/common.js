@@ -33,13 +33,14 @@ async function sendRequest(apilink, type, jsonObject, api_token) {
     }
   } catch (err) {
     console.error(err, err.response)
-    notificationTip(err.response ? err.response.statusText || err.response.data.msg : 'Request failed. Please try again later!', 'error')
+    if (!(err.response && err.response.data && (err.response.data.msg || err.response.data.message))) notificationTip(err.response ? err.response.statusText : 'Request failed. Please try again later!', 'error')
     // messageTip('error', err.response ? err.response.statusText : 'Request failed. Please try again later!')
     if (err.response) {
       // The request has been sent, but the status code of the server response is not within the range of 2xx
       // console.log(err.response.data)
       // console.log(err.response.status)
       // console.log(err.response.headers)
+      if (err.response.status === 401) signOutMeta()
       return err.response.data
     } else {
       // Something happened in setting up the request that triggered an Error
@@ -243,7 +244,7 @@ async function performSignin(sig) {
         wallet_token: response.access_token
       }
       const libarResponse = await sendRequest(`${process.env.VUE_APP_LOGINAPI}/user/login`, 'post', libraReqOpts)
-      store.dispatch('setAccessToken', libarResponse.data.token)
+      if (libarResponse && libarResponse.data) store.dispatch('setAccessToken', libarResponse.data.token)
       return true
     }
     messageTip('error', response.message || 'Fail')
@@ -422,6 +423,7 @@ function NumFormat(value) {
 function signOutMeta() {
   store.dispatch('setAccessToken', '')
   store.dispatch('setEmailAddress', '')
+  store.dispatch('setMetaAddress', '')
   store.dispatch('setLagToken', '')
   // router.push({
   //   name: 'home'

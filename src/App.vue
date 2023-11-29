@@ -22,6 +22,7 @@ export default {
   #container-settings .module .area .el-row .el-col .el-card,
   #container-templates .module .area .el-row .el-col .el-card,
   #container-analytics .module .area .tem-row .el-col .el-card,
+  #container-new .module .area .el-row .el-col .el-card,
   .aside-main .el-menu .el-menu-item .root,
   .inner,
   .image {
@@ -46,12 +47,25 @@ export default {
   #container-settings .module .area .el-row .el-col .el-card,
   #container-templates .module .area .el-row .el-col .el-card,
   #container-analytics .module .area .tem-row .el-col .el-card,
+  #container-new .module .area .el-row .el-col .el-card,
   #container-builder .module .area .tab .el-button,
   .el-input__inner {
     color: @white-color !important;
     .desc {
       color: @white-color !important;
     }
+  }
+  #container-new .module .area .el-row .el-col .el-card .el-input__inner,
+  #container-header .header .header-right .connect .el-dropdown,
+  #container-header
+    .header
+    .header-right
+    .sign
+    .sign-popper
+    .el-dropdown-link
+    .width-icon {
+    color: @primary-color !important;
+    fill: @primary-color !important;
   }
 }
 

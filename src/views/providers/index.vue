@@ -80,7 +80,7 @@
       <div class="providers-network mt-border">
         <h1 class="font-24 weight-6 flex-row">
           Providers
-          <span class="button width-icon">
+          <span class="button width-icon" @click="reset('init')">
             <RefreshRight />
           </span>
           <el-checkbox-group v-model="checkList">
@@ -222,7 +222,7 @@
       </div>
     </div>
 
-      <loading-over v-if="providersLoad" :listLoad="providersLoad"></loading-over>
+    <loading-over v-if="providersLoad" :listLoad="providersLoad"></loading-over>
   </section>
 </template>
 
@@ -340,8 +340,17 @@ export default defineComponent({
         offset: page * pagin.pageSize,
         search_string: nameText
       }
-      const providerRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_BASEAPI}cp/dashboard?${Qs.stringify(params)}`, 'get')
-      if (providerRes && providerRes.status === 'success') {
+
+
+      // const regionRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/providers/distribution`, 'get')
+      // if (regionRes && String(regionRes.code) === '0') {
+      //   dataArr.value = regionRes.data
+      //   drawChart(dataArr.value)
+      // }else system.$commonFun.notificationTip(regionRes.msg ? regionRes.msg : 'Request failed.', 'error')
+
+
+      const providerRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/providers/dashboard?${Qs.stringify(params)}`, 'get')
+      if (providerRes && String(providerRes.code) === '0') {
         pagin.total = providerRes.data.total_providers
         pagin.total_deployments = providerRes.data.total_deployments
         pagin.active_applications = providerRes.data.active_applications
@@ -352,7 +361,7 @@ export default defineComponent({
         changetype()
       } else {
         providersData.value = []
-        if (providerRes.status) system.$commonFun.messageTip(providerRes.status, providerRes.message)
+        if (providerRes.msg) system.$commonFun.notificationTip(providerRes.msg ? providerRes.msg : 'Request failed.', 'error')
       }
       providersLoad.value = false
     }
@@ -541,7 +550,7 @@ export default defineComponent({
       })
     }
     onMounted(() => {
-      reset('init')
+      // reset('init')
     })
     onActivated(() => {
       reset('init')
@@ -558,7 +567,7 @@ export default defineComponent({
       background,
       providerBody,
       rowsPerPage, sortBy,
-      handleSizeChange, handleCurrentChange, searchProvider, clearProvider, expandChange, unifyNumber
+      handleSizeChange, handleCurrentChange, searchProvider, clearProvider, expandChange, unifyNumber, reset
     }
   }
 })
@@ -632,8 +641,7 @@ export default defineComponent({
             width: 100%;
             margin: 0 auto;
             height: 400px;
-            canvas,
-            div {
+            canvas {
               width: 100%;
             }
           }

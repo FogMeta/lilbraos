@@ -1,6 +1,7 @@
 <template>
-  <section id="container-settings" class="lang-max top-margin both-margin">
+  <section id="container-deploy" class="lang-max top-margin both-margin">
     <div class="module">
+      <loading-over v-if="listLoad" :listLoad="listLoad"></loading-over>
       <h1 class="font-24 weight-6 flex-row">
         Deployments
         <span class="button width-icon" @click="getData">
@@ -10,7 +11,7 @@
         </span>
         <el-checkbox v-model="checked" label="Active" size="large" @change="getData" />
       </h1>
-      <div class="area padding-64 flex-row center">
+      <div class="area padding-64 flex-row center" v-show="deployData.length === 0">
         <div class="tit font-24 weight-4">{{ checked? 'No active deployments' : 'No deployments'}}</div>
         <router-link :to="{ name: 'deployNew'}" class="root flex-row center button-shadow">
           <span class="hide">Deploy to Lagrange</span>
@@ -29,8 +30,7 @@
           </i>
         </router-link>
       </div>
-      <div class="table-cont">
-        <loading-over v-if="listLoad" :listLoad="listLoad"></loading-over>
+      <div class="table-cont top-margin" v-show="deployData.length > 0">
         <el-table :data="deployData" table-layout="fixed">
           <el-table-column prop="space_name">
             <template #header>
@@ -38,16 +38,54 @@
             </template>
             <template #default="scope">
               <div class="flex-row center">
-                <router-link :to="{ name: 'deployDetail', params: {id:scope.row.id }}" class="font-14 weight-4">{{ scope.row.space_name}}</router-link>
+                <a class="font-14 weight-4" @click="goDetail(scope.row.id)">{{ scope.row.space_name}}</a>
               </div>
             </template>
           </el-table-column>
           <el-table-column prop="cfg_name">
             <template #header>
-              <span class="font-14 weight-5 header-style">CFG Name</span>
+              <span class="font-14 weight-5 header-style">CFG Specs</span>
             </template>
             <template #default="scope">
-              <span class="font-14 weight-4">{{ scope.row.cfg_name}}</span>
+              <div class="cfg-specs" @click="goDetail(scope.row.id)">
+                <div class="cfg-cont flex-row"></div>
+                <div class="cfg-cont background flex-row space-between">
+                  <div class="width-icon min-small">
+                    <MoreFilled />
+                  </div>
+                  <div class="width-icon min-small">
+                    <svg t="1701244862415" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17484" width="200" height="200">
+                      <path d="M896 512a384 384 0 1 0-384 384 384 384 0 0 0 384-384z m64 0A448 448 0 1 1 512 64a448 448 0 0 1 448 448z" p-id="17485"></path>
+                      <path d="M232.64 246.08a32 32 0 1 1 46.72-44.16l544 576a32 32 0 1 1-46.72 44.16z" p-id="17486"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="cfg-cont flex-row">
+                  <div class="width-icon small">
+                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MemoryIcon">
+                      <path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"></path>
+                    </svg>
+                  </div>
+                  <span class="font-14 weight-4">{{ scope.row.cfg_specs.hardware_name}}</span>
+                </div>
+                <div class="cfg-cont flex-row" v-show="scope.row.cfg_specs.hardware_specs.cpu">
+                  <div class="width-icon small">
+                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SpeedIcon">
+                      <path d="m20.38 8.57-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"></path>
+                    </svg>
+                  </div>
+                  <span class="font-14 weight-4" v-show="scope.row.cfg_specs.hardware_specs.cpu">{{ scope.row.cfg_specs.hardware_specs.cpu}}</span>
+                  <span class="font-14 weight-4" v-show="scope.row.cfg_specs.hardware_specs.gpu">{{ scope.row.cfg_specs.hardware_specs.gpu}}</span>
+                </div>
+                <div class="cfg-cont flex-row">
+                  <div class="width-icon small">
+                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="MemoryIcon">
+                      <path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"></path>
+                    </svg>
+                  </div>
+                  <span class="font-14 weight-4">{{ scope.row.cfg_specs.hardware_specs.memory}}</span>
+                </div>
+              </div>
             </template>
           </el-table-column>
           <el-table-column prop="duration">
@@ -71,7 +109,8 @@
               <span class="font-14 weight-5 header-style">Result URL</span>
             </template>
             <template #default="scope">
-              <span class="font-14 weight-4">{{ scope.row.result_url}}</span>
+              <a v-if="scope.row.result_url" class="font-14 weight-4" @click="system.$commonFun.goLink(scope.row.result_url)">{{ scope.row.result_url}}</a>
+              <span v-else class="font-14 weight-5 header-style">-</span>
             </template>
           </el-table-column>
           <el-table-column prop="status_msg">
@@ -103,12 +142,12 @@ import loadingOver from "@/components/loading"
 import { defineComponent, computed, onMounted, onActivated, watch, ref, reactive, getCurrentInstance } from 'vue'
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
-import { RefreshRight } from '@element-plus/icons-vue'
+import { RefreshRight, MoreFilled } from '@element-plus/icons-vue'
 import { ElButton, ElRow, ElCol, ElSelect, ElOption, ElIcon, ElCheckbox, ElTable, ElTableColumn, ElPagination } from "element-plus"
 export default defineComponent({
   components: {
     loadingOver,
-    RefreshRight,
+    RefreshRight, MoreFilled,
     ElButton,
     ElRow,
     ElCol,
@@ -145,8 +184,7 @@ export default defineComponent({
       if (listRes && String(listRes.code) === '0') {
         deployData.value = listRes.data.list || []
         params.total = listRes.data.total || 0
-      }
-      // else system.$commonFun.notificationTip(listRes.msg ? listRes.msg : 'Request failed.', 'error')
+      } else system.$commonFun.notificationTip(listRes.msg ? listRes.msg : 'Request failed.', 'error')
       listLoad.value = false
     }
     function handleSizeChange (val) { }
@@ -154,6 +192,9 @@ export default defineComponent({
       // console.log('handleCurrentChange:', currentPage)
       pagin.pageNo = currentPage
       getData()
+    }
+    function goDetail (detailId) {
+      router.push({ name: 'deployDetail', params: { id: detailId } })
     }
     onMounted(async () => { })
     onActivated(async () => {
@@ -166,14 +207,14 @@ export default defineComponent({
       listLoad,
       deployData,
       pagin,
-      handleSizeChange, handleCurrentChange, getData
+      handleSizeChange, handleCurrentChange, getData, goDetail
     }
   }
 })
 </script>
 
 <style lang="less" scoped>
-#container-settings {
+#container-deploy {
   font-size: 18px;
   letter-spacing: 1px;
   word-break: break-word;
@@ -244,9 +285,6 @@ export default defineComponent({
             &:first-child {
               background-color: transparent !important;
             }
-            &:nth-child(2n + 1) {
-              background-color: @primary-color-opacity2;
-            }
             &:hover {
               background-color: none;
             }
@@ -288,6 +326,12 @@ export default defineComponent({
             .cell {
               text-align: center;
               color: @primary-color;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: normal;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
               .rise {
                 padding: 1px 8px;
                 margin: 0 0 0 8px;
@@ -340,6 +384,25 @@ export default defineComponent({
                       padding: 0 32px 0 8px;
                       text-align: left;
                     }
+                  }
+                }
+              }
+              .cfg-specs {
+                background-color: @bg-color;
+                padding: 4px;
+                .cfg-cont {
+                  padding: 2px 6px;
+                  margin: 4px 0 0;
+                  background-color: @white-color;
+                  color: @grey-color;
+                  &.background {
+                    background-color: transparent;
+                  }
+                  span {
+                    margin: 3px 0 0 6px;
+                  }
+                  .width-icon {
+                    fill: @grey-color;
                   }
                 }
               }

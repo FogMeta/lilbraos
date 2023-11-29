@@ -125,7 +125,7 @@ export default defineComponent({
       if (rpcRes && String(rpcRes.code) === '0') {
         chainsData.value = rpcRes.data.list || []
         pagin.total = rpcRes.data.total || 0
-      }
+      }else system.$commonFun.notificationTip(rpcRes.msg ? rpcRes.msg : 'Request failed.', 'error')
       rpcLoad.value = false
     }
     async function addData (params) {

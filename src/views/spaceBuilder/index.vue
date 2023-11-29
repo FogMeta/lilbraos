@@ -241,6 +241,7 @@ export default defineComponent({
       machinesLoad.value = true
       const machinesRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_BASEAPI}cp/machines`, 'get')
       if (machinesRes && machinesRes.status === 'success') hardwareOptions.value = await system.$commonFun.listArray(machinesRes.data.hardware)
+      else system.$commonFun.notificationTip(machinesRes.message ? machinesRes.message : 'Request failed.', 'error')
       machinesLoad.value = false
       addService()
     }
