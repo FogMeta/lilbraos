@@ -83,7 +83,7 @@ export default defineComponent({
         const { unit, name } = await system.$commonFun.getUnit(chainId)
         info.unit = unit
         info.network = name || chainId
-        // await system.$commonFun.timeout(500)
+        await system.$commonFun.timeout(500)
         if (accessToken.value) closeHandle()
         else await signIn()
       })

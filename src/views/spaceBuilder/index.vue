@@ -239,9 +239,9 @@ export default defineComponent({
     }
     async function init (params) {
       machinesLoad.value = true
-      const machinesRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_BASEAPI}cp/machines`, 'get')
-      if (machinesRes && machinesRes.status === 'success') hardwareOptions.value = await system.$commonFun.listArray(machinesRes.data.hardware)
-      else system.$commonFun.notificationTip(machinesRes.message ? machinesRes.message : 'Request failed.', 'error')
+      const machinesRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/providers/machines`, 'get')
+      if (machinesRes && machinesRes.code === 0) hardwareOptions.value = await system.$commonFun.listArray(machinesRes.data.hardware)
+      else system.$commonFun.notificationTip(machinesRes.msg ? machinesRes.msg : 'Request failed.', 'error')
       machinesLoad.value = false
       addService()
     }

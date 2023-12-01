@@ -435,6 +435,11 @@ function hiddAddress(val) {
   else return '-'
 }
 
+function textShorten(val) {
+  if (val) return `${val.substring(0, 8)}...${val.substring(val.length - 6)}`
+  else return '-'
+}
+
 async function listArray(arrayList) {
   let listArr = [{
       label: 'CPU',
@@ -682,6 +687,28 @@ const optionCont = {
   }
 }
 
+function calculateDiffTime(startTime) {
+  var timeDiff = startTime
+  var year = timeDiff > (86400 * 365) ? parseInt(timeDiff / 86400 / 365) : 0
+  var month = timeDiff > (86400 * 30) ? parseInt(timeDiff / 86400 / 30) : 0
+  var day = parseInt(timeDiff / 86400)
+  var hour = parseInt((timeDiff % 86400) / 3600)
+  var minute = parseInt((timeDiff % 3600) / 60)
+  var m = parseInt((timeDiff % 60))
+  if (year > 0) return `about ${year}${year > 1 ? ' years' : ' year'} ago`
+  if (month > 0) return `${month} ${month > 1 ? ' months' : ' month'} ago`
+  if (day > 0) return `${day} ${day > 1 ? ' days' : ' day'} ago`
+  else if (hour > 0) return `${hour} ${hour > 1 ? ' hours' : ' hour'} ago`
+  else if (minute > 0) return `${minute} ${minute > 1 ? ' minutes' : ' minute'} ago`
+  else if (m > 0) return `${m} ${m > 1 ? ' seconds' : ' second'} ago`
+  else return '-'
+}
+
+function durationFun(durationTime) {
+  const hour = durationTime ? parseInt((durationTime / 60 / 60)) : '-'
+  return hour
+}
+
 window.addEventListener('resize', () => {
   let client = document.body.clientWidth < 992 ? false : true
   store.dispatch('setClientWidth', client)
@@ -709,6 +736,9 @@ export default {
   NumFormat,
   signOutMeta,
   hiddAddress,
+  textShorten,
   listArray,
-  regionList
+  regionList,
+  calculateDiffTime,
+  durationFun
 }

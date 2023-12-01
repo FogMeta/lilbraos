@@ -126,10 +126,10 @@
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
             <el-card class="is-disabled" shadow="hover">
-              <div class="font-16 weight-4">USDC SPENT (24H)</div>
+              <div class="font-16 weight-4">USD SPENT (24H)</div>
               <div class="font-24 weight-4 desc">
                 {{system.$commonFun.NumFormat(0.02)}}
-                <span class="font-16">USDC</span>
+                <span class="font-16">USD</span>
               </div>
               <div class="font-24 weight-4 desc">
                 <span class="font-16">+0.02</span>
@@ -139,10 +139,10 @@
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
             <el-card class="is-disabled" shadow="hover">
-              <div class="font-16 weight-4">TOTAL SPENT USDC</div>
+              <div class="font-16 weight-4">TOTAL SPENT USD</div>
               <div class="font-24 weight-4 desc">
                 {{system.$commonFun.NumFormat(2.3)}}
-                <span class="font-16">USDC</span>
+                <span class="font-16">USD</span>
               </div>
               <div class="font-24 weight-4 desc">
                 <span class="font-16">+0.02</span>

@@ -112,7 +112,7 @@
                           <h6 class="m font-12 weight-4">Hardware Description: {{gpuModels.value.hardware_description}}</h6>
                         </div>
                         <div class="flex-row">
-                          <h6 class="m font-12 weight-4">Hardware Price: {{gpuModels.value.hardware_price}} USDC per hour</h6>
+                          <h6 class="m font-12 weight-4">Hardware Price: {{gpuModels.value.hardware_price}} USD per hour</h6>
                         </div>
                       </div>
                     </div>
@@ -188,7 +188,7 @@ import SpacePaymentABI from '@/utils/abi/SpacePaymentV6.json'
 import SpaceTokenABI from '@/utils/abi/SpacePaymentV6.json'
 import tokenABI from '@/utils/abi/tokenLLL.json'
 import tokenUSDCABI from '@/utils/abi/USDC.json'
-import { defineComponent, computed, onMounted, watch, ref, reactive, getCurrentInstance } from 'vue'
+import { defineComponent, computed, onMounted, onActivated,onDeactivated,watch, ref, reactive, getCurrentInstance } from 'vue'
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
 import { Right, RefreshRight } from '@element-plus/icons-vue'
@@ -329,13 +329,13 @@ export default defineComponent({
     }
     async function hardwareInit (params) {
       spaceLoad.value = true
-      const machinesRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_BASEAPI}cp/machines`, 'get')
-      if (machinesRes && machinesRes.status === 'success') {
+      const machinesRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/providers/machines`, 'get')
+      if (machinesRes && machinesRes.code === 0) {
         hardwareOptions.value = await system.$commonFun.listArray(machinesRes.data.hardware)
         gpuModels.value = hardwareOptions.value && hardwareOptions.value.length > 0 ? hardwareOptions.value[0].list[0] : ''
         gpuModels.options = hardwareOptions.value
         await sleepMethod()
-      } else system.$commonFun.notificationTip(machinesRes.message ? machinesRes.message : 'Request failed.', 'error')
+      } else system.$commonFun.notificationTip(machinesRes.msg ? machinesRes.msg : 'Request failed.', 'error')
       spaceLoad.value = false
     }
     async function sleepMethod () {
@@ -377,6 +377,7 @@ export default defineComponent({
       const net = await networkEstimate()
       if (!net) return
       hardwareLoad.value = true
+      // active.value = 3
       console.log('sleepSelect', sleepSelect.value)
       try {
         const hardwareInfo = await paymentContract.methods.hardwareInfo(sleepSelect.value.hardware_id).call()
@@ -403,10 +404,14 @@ export default defineComponent({
             await hardwareHash(transactionHash, approveAmount)
             closePart()
           })
-          .on('error', () => hardwareLoad.value = false)
+          .on('error', () => {
+      active.value = 2
+            hardwareLoad.value = false
+          })
       } catch (err) {
         console.log('err', err)
         if (err && err.message) system.$commonFun.messageTip('error', err.message)
+      active.value = 2
         closePart()
       }
     }
@@ -447,11 +452,14 @@ export default defineComponent({
     }
 
     let getnetID = NaN
-    onMounted(async () => {
+    async function initMethod(){
       getnetID = await system.$commonFun.web3Init.eth.net.getId()
       paymentEnv()
       active.value = 1
-    })
+    }
+    onMounted(() => initMethod())
+    onActivated(async () => initMethod())
+    onDeactivated(() => active.value = 1)
     watch(metaAddress, () => {
       if (!metaAddress.value) active.value = 1
     })

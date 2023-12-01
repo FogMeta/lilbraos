@@ -32,7 +32,7 @@
       </div>
       <div class="table-cont top-margin" v-show="deployData.length > 0">
         <el-table :data="deployData" table-layout="fixed">
-          <el-table-column prop="space_name">
+          <el-table-column prop="space_name" width="140">
             <template #header>
               <span class="font-14 weight-5 header-style">Space Name</span>
             </template>
@@ -42,7 +42,7 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="cfg_name">
+          <el-table-column prop="cfg_name" width="160">
             <template #header>
               <span class="font-14 weight-5 header-style">CFG Specs</span>
             </template>
@@ -74,8 +74,15 @@
                       <path d="m20.38 8.57-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"></path>
                     </svg>
                   </div>
-                  <span class="font-14 weight-4" v-show="scope.row.cfg_specs.hardware_specs.cpu">{{ scope.row.cfg_specs.hardware_specs.cpu}}</span>
-                  <span class="font-14 weight-4" v-show="scope.row.cfg_specs.hardware_specs.gpu">{{ scope.row.cfg_specs.hardware_specs.gpu}}</span>
+                  <span class="font-14 weight-4">{{ scope.row.cfg_specs.hardware_specs.cpu}}</span>
+                </div>
+                <div class="cfg-cont flex-row" v-show="scope.row.cfg_specs.hardware_specs.gpu">
+                  <div class="width-icon small">
+                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SpeedIcon">
+                      <path d="m20.38 8.57-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"></path>
+                    </svg>
+                  </div>
+                  <span class="font-14 weight-4">{{ scope.row.cfg_specs.hardware_specs.gpu}}</span>
                 </div>
                 <div class="cfg-cont flex-row">
                   <div class="width-icon small">
@@ -88,15 +95,15 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="duration">
+          <el-table-column prop="duration" width="120">
             <template #header>
-              <span class="font-14 weight-5 header-style">Duration</span>
+              <span class="font-14 weight-5 header-style">Usage Time(h)</span>
             </template>
             <template #default="scope">
-              <span class="font-14 weight-4">{{ scope.row.duration}}</span>
+              <span class="font-14 weight-4">{{system.$commonFun.durationFun(scope.row.duration)}}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="region">
+          <el-table-column prop="region" width="120">
             <template #header>
               <span class="font-14 weight-5 header-style">Region</span>
             </template>
@@ -104,16 +111,16 @@
               <span class="font-14 weight-4">{{ scope.row.region}}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="result_url">
+          <el-table-column prop="result_url" min-width="140">
             <template #header>
               <span class="font-14 weight-5 header-style">Result URL</span>
             </template>
             <template #default="scope">
-              <a v-if="scope.row.result_url" class="font-14 weight-4" @click="system.$commonFun.goLink(scope.row.result_url)">{{ scope.row.result_url}}</a>
+              <a v-if="scope.row.last_result_url" class="font-14 weight-4" @click="system.$commonFun.goLink(scope.row.last_result_url)">{{ scope.row.last_result_url}}</a>
               <span v-else class="font-14 weight-5 header-style">-</span>
             </template>
           </el-table-column>
-          <el-table-column prop="status_msg">
+          <el-table-column prop="status_msg" min-width="100">
             <template #header>
               <span class="font-14 weight-5 header-style">status msg</span>
             </template>
@@ -121,7 +128,15 @@
               <span class="font-14 weight-4">{{ scope.row.status_msg}}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="created_at">
+          <el-table-column prop="spent" width="90">
+            <template #header>
+              <span class="font-14 weight-5 header-style">spent</span>
+            </template>
+            <template #default="scope">
+              <span class="font-14 weight-4">{{scope.row.spent}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="created_at" width="130">
             <template #header>
               <span class="font-14 weight-5 header-style">created at</span>
             </template>
@@ -129,8 +144,26 @@
               <span class="font-14 weight-4">{{ system.$commonFun.momentFun(scope.row.created_at)}}</span>
             </template>
           </el-table-column>
+          <el-table-column prop="expired_at" width="130">
+            <template #header>
+              <span class="font-14 weight-5 header-style">expired at</span>
+            </template>
+            <template #default="scope">
+              <span class="font-14 weight-4" v-if="scope.row.expired_at !== 0">{{ system.$commonFun.momentFun(scope.row.expired_at)}}</span>
+              <span v-else>-</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="ended_at" width="130">
+            <template #header>
+              <span class="font-14 weight-5 header-style">ended at</span>
+            </template>
+            <template #default="scope">
+              <span class="font-14 weight-4" v-if="scope.row.ended_at !== 0">{{ system.$commonFun.momentFun(scope.row.ended_at)}}</span>
+              <span v-else>-</span>
+            </template>
+          </el-table-column>
         </el-table>
-        <el-pagination class="flex-row" hide-on-single-page :page-size="pagin.pageSize" :current-page="pagin.pageNo" :pager-count="5" layout="total, prev, pager, next" :total="pagin.total" @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        <el-pagination class="flex-row center mt-border" hide-on-single-page :page-size="pagin.pageSize" :current-page="pagin.pageNo" :pager-count="5" layout="total, prev, pager, next" :total="pagin.total" @size-change="handleSizeChange" @current-change="handleCurrentChange"
         />
       </div>
     </div>
@@ -157,6 +190,7 @@ export default defineComponent({
   },
   setup () {
     const store = useStore()
+    // const accessToken = computed(() => (store.state.accessToken))
     const bodyWidth = ref(document.body.clientWidth <= 768 ? 30 : 50)
     const system = getCurrentInstance().appContext.config.globalProperties
     const route = useRoute()
@@ -165,7 +199,7 @@ export default defineComponent({
     const listLoad = ref(false)
     const deployData = ref([])
     const pagin = reactive({
-      pageSize: 20,
+      pageSize: 10,
       pageNo: 1,
       total: 0,
       sort: 'updated'
@@ -183,9 +217,27 @@ export default defineComponent({
       const listRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_LOGINAPI}/deployments?${Qs.stringify(params)}`, 'get')
       if (listRes && String(listRes.code) === '0') {
         deployData.value = listRes.data.list || []
-        params.total = listRes.data.total || 0
+        pagin.total = listRes.data.total || 0
       } else system.$commonFun.notificationTip(listRes.msg ? listRes.msg : 'Request failed.', 'error')
       listLoad.value = false
+    }
+    async function jobList (list) {
+      let arr = list || []
+      for (let j = 0; j < arr.length; j++) {
+        try {
+          if (arr[j].result_url) {
+            const response = await fetch(arr[j].result_url)
+            const textUri = await new Promise(async resolve => {
+              resolve(response.text())
+            })
+            arr[j].job_result_uri = JSON.parse(textUri).job_result_uri
+          } else arr[j].job_result_uri = ''
+        } catch (err) {
+          console.log('err', err)
+          arr[j].job_result_uri = ''
+        }
+      }
+      return arr
     }
     function handleSizeChange (val) { }
     async function handleCurrentChange (currentPage) {
@@ -200,6 +252,9 @@ export default defineComponent({
     onActivated(async () => {
       getData()
     })
+    // watch(accessToken.value, () => {
+    // if(accessToken.value !== '') getData()
+    // })
     return {
       system,
       bodyWidth,
@@ -411,6 +466,12 @@ export default defineComponent({
           th {
             border-bottom: 1px solid @grey-color;
           }
+        }
+      }
+      .el-pagination {
+        button,
+        li {
+          background-color: transparent;
         }
       }
     }
