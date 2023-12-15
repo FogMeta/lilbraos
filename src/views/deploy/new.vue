@@ -52,7 +52,7 @@
         <div class="area">
           <h1 class="font-32 weight-6 mt-border">What do you want to deploy?</h1>
           <el-row :gutter="10">
-            <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6">
+            <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
               <!-- @click="active ='2'" -->
               <el-card class="is-disabled" shadow="hover">
                 <div class="font-14 weight-4">Hello World</div>

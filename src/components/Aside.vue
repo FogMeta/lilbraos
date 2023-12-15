@@ -107,6 +107,40 @@
           </i>
           <template #title>Settings</template>
         </el-menu-item>
+        <li class="user-login">
+          <div v-if="accessToken">
+            <div class="connect no flex-row center nowrap">
+              <img :src="metaLogo" alt="" class="image" height="20" width="20" /> {{system.$commonFun.hiddAddress(metaAddress)}}
+            </div>
+            <div class="connect no in flex-row center nowrap" @click="handleSelect('logout')">
+              <span>Logout</span>
+            </div>
+          </div>
+          <div class="connect flex-row center nowrap" v-else @click="connetShow=true">
+            <svg class="width-icon small" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="AccountBalanceWalletIcon">
+              <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
+            </svg>
+            <span>Connect Wallet</span>
+          </div>
+        </li>
+        <li class="user-login register">
+          <div v-if="emailAddress">
+            <div class="connect no flex-row center nowrap">
+              <span>{{emailAddress}}</span>
+            </div>
+            <div class="connect no in flex-row center nowrap" @click="handleSelect('logout')">
+              <span>Logout</span>
+            </div>
+          </div>
+          <div v-else>
+            <div class="connect flex-row center nowrap" @click="handleSelect('register')">
+              <span>Sign Up</span>
+            </div>
+            <div class="connect in flex-row center nowrap" @click="handleSelect('login')">
+              <span>Sign In</span>
+            </div>
+          </div>
+        </li>
       </ul>
       <ul class="wid">
         <li class="el-menu-item hide" index="10">
@@ -164,33 +198,43 @@
         </li>
       </ul>
     </el-menu>
+    <pop-ups v-if="connetShow" :connetShow="connetShow" @hardClose="hardClose"></pop-ups>
   </div>
 </template>
 
 <script>
+import popUps from "@/components/popups"
 import { defineComponent, computed, onMounted, watch, ref, reactive, getCurrentInstance } from 'vue'
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
 import {
   Document, Menu as IconMenu, Location, Setting, HomeFilled
 } from '@element-plus/icons-vue'
-import { ElMenu, ElMenuItem, ElSubMenu, ElMenuItemGroup, ElIcon, ElButton } from "element-plus"
+import { ElMenu, ElMenuItem, ElSubMenu, ElMenuItemGroup, ElIcon, ElButton, ElDropdown, ElDropdownMenu, ElDropdownItem } from "element-plus"
 
 export default defineComponent({
   components: {
-    Document, IconMenu, Location, Setting, HomeFilled,
-    ElMenu, ElMenuItem, ElSubMenu, ElMenuItemGroup, ElIcon, ElButton
+    popUps, Document, IconMenu, Location, Setting, HomeFilled,
+    ElMenu, ElMenuItem, ElSubMenu, ElMenuItemGroup, ElIcon, ElButton, ElDropdown, ElDropdownMenu, ElDropdownItem
   },
-  setup () {
+  setup (props, context) {
     const store = useStore()
+    const accessToken = computed(() => (store.state.accessToken))
+    const metaAddress = computed(() => (store.state.metaAddress))
+    const emailAddress = computed(() => (store.state.emailAddress))
     const bodyWidth = ref(document.body.clientWidth < 992)
     const clientWidth = computed(() => (store.state.clientWidth))
+    const metaLogo = require("@/assets/images/metamask.png")
     const system = getCurrentInstance().appContext.config.globalProperties
     const route = useRoute()
     const router = useRouter()
     const isCollapse = ref(false)
+    const connetShow = ref(false)
     const activeIndex = ref('home')
 
+    function hardClose (dialog) {
+      connetShow.value = dialog
+    }
     const handleOpen = (key, keyPath) => {
       // console.log(key, keyPath)
     }
@@ -210,12 +254,16 @@ export default defineComponent({
       else if (key === 'RPC') router.push({ name: 'RPC' })
       else if (key === 'faq') router.push({ name: 'faq' })
       else if (key === 'settings') router.push({ name: 'settings' })
+      else if (key === 'login') router.push({ name: 'login', query: { state: 'LogIn' } })
+      else if (key === 'register') router.push({ name: 'login', query: { state: 'SignUp' } })
+      else if (key === 'logout') system.$commonFun.signOutMeta()
       // else if (key === '3-1') router.push({ name: 'swan' })
       // else if (key === '3-2') router.push({ name: 'fogmeta' })
       // else if (key === '3-3') router.push({ name: 'nebulablock' })
       // else if (key === '4-1') router.push({ name: 'partners' })
       // else if (key === '4-2') system.$commonFun.goLink('https://nebulaai.org/')
       // else if (key === '5') system.$commonFun.goLink('https://us17.list-manage.com/contact-form?u=d00f980f8a4f0c1054e178765&form_id=37f9894eaae77c108c70bd00e30b9841')
+      context.emit('handleMobile', false)
     }
     // what-we-do
     async function activeMenu (row) {
@@ -242,9 +290,14 @@ export default defineComponent({
     })
     return {
       system,
+      accessToken,
+      metaAddress,
+      emailAddress,
+      metaLogo,
       isCollapse,
+      connetShow,
       activeIndex,
-      handleOpen, handleClose, handleSelect
+      handleOpen, handleClose, handleSelect, hardClose
     }
   }
 })
@@ -494,6 +547,46 @@ export default defineComponent({
             border-radius: 10px;
             color: @white-color;
           }
+        }
+      }
+    }
+    .user-login {
+      padding: 16px 0;
+      border-top: 1px solid #eee;
+      &.register {
+        border-bottom: 1px solid #eee;
+        .connect {
+          background-color: @theme-color;
+          color: @white-color;
+        }
+      }
+      .connect {
+        padding: 6px 15px;
+        margin: 0 20px;
+        text-transform: uppercase;
+        border: 1.6px solid @theme-color-opacity;
+        border-radius: 4px;
+        line-height: 1.5;
+        cursor: pointer;
+        &.no {
+          text-transform: inherit;
+        }
+          &.in {
+            background-color: transparent;
+            border-color: transparent;
+            color: @theme-color;
+          }
+        &:hover {
+          border-color: @theme-color;
+        }
+        * {
+          outline: none !important;
+        }
+        .width-icon {
+          margin-right: 8px;
+        }
+        .image {
+          margin: 0 5px 0 0;
         }
       }
     }

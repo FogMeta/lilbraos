@@ -1,11 +1,11 @@
 <template>
   <section id="container-templates" class="lang-max top-margin both-margin">
     <div class="module">
-      <h1 class="font-48 weight-6 flex-row center">Find your Template</h1>
-      <h3 class="font-24 weight-4 flex-row center">Jumpstart your app development process with our pre-built solutions.</h3>
+      <h1 class="font-48 weight-6 flex-row center mobile-h1 mobile-center">Find your Template</h1>
+      <h3 class="font-24 weight-4 flex-row center mobile-h3 mobile-center">Jumpstart your app development process with our pre-built solutions.</h3>
       <div class="area flex-row space-between">
         <el-row :gutter="16" class="tem-row">
-          <el-col :xs="0" :sm="6" :md="6" :lg="6" :xl="6">
+          <el-col :xs="0" :sm="0" :md="6" :lg="6" :xl="6">
             <div class="left">
               <div class="title font-16 weight-6">Filter Templates</div>
               <el-input v-model="searchValue" class="font-14" clearable placeholder="Search" />
@@ -14,7 +14,20 @@
               </ul>
             </div>
           </el-col>
-          <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18">
+          <el-col :xs="24" :sm="24" :md="0" :lg="0" :xl="0">
+            <div class="left mobile-left">
+              <el-input v-model="searchValue" class="font-14" clearable placeholder="Search" />
+              <el-button @click="drawerDown = true">
+                Filter Templates
+                <span class="width-icon small">
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FilterAltIcon">
+                    <path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39c.51-.66.04-1.61-.79-1.61H5.04c-.83 0-1.3.95-.79 1.61z"></path>
+                  </svg>
+                </span>
+              </el-button>
+            </div>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="18">
             <el-row :gutter="16">
               <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8" v-for="n in 1" :key="n">
                 <el-card class="is-disabled" shadow="hover">
@@ -27,6 +40,17 @@
         </el-row>
       </div>
     </div>
+
+    <el-drawer v-model="drawerDown" :direction="direction" size="50%">
+      <template #header>
+        <span>Filter Templates</span>
+      </template>
+      <template #default>
+        <ul>
+          <li @click="drawerDown=false" v-for="i in 1" :key="i" :class="{'font-16 weight-4':true, 'active': i===1}">All(1)</li>
+        </ul>
+      </template>
+    </el-drawer>
   </section>
 </template>
 
@@ -36,11 +60,11 @@ import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
 import { Edit } from '@element-plus/icons-vue'
 import {
-  ElButton, ElRow, ElCol, ElSelect, ElOption, ElCard, ElInput
+  ElButton, ElRow, ElCol, ElSelect, ElOption, ElCard, ElInput, ElDrawer
 } from "element-plus"
 export default defineComponent({
   components: {
-    Edit, ElButton, ElRow, ElCol, ElSelect, ElOption, ElCard, ElInput
+    Edit, ElButton, ElRow, ElCol, ElSelect, ElOption, ElCard, ElInput, ElDrawer
   },
   setup () {
     const store = useStore()
@@ -63,6 +87,8 @@ export default defineComponent({
         label: 'Light ☀️',
       }]
     })
+    const drawerDown = ref(false)
+    const direction = ref('btt')
 
     onMounted(async () => { })
     return {
@@ -70,7 +96,9 @@ export default defineComponent({
       bodyWidth,
       searchValue,
       collapse,
-      theme
+      theme,
+      drawerDown,
+      direction
     }
   }
 })
@@ -87,6 +115,9 @@ export default defineComponent({
     h3 {
       padding: 16px 0 48px;
       color: @grey-color;
+      @media screen and (max-width: 992px) {
+        padding: 16px 0;
+      }
     }
     .area {
       height: auto;
@@ -97,6 +128,25 @@ export default defineComponent({
           margin-bottom: 16px;
           .left {
             max-width: 222px;
+            &.mobile-left {
+              max-width: none;
+              .el-input {
+                margin: 16px 0;
+              }
+              .el-button {
+                width: 100%;
+                height: 40px;
+                background-color: transparent;
+                border-color: @primary-color;
+                color: @primary-color;
+                * {
+                  cursor: pointer;
+                }
+                .width-icon {
+                  margin-left: 5px;
+                }
+              }
+            }
             .el-input {
               margin: 16px 0 24px;
               .el-input__wrapper {
@@ -134,6 +184,30 @@ export default defineComponent({
               margin: 20px 0 0;
               line-height: 1.8;
               color: @primary-color-opacity;
+            }
+          }
+        }
+      }
+    }
+  }
+  :deep(.el-overlay) {
+    .el-drawer {
+      .el-drawer__header {
+        padding: 16px;
+        margin-bottom: 0;
+      }
+      .el-drawer__body {
+        padding: 0;
+        ul {
+          li {
+            padding: 6px 16px;
+            line-height: 2;
+            cursor: pointer;
+            &.active {
+              background-color: @dot-fusco-color;
+            }
+            &:hover {
+              background-color: @dot-fusco-color-hover;
             }
           }
         }

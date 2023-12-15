@@ -73,7 +73,7 @@
 
     <el-drawer size="300px" v-model="menuDialog" :append-to-body="true" :with-header="false" :before-close="handleClose" direction="ltr" class="demo-drawer">
       <div class="demo-drawer__content">
-        <v-aside v-show="clientWidth"></v-aside>
+        <v-aside v-show="clientWidth" @handleMobile="handleClose"></v-aside>
       </div>
     </el-drawer>
     <pop-ups v-if="connetShow" :connetShow="connetShow" @hardClose="hardClose"></pop-ups>

@@ -90,7 +90,7 @@ export default defineComponent({
     }
 
     async function signIn () {
-      const chainId = await ethereum.request({ method: 'eth_chainId' })
+      const chainId = await system.$commonFun.providerInit.request({ method: 'eth_chainId' })
       const [lStatus, signErr] = await system.$commonFun.login()
       if (lStatus) closeHandle()
       else if (signErr !== '4001') signSetIn()
@@ -148,13 +148,10 @@ export default defineComponent({
     }
     @media screen and (max-width: 768px) {
       width: 50%;
-      padding: 75px 42px;
-      border-radius: 20px;
+      border-radius: 10px;
     }
     @media screen and (max-width: 600px) {
       width: 70%;
-      padding: 100px 56px;
-      border-radius: 30px;
     }
     @media screen and (max-width: 540px) {
       width: 80%;

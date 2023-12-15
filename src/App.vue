@@ -345,6 +345,30 @@ a {
   // }
 }
 
+.mobile-h1 {
+  @media screen and (max-width: 992px) {
+    font-size: 32px;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 24px;
+  }
+}
+
+.mobile-h3 {
+  @media screen and (max-width: 992px) {
+    font-size: 19px;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 16px;
+  }
+}
+
+.mobile-center {
+  @media screen and (max-width: 992px) {
+    text-align: center;
+  }
+}
+
 .weight-3 {
   font-weight: 300;
 }

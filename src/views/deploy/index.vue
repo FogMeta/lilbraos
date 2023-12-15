@@ -298,6 +298,11 @@ export default defineComponent({
       text-align: center;
       line-height: 2;
       overflow: hidden;
+      @media screen and (max-width: 600px) {
+        padding-left: 32px;
+        padding-right: 32px;
+        line-height: 1.5;
+      }
       .tit {
         width: 100%;
       }
@@ -309,6 +314,9 @@ export default defineComponent({
         color: @white-color;
         border-radius: 5px;
         text-transform: uppercase;
+        @media screen and (max-width: 600px) {
+          margin: 16px 16px 0;
+        }
         &:hover {
           background-color: @theme-color-opacity1;
         }
