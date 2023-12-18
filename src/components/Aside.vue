@@ -107,7 +107,7 @@
           </i>
           <template #title>Settings</template>
         </el-menu-item>
-        <li class="user-login">
+        <li class="user-login" v-show="!clientWidth">
           <div v-if="accessToken">
             <div class="connect no flex-row center nowrap">
               <img :src="metaLogo" alt="" class="image" height="20" width="20" /> {{system.$commonFun.hiddAddress(metaAddress)}}
@@ -123,7 +123,7 @@
             <span>Connect Wallet</span>
           </div>
         </li>
-        <li class="user-login register">
+        <li class="user-login register" v-show="!clientWidth">
           <div v-if="emailAddress">
             <div class="connect no flex-row center nowrap">
               <span>{{emailAddress}}</span>
@@ -293,6 +293,7 @@ export default defineComponent({
       accessToken,
       metaAddress,
       emailAddress,
+      clientWidth,
       metaLogo,
       isCollapse,
       connetShow,
