@@ -371,7 +371,7 @@ export default defineComponent({
         .el-icon {
           svg,
           path {
-            fill: @theme-color;
+            // fill: @theme-color;
             opacity: 1 !important;
           }
         }

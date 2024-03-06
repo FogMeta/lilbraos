@@ -10,6 +10,8 @@ const main = () =>
     import ("@/views/home/index")
 const getStarted = () =>
     import ("@/views/getStarted/index")
+const getStartedDeploy = () =>
+    import ("@/views/getStarted/deploy")
 const deploy = () =>
     import ("@/views/deploy/index")
 const deployDetail = () =>
@@ -45,6 +47,14 @@ const routes = [{
             meta: {
                 keepAlive: true,
                 title: 'Home'
+            }
+        }, {
+            path: '/get-started-deploy',
+            name: 'get-started-deploy',
+            component: getStartedDeploy,
+            meta: {
+                keepAlive: true,
+                title: 'Get started with Libra Cloud OS'
             }
         }, {
             path: '/get-started',

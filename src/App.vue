@@ -214,6 +214,10 @@ a {
   // }
 }
 
+.font-38 {
+  font-size: 38px;
+}
+
 .font-34 {
   font-size: 34px;
 }

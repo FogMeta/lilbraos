@@ -6,7 +6,7 @@
       </el-header>
       <el-main class="el-main-mit">
         <div class="content flex-row nowrap">
-          <v-aside v-show="clientWidth"></v-aside>
+          <v-aside v-show="clientWidth && route.name !== 'get-started'"></v-aside>
           <div class="container">
             <router-view v-slot="{ Component }">
               <transition name="fade" mode="out-in">
@@ -44,7 +44,7 @@ export default defineComponent({
     onMounted(async () => {
       system.$commonFun.checkMode()
     })
-    return { system, clientWidth }
+    return { system, clientWidth, route }
   }
 })
 </script>
