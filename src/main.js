@@ -11,6 +11,7 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 // import en from 'element-plus/es/locale/lang/en'
 import commonFun from '@/utils/common'
 // import 'amfe-flexible'
+import i18n from './i18n'
 
 const app = createApp(App)
 app.config.globalProperties.$commonFun = commonFun
@@ -20,4 +21,5 @@ app
     //     })
     .use(store)
     .use(router)
+    .use(i18n)
 app.mount('#app')

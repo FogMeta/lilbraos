@@ -36,8 +36,18 @@ const settings = () =>
     import ("@/views/settings/index")
 const login = () =>
     import ("@/views/login/index")
+const homepage = () =>
+    import ("@/views/home/home-index")
 
 const routes = [{
+        path: '/homepage',
+        name: 'homepage',
+        component: homepage,
+        meta: {
+            keepAlive: true,
+            title: 'Get started with Libra Cloud OS'
+        }
+    }, {
         path: '/',
         component: home,
         children: [{

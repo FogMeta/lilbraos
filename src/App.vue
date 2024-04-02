@@ -197,6 +197,10 @@ a {
   }
 }
 
+.font-52 {
+  font-size: 52px;
+}
+
 .font-48 {
   font-size: 48px;
 }
@@ -214,8 +218,16 @@ a {
   // }
 }
 
+.font-42 {
+  font-size: 42px;
+}
+
 .font-38 {
   font-size: 38px;
+}
+
+.font-36 {
+  font-size: 36px;
 }
 
 .font-34 {
@@ -237,6 +249,10 @@ a {
   // @media screen and (max-width: 600px) {
   //   font-size: 60px;
   // }
+}
+
+.font-27 {
+  font-size: 27px;
 }
 
 .font-24 {
@@ -289,6 +305,10 @@ a {
   // @media screen and (max-width: 600px) {
   //   font-size: 54px;
   // }
+}
+
+.font-17 {
+  font-size: 17px;
 }
 
 .font-16 {

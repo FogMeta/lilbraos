@@ -94,9 +94,10 @@ module.exports = {
         __INTLIFY_PROD_DEVTOOLS__: JSON.stringify(false)
       }),
       AutoImport({
-        resolvers: [ElementPlusResolver({
-          exclude: new RegExp(/^(?!.*loading-directive).*$/)
-        })]
+        // resolvers: [ElementPlusResolver({
+        //   exclude: new RegExp(/^(?!.*loading-directive).*$/)
+        // })],
+        resolvers: [ElementPlusResolver()],
       }),
       Components({
         resolvers: [ElementPlusResolver()],
