@@ -12,6 +12,8 @@ const getStarted = () =>
     import ("@/views/getStarted/index")
 const getStartedDeploy = () =>
     import ("@/views/getStarted/deploy")
+const getStartedRpc = () =>
+    import ("@/views/getStarted/rpc")
 const deploy = () =>
     import ("@/views/deploy/index")
 const deployDetail = () =>
@@ -62,6 +64,14 @@ const routes = [{
             path: '/get-started-deploy',
             name: 'get-started-deploy',
             component: getStartedDeploy,
+            meta: {
+                keepAlive: true,
+                title: 'Get started with Libra Cloud OS'
+            }
+        }, {
+            path: '/get-started-rpc',
+            name: 'get-started-rpc',
+            component: getStartedRpc,
             meta: {
                 keepAlive: true,
                 title: 'Get started with Libra Cloud OS'

@@ -130,7 +130,7 @@ export default defineComponent({
         title: 'Access RPC endpoints',
         desc: 'Your gateway to effortless chain configuration and reliable RPC endpoints',
         link: '',
-        name: ''
+        name: 'get-started-rpc'
       },
       {
         img: require("@/assets/images/getStart/get-started-03.jpg"),
